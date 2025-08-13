@@ -21,10 +21,16 @@ function SplitHero({ className = '' }: SplitHeroProps) {
   const [leftSideIndex, setLeftSideIndex] = useState(5)
   const [isHoveringLeft, setIsHoveringLeft] = useState(false)
   const [isHoveringRight, setIsHoveringRight] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false)
 
   // Memoize calculations to prevent unnecessary computations
   const mouseCalculations = useMemo(() => {
     if (!mousePosition.x || !mousePosition.y) return null
+    
+    // Disable hover interactions when user has scrolled
+    if (hasScrolled) {
+      return { isLeft: false, isRight: false, reset: true }
+    }
     
     const windowWidth = window.innerWidth
     const mouseX = mousePosition.x
@@ -46,7 +52,7 @@ function SplitHero({ className = '' }: SplitHeroProps) {
       width: isLeft ? 60 : 40,
       index: isLeft ? 7 : 3
     }
-  }, [mousePosition.x, mousePosition.y])
+  }, [mousePosition.x, mousePosition.y, hasScrolled])
 
   // Update state based on calculations
   useEffect(() => {
@@ -72,10 +78,42 @@ function SplitHero({ className = '' }: SplitHeroProps) {
     setLeftSideIndex(mouseCalculations.index || 5)
   }, [mouseCalculations])
 
+  // Handle scroll events - track scroll position and disable hover when scrolled
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      
+      // Mark as scrolled if user scrolled down more than 50px
+      if (scrollY > 50 && !hasScrolled) {
+        setHasScrolled(true)
+      }
+      
+      // Reset to not scrolled if back at top
+      if (scrollY <= 10 && hasScrolled) {
+        setHasScrolled(false)
+      }
+      
+      // Reset hover states when scrolling
+      if (isHoveringLeft || isHoveringRight) {
+        setIsHoveringLeft(false)
+        setIsHoveringRight(false)
+        setLeftSideWidth(50)
+        setLeftSideIndex(5)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isHoveringLeft, isHoveringRight, hasScrolled])
+
+  // Show scroll indicator when not hovering either side
+  const showScrollIndicator = !isHoveringLeft && !isHoveringRight
+
   return (
-    <main className={`h-screen overflow-hidden relative flex flex-col ${className}`} style={{
-      background: `radial-gradient(circle at center, rgba(75, 85, 130, 0.6) 0%, rgba(45, 55, 95, 0.8) 40%, #1C2653 80%)`
-    }}>
+    <main className={`min-h-screen relative flex flex-col bg-[#1C2653] ${className}`}>
       {/* Left Side - Premium Quality */}
       <LeftSide
         isHoveringLeft={isHoveringLeft}
@@ -109,6 +147,8 @@ function SplitHero({ className = '' }: SplitHeroProps) {
         isHoveringLeft={isHoveringLeft}
         isHoveringRight={isHoveringRight}
       />
+
+
     </main>
   )
 }
@@ -139,36 +179,77 @@ const LeftSide = memo(function LeftSide({ isHoveringLeft, isHoveringRight, leftS
       <div className="relative w-full h-full flex flex-col items-center justify-center p-8">
         {isHoveringLeft && (
           <>
+            {/* Split Logo Animation - Crown and Text */}
+            <div className="flex flex-col items-center z-10">
+              {/* Crown - animates first */}
+              <MotionWrapper
+                variant="scaleInBig"
+                delay={0.1}
+                className="mb-4"
+              >
+                <Image
+                  src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
+                  alt="Kanzler Crown"
+                  width={120}
+                  height={120}
+                  className="object-contain"
+                  loading="lazy"
+                />
+              </MotionWrapper>
+
+              {/* Kanzler Text - animates second */}
+              <MotionWrapper
+                variant="fadeInUp"
+                delay={0.3}
+                className="mb-6"
+              >
+                <Image
+                  src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler R.png"
+                  alt="Kanzler"
+                  width={400}
+                  height={80}
+                  className="object-contain"
+                  loading="lazy"
+                />
+              </MotionWrapper>
+            </div>
+
+            {/* Tagline Image */}
             <MotionWrapper
-              variant="scaleInBig"
-              className="text-white items-center justify-items-center z-10"
+              variant="fadeInUp"
+              delay={0.5}
+              className="mb-6 z-10"
             >
               <Image
-                src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME MAIN LOGO.png"
-                alt="Kanzler packaging"
-                width={1600}
-                height={200}
+                src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler Quote.png"
+                alt="Premium Quality Since 1999"
+                width={500}
+                height={60}
                 className="object-contain"
                 loading="lazy"
               />
             </MotionWrapper>
 
+            {/* Description and Button */}
             <MotionWrapper
               variant="fadeInUp"
-              delay={0.3}
+              delay={0.7}
               className="text-white text-center z-10"
             >
-              <Crown className="w-12 h-12 mx-auto mb-4" />
-              <h2 className="text-4xl font-bold mb-4">Premium Quality</h2>
-              <p className="mb-6 max-w-md">
-                Kanzler has been delivering exceptional meat products since
-                1999, with a commitment to quality in every bite.
+              <p className="mb-6 max-w-md text-base leading-relaxed">
+                Produk sosis dan nugget dari daging sapi dan ayam pilihan. 
+                <span className="italic">Extra Meaty, Extra Juicy</span>, dan mudah diolah menjadi menu 
+                lezat setiap hari.
               </p>
-              <InteractiveButton variant="scale">
-                <Button className="bg-white text-amber-600 hover:bg-amber-100">
-                  Our Story
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-6">
+                  Lihat semua produk ›
                 </Button>
-              </InteractiveButton>
+              </motion.div>
             </MotionWrapper>
           </>
         )}
@@ -188,6 +269,15 @@ const LeftSide = memo(function LeftSide({ isHoveringLeft, isHoveringRight, leftS
           className="absolute top-28 -rotate-45 -left-24 z-10"
           isVisible={isHoveringLeft}
           animation="slideFromLeft"
+        />
+
+        {/* Nugget image from remote version */}
+        <ProductImage
+          src="/assets/ASSET - HOME/2 ASSET - HOME/2 ASSET - HOME NUGGET.png"
+          alt="Kanzler nugget"
+          className="absolute top-20 -right-4 z-10"
+          isVisible={isHoveringLeft}
+          animation="slideFromRight"
         />
 
         {/* Floating cocktail products */}
@@ -258,37 +348,77 @@ const RightSide = memo(function RightSide({ isHoveringRight, isHoveringLeft, lef
       <div className="relative w-full h-full flex flex-col items-center justify-center p-8">
         {isHoveringRight && (
           <>
+            {/* Split Logo Animation - Crown and Text */}
+            <div className="flex flex-col items-center z-10">
+              {/* Crown - animates first */}
+              <MotionWrapper
+                variant="scaleInBig"
+                delay={0.1}
+                className="mb-4"
+              >
+                <Image
+                  src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
+                  alt="Kanzler Crown"
+                  width={120}
+                  height={120}
+                  className="object-contain"
+                  loading="lazy"
+                />
+              </MotionWrapper>
+
+              {/* Kanzler Text - animates second */}
+              <MotionWrapper
+                variant="fadeInUp"
+                delay={0.3}
+                className="mb-6"
+              >
+                <Image
+                  src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler R.png"
+                  alt="Kanzler"
+                  width={400}
+                  height={80}
+                  className="object-contain"
+                  loading="lazy"
+                />
+              </MotionWrapper>
+            </div>
+
+            {/* Singles Product Line */}
             <MotionWrapper
-              variant="scaleInBig"
-              className="text-white items-center justify-items-center z-10"
+              variant="fadeInUp"
+              delay={0.5}
+              className="mb-6 z-10"
             >
               <Image
-                src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME MAIN LOGO.png"
-                alt="Kanzler packaging"
-                width={1600}
-                height={200}
+                src="/assets/ASSET - HOME/1 ASSET - HOME/Singles.png"
+                alt="Singles"
+                width={400}
+                height={80}
                 className="object-contain"
                 loading="lazy"
               />
             </MotionWrapper>
 
+            {/* Description and Button */}
             <MotionWrapper
               variant="fadeInUp"
-              delay={0.3}
+              delay={0.7}
               className="text-white text-center z-10"
             >
-              <h2 className="text-4xl font-bold mb-4">
-                KANZLER<span className="text-sm align-top">®</span>
-              </h2>
-              <p className="mb-6 max-w-md">
-                Discover our range of premium sausages and meat products,
-                crafted with the finest ingredients.
+              <p className="mb-6 max-w-md text-base leading-relaxed">
+                Produk sosis dan bakso berkualitas yang terbuat dari daging 
+                sapi dan ayam pilihan. Sudah matang, siap untuk langsung 
+                dimakan, atau diolah menjadi berbagai menu harian.
               </p>
-              <InteractiveButton variant="scale">
-                <Button className="bg-white text-navy hover:bg-blue-100">
-                  Products
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-6">
+                  Lihat semua produk ›
                 </Button>
-              </InteractiveButton>
+              </motion.div>
             </MotionWrapper>
           </>
         )}
@@ -315,7 +445,7 @@ const RightSide = memo(function RightSide({ isHoveringRight, isHoveringLeft, lef
         </motion.div>
         
         <motion.div
-          className="absolute -bottom-60 -rotate-45 right-96 z-30"
+          className="absolute -bottom-60 -rotate-45 right-96  z-30"
           initial={{ opacity: 1, rotate: 35, y: 0 }}
           animate={{
             y: 0,
@@ -341,13 +471,37 @@ const RightSide = memo(function RightSide({ isHoveringRight, isHoveringLeft, lef
 
 const LogoOverlay = memo(function LogoOverlay() {
   return (
-    <div className="z-30">
+    <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none">
+      {/* Crown - animates first */}
       <MotionWrapper
-        variant="fadeInDown"
-        delay={0.5}
-        className="text-white"
+        variant="scaleInBig"
+        delay={0.2}
+        className="mb-8"
       >
-        <Crown className="w-12 h-12 mx-12 mt-4" />
+        <Image
+          src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
+          alt="Kanzler Crown"
+          width={200}
+          height={200}
+          className="object-contain"
+          loading="lazy"
+        />
+      </MotionWrapper>
+
+      {/* Kanzler Text - animates second */}
+      <MotionWrapper
+        variant="fadeInUp"
+        delay={0.5}
+        className="text-center"
+      >
+        <Image
+          src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler R.png"
+          alt="Kanzler"
+          width={800}
+          height={160}
+          className="object-contain"
+          loading="lazy"
+        />
       </MotionWrapper>
     </div>
   )
@@ -420,37 +574,17 @@ const FloatingProducts = memo(function FloatingProducts({ isHoveringLeft, isHove
 }) {
   return (
     <>
-      {/* Central logo */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{
-          opacity: 1,
-          scale: 1,
-          zIndex: isHoveringLeft || isHoveringRight ? 5 : 10,
-        }}
-        transition={{ duration: 0.8, ease: 'easeIn' }}
-        className="text-white items-center justify-items-center z-10 -mt-12"
-      >
-        <Image
-          src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME MAIN LOGO.png"
-          alt="Kanzler main logo"
-          width={1600}
-          height={200}
-          className="object-contain"
-          loading="lazy"
-        />
-      </motion.div>
 
       {/* Default floating products - visible when not hovering */}
       <motion.div
-        className="absolute -bottom-80 -rotate-45 left-96 w-1/2 max-w-md z-20"
+        className="absolute top-1/2 -rotate-45 left-96 z-20"
         initial={{ opacity: 0, y: 350 }}
         animate={{
           opacity: 1,
           rotate: -15,
-          y: 15,
+          y: 150,
           scale: 0.9,
-          x: -80,
+          x: 50,
           zIndex: isHoveringRight ? 5 : 20,
         }}
         transition={{ duration: 1, ease: 'easeIn', delay: 1 }}
@@ -458,7 +592,7 @@ const FloatingProducts = memo(function FloatingProducts({ isHoveringLeft, isHove
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME BEEF COCKTAIL.png"
           alt="Kanzler beef cocktail"
-          width={800}
+          width={300}
           height={200}
           className="object-contain"
           loading="lazy"
@@ -467,13 +601,14 @@ const FloatingProducts = memo(function FloatingProducts({ isHoveringLeft, isHove
       </motion.div>
 
       <motion.div
-        className="absolute -bottom-80 -rotate-45 left-96 w-1/2 max-w-md z-20"
+        className="absolute top-1/2 -rotate-45 left-96 z-20"
         initial={{ opacity: 0, y: 350 }}
         animate={{
           opacity: 1,
           rotate: -10,
-          y: -150,
+          y: 120,
           scale: 0.9,
+          x: 120,
           zIndex: isHoveringRight ? 5 : 20,
         }}
         transition={{ duration: 1, ease: 'easeIn', delay: 1 }}
@@ -481,7 +616,7 @@ const FloatingProducts = memo(function FloatingProducts({ isHoveringLeft, isHove
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME CRISPY NUGGET.png"
           alt="Kanzler crispy nugget"
-          width={1000}
+          width={400}
           height={200}
           className="object-contain"
           loading="lazy"
@@ -490,7 +625,7 @@ const FloatingProducts = memo(function FloatingProducts({ isHoveringLeft, isHove
       </motion.div>
 
       <motion.div
-        className="absolute -bottom-56 -rotate-45 left-[40%] z-30"
+        className="absolute top-1/2 -rotate-45 left-[45%] z-30"
         initial={{ opacity: 0, y: 350 }}
         animate={{
           opacity: 1,
@@ -503,7 +638,7 @@ const FloatingProducts = memo(function FloatingProducts({ isHoveringLeft, isHove
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME BAKSO HOT.png"
           alt="Kanzler bakso hot default"
-          width={350}
+          width={300}
           height={300}
           className="object-contain"
           loading="lazy"
@@ -512,7 +647,7 @@ const FloatingProducts = memo(function FloatingProducts({ isHoveringLeft, isHove
       </motion.div>
 
       <motion.div
-        className="absolute -bottom-60 -rotate-45 right-96 z-30"
+        className="absolute top-1/2 -rotate-45 right-96 z-30"
         initial={{ opacity: 0, y: 350 }}
         animate={{
           opacity: 1,
@@ -525,7 +660,7 @@ const FloatingProducts = memo(function FloatingProducts({ isHoveringLeft, isHove
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME SOSIS GOCHU.png"
           alt="Kanzler sosis gochu default"
-          width={350}
+          width={300}
           height={300}
           className="object-contain"
           loading="lazy"

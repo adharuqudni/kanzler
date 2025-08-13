@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
+import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import MotionWrapper from '@/components/animations/MotionWrapper'
-import InteractiveButton from '@/components/animations/InteractiveButton'
 import ScrollReveal from '@/components/animations/ScrollReveal'
 
 interface VideoSectionProps {
@@ -57,14 +57,18 @@ export default function VideoSection({
             </p>
             
             <div className="pt-4">
-              <InteractiveButton variant="scale">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
                 <Button 
                   size="lg" 
                   className="bg-kanzler-gold text-kanzler-dark hover:bg-kanzler-gold/90 transition-colors"
                 >
                   {buttonText} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-              </InteractiveButton>
+              </motion.div>
             </div>
           </MotionWrapper>
         </ScrollReveal>

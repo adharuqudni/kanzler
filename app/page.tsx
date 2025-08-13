@@ -2,7 +2,15 @@
 
 import React from 'react'
 import SplitHero from '@/components/hero/SplitHero'
+import CeritaKanzler from '@/components/sections/CeritaKanzler'
+import MapSection from '@/components/sections/MapSection'
 
 export default function Home() {
-  return <SplitHero />
+  return (
+    <>
+      <SplitHero />
+      <CeritaKanzler />
+      <MapSection />
+    </>
+  )
 }
