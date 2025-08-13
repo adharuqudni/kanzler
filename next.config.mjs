@@ -2,7 +2,6 @@
 const nextConfig = {
   // Performance optimizations
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: [
       '@radix-ui/react-accordion',
       '@radix-ui/react-dialog',
