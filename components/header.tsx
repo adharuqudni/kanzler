@@ -51,14 +51,10 @@ export default function Header() {
             {isMobile ? (
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="mr-2 text-white hover:bg-kanzler-navy/20"
-                  >
+                  <button className="mr-2 inline-flex h-10 w-10 items-center justify-center rounded-md text-white hover:bg-kanzler-navy/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                     <Menu className="h-5 w-5" />
                     <span className="sr-only">Toggle menu</span>
-                  </Button>
+                  </button>
                 </SheetTrigger>
                 <SheetContent side="left" className="w-[300px] sm:w-[400px]">
                   <div className="flex items-center mb-8">

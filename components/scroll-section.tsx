@@ -1,40 +1,33 @@
-"use client"
+'use client'
 
-import type React from "react"
-
-import { useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import React from 'react'
+import ScrollReveal from '@/components/animations/ScrollReveal'
 
 interface ScrollSectionProps {
   children: React.ReactNode
-  index: number
+  index?: number
+  direction?: 'up' | 'down' | 'left' | 'right' | 'scale'
+  className?: string
 }
 
-export default function ScrollSection({ children, index }: ScrollSectionProps) {
-  const ref = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  })
-
-  // Calculate the start and end points for the animation based on the section index
-  // This creates a staggered effect as you scroll down
-  const startPoint = 0.1 + index * 0.05
-  const endPoint = startPoint + 0.1
-
-  const opacity = useTransform(scrollYProgress, [startPoint, endPoint], [0, 1])
-  const y = useTransform(scrollYProgress, [startPoint, endPoint], [100, 0])
+export default function ScrollSection({ 
+  children, 
+  index = 0, 
+  direction = 'up',
+  className = '' 
+}: ScrollSectionProps) {
+  // Create staggered animation based on index
+  const delay = index * 0.1
+  const threshold: [number, number] = [0.1 + index * 0.05, 0.2 + index * 0.05]
 
   return (
-    <motion.section
-      ref={ref}
-      style={{
-        opacity,
-        y,
-      }}
-      className="relative"
+    <ScrollReveal
+      direction={direction}
+      threshold={threshold}
+      className={`relative ${className}`}
+      as="section"
     >
       {children}
-    </motion.section>
+    </ScrollReveal>
   )
 }

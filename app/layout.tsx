@@ -5,7 +5,7 @@ import localFont from "next/font/local"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import Header from "@/components/header"
+import Navbar from "@/components/navigation/Navbar"
 import Footer from "@/components/footer"
 
 const fontSans = FontSans({
@@ -13,7 +13,7 @@ const fontSans = FontSans({
   variable: "--font-sans",
 })
 
-// // Custom font for headings
+// Custom font for headings - uncomment when font file is available
 // const fontHeading = localFont({
 //   src: "../public/fonts/CanelaTrial-Medium.woff2",
 //   variable: "--font-heading",
@@ -24,9 +24,16 @@ export const metadata: Metadata = {
   title: "Kanzler | Premium Sausages & Meat Products",
   description:
     "Discover Kanzler's premium quality sausages and meat products. Made with the finest ingredients for delicious meals every day.",
-    generator: 'v0.dev'
+  keywords: "sausages, meat products, premium quality, Indonesian food, Kanzler",
+  authors: [{ name: "Kanzler Team" }],
+  generator: 'Next.js',
+  openGraph: {
+    title: "Kanzler | Premium Sausages & Meat Products",
+    description: "Discover Kanzler's premium quality sausages and meat products. Made with the finest ingredients for delicious meals every day.",
+    type: "website",
+    locale: "id_ID",
+  },
 }
-
 
 export default function RootLayout({
   children,
@@ -35,9 +42,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.variable}  font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <main className="min-h-screen">{children}</main>
+      <body className={`${fontSans.variable} font-sans antialiased`}>
+        <ThemeProvider 
+          attribute="class" 
+          defaultTheme="light" 
+          enableSystem 
+          disableTransitionOnChange
+        >
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-1">
+              {children}
+            </main>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>
