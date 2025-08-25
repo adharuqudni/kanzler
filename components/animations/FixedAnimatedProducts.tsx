@@ -10,6 +10,43 @@ export default function FixedAnimatedProducts({
 }: {
   currentSection: number;
 }) {
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const [lastSection, setLastSection] = useState(0);
+  const [animationState, setAnimationState] = useState<'initial' | 'animated'>('initial');
+  const [shouldReplay, setShouldReplay] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      // Check if we're at the very top of the page (within 50px threshold)
+      const isAtTop = scrollY <= 50;
+      
+      if (isAtTop && hasAnimated && currentSection === 0) {
+        // We're back at the top after having scrolled away - trigger replay
+        setShouldReplay(true);
+        setAnimationState('initial');
+        // Reset replay flag after animation completes
+        setTimeout(() => {
+          setShouldReplay(false);
+          setAnimationState('animated');
+        }, 1500); // Duration + delay
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [hasAnimated, currentSection]);
+
+  useEffect(() => {
+    if (currentSection !== lastSection) {
+      setLastSection(currentSection);
+      if (currentSection === 0 && !hasAnimated) {
+        setHasAnimated(true);
+        setAnimationState('animated');
+      }
+    }
+  }, [currentSection, lastSection, hasAnimated]);
+
   // Animation variants that change based on section
   const getAnimationVariants = (section: number) => {
     if (section === 0) {
@@ -199,15 +236,24 @@ export default function FixedAnimatedProducts({
 
   const variants = getAnimationVariants(currentSection);
 
+  // Calculate final animation values based on current section
+  const getFinalAnimationValues = (section: number, isDelayed: boolean = false) => {
+    const vars = getAnimationVariants(section);
+    const targetVariant = isDelayed ? vars.slideUpDelayedVariants : vars.slideUpVariants;
+    return targetVariant.visible;
+  };
+
+  const sausageAnimation = getFinalAnimationValues(currentSection, false);
+  const meatballAnimation = getFinalAnimationValues(currentSection, true);
+
   return (
     <div className="fixed inset-0 pointer-events-none z-30">
       {/* Left Side - Sausage */}
       <motion.div
-        key={`sausage-${currentSection}`}
         className="absolute left-16 lg:left-32 top-1/2 transform -translate-y-1/2"
-        variants={variants.slideUpVariants}
-        initial="hidden"
-        animate="visible"
+        initial={currentSection === 0 && animationState === 'initial' ? variants.slideUpVariants.hidden : sausageAnimation}
+        animate={sausageAnimation}
+        transition={{ ...SMOOTH_BOUNCY, duration: 1.2 }}
       >
         <div className="relative">
           <Image
@@ -223,11 +269,10 @@ export default function FixedAnimatedProducts({
 
       {/* Right Side - Meatball */}
       <motion.div
-        key={`meatball-${currentSection}`}
         className="absolute right-16 lg:right-32 top-1/2 transform -translate-y-1/2"
-        variants={variants.slideUpDelayedVariants}
-        initial="hidden"
-        animate="visible"
+        initial={currentSection === 0 && animationState === 'initial' ? variants.slideUpDelayedVariants.hidden : meatballAnimation}
+        animate={meatballAnimation}
+        transition={{ ...SMOOTH_BOUNCY, duration: 1.2, delay: currentSection === 0 && animationState === 'initial' ? 0.3 : 0 }}
       >
         <div className="relative">
           <Image
