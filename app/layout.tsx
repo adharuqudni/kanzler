@@ -5,7 +5,7 @@ import localFont from "next/font/local"
 
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import Navbar from "@/components/navigation/Navbar"
+import ConditionalNavbar from "@/components/ConditionalNavbar"
 import Footer from "@/components/footer"
 
 const fontSans = FontSans({
@@ -13,12 +13,7 @@ const fontSans = FontSans({
   variable: "--font-sans",
 })
 
-// Custom font for headings - uncomment when font file is available
-// const fontHeading = localFont({
-//   src: "../public/fonts/CanelaTrial-Medium.woff2",
-//   variable: "--font-heading",
-//   display: "swap",
-// })
+
 
 export const metadata: Metadata = {
   title: "Kanzler | Premium Sausages & Meat Products",
@@ -50,7 +45,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="min-h-screen flex flex-col">
-            <Navbar />
+            <ConditionalNavbar />
             <main className="flex-1">
               {children}
             </main>

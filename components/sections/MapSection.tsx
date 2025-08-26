@@ -104,7 +104,7 @@ const MapSection = React.memo(function MapSection() {
         <MotionWrapper
           variant="fadeInUp"
           delay={2.2}
-          className="max-w-5xl mx-auto mt-12"
+          className="max-w-5xl mx-auto mt-12 mb-12"
         >
           <div className="border-2 border-[#D4AF37] rounded-3xl p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             <div className="flex-1">
