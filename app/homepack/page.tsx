@@ -2,23 +2,16 @@
 
 import React from "react";
 import HeroSection from "@/components/sections/homepack/HeroSection";
-import MainContent from "@/components/sections/homepack/MainContent";
 import WhyKanzler from "@/components/sections/homepack/WhyKanzler";
-import FeaturedProducts from "@/components/sections/homepack/featured-products";
-import FeaturedRecipes from "@/components/sections/homepack/featured-recipes";
+import ProductRecipes from "@/components/sections/homepack/Product-Recipes";
 
 export default function Homepack() {
   return (
     <>
-      {/* Hero Section */}
-      <HeroSection />
-      {/* Main content */}
-      <main className="relative z-10 bg-white pt-16 md:pt-24">
-        <MainContent />
+      <main>
+        <HeroSection />
         <WhyKanzler />
-
-        <FeaturedProducts />
-        <FeaturedRecipes />
+        <ProductRecipes />
       </main>
     </>
   );
