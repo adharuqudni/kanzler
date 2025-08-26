@@ -8,7 +8,7 @@ import RecipesView, { Recipe, Category as RCategory } from "./Recipes";
 /* =========================
    Config & Assets
    ========================= */
-const STRAPI = "http://localhost:1337";
+const STRAPI = process.env.NEXT_PUBLIC_STRAPI_URL;
 const PRODUCTS_API = `${STRAPI}/api/products?populate=Image`;
 const IMG_API = `${STRAPI}/api/recipes?populate=Image`;
 const VID_API = `${STRAPI}/api/recipes?populate=Video`;
