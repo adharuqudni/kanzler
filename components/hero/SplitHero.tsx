@@ -242,9 +242,11 @@ const LeftSide = memo(function LeftSide({
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               >
-                <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-6">
-                  Lihat semua produk ›
-                </Button>
+                <Link href="/homepack">
+                  <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-6">
+                    Lihat semua produk ›
+                  </Button>
+                </Link>
               </motion.div>
             </MotionWrapper>
           </>
