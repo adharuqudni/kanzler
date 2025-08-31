@@ -1,10 +1,17 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Play } from 'lucide-react';
 import { SMOOTH_BOUNCY } from '@/lib/motion';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 // Product categories for dropdown
 const productCategories = [
@@ -13,53 +20,134 @@ const productCategories = [
   'Kanzler Singles - Sosis'
 ];
 
-// Recipe data structure
-const recipeData = [
+// Video data structure
+const videoData = [
   {
-    id: 'bakso-fried-rice',
-    title: 'Nasi Goreng Bakso Kanzler',
-    image: '/placeholder-recipe-1.jpg', // You can replace with actual recipe images
+    id: 'video-1',
+    title: 'Creamy Pasta with Chicken Nuggets',
+    thumbnail: '/placeholder.jpg',
+    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
     category: 'Kanzler Singles - Bakso'
   },
   {
-    id: 'bakso-soup',
-    title: 'Sup Bakso Sayuran',
-    image: '/placeholder-recipe-2.jpg',
+    id: 'video-2',
+    title: 'Crispy Nugget Sambal Tempong',
+    thumbnail: '/placeholder.jpg',
+    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
     category: 'Kanzler Singles - Bakso'
   },
   {
-    id: 'bakso-pasta',
-    title: 'Pasta Bakso Saus Tomat',
-    image: '/placeholder-recipe-3.jpg',
+    id: 'video-3',
+    title: 'Chicken Nugget Wrap',
+    thumbnail: '/placeholder.jpg',
+    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
     category: 'Kanzler Singles - Bakso'
   },
   {
-    id: 'sosis-grill',
+    id: 'video-4',
     title: 'Sosis Bakar Bumbu Kecap',
-    image: '/placeholder-recipe-4.jpg',
+    thumbnail: '/placeholder.jpg',
+    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
     category: 'Kanzler Singles - Sosis'
   },
   {
-    id: 'sosis-curry',
+    id: 'video-5',
     title: 'Kari Sosis Santan',
-    image: '/placeholder-recipe-5.jpg',
+    thumbnail: '/placeholder.jpg',
+    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
     category: 'Kanzler Singles - Sosis'
   },
   {
-    id: 'sosis-roll',
+    id: 'video-6',
     title: 'Sosis Roll Keju',
-    image: '/placeholder-recipe-6.jpg',
+    thumbnail: '/placeholder.jpg',
+    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
     category: 'Kanzler Singles - Sosis'
+  },
+  {
+    id: 'video-7',
+    title: 'Tumis Sayur Campur',
+    thumbnail: '/placeholder.jpg',
+    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Produk Kanzler'
+  },
+  {
+    id: 'video-8',
+    title: 'Sandwich Spesial',
+    thumbnail: '/placeholder.jpg',
+    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Produk Kanzler'
+  },
+  {
+    id: 'video-9',
+    title: 'Pizza Mini Homemade',
+    thumbnail: '/placeholder.jpg',
+    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Produk Kanzler'
   }
 ];
 
 export default function RecipeInspirationSection() {
   const [selectedCategory, setSelectedCategory] = useState(productCategories[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [playingVideo, setPlayingVideo] = useState<string | null>(null);
+  const [visibleVideos, setVisibleVideos] = useState<Set<string>>(new Set());
+  const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
 
-  const currentRecipes = selectedCategory === 'Produk Kanzler' 
-    ? recipeData 
-    : recipeData.filter(recipe => recipe.category === selectedCategory);
+  const currentVideos = selectedCategory === 'Produk Kanzler' 
+    ? videoData 
+    : videoData.filter(video => video.category === selectedCategory);
+
+  const handleVideoClick = (videoId: string) => {
+    setPlayingVideo(playingVideo === videoId ? null : videoId);
+  };
+
+  // Auto-play visible videos
+  useEffect(() => {
+    visibleVideos.forEach(videoId => {
+      const videoElement = videoRefs.current[videoId];
+      if (videoElement && playingVideo !== videoId) {
+        videoElement.play().catch(() => {
+          // Handle autoplay restrictions
+        });
+      }
+    });
+  }, [visibleVideos, playingVideo]);
+
+  // Intersection Observer to detect visible videos
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    
+    Object.keys(videoRefs.current).forEach(videoId => {
+      const videoElement = videoRefs.current[videoId];
+      if (videoElement) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setVisibleVideos(prev => new Set([...prev, videoId]));
+            } else {
+              setVisibleVideos(prev => {
+                const newSet = new Set(prev);
+                newSet.delete(videoId);
+                return newSet;
+              });
+              // Pause video when not visible
+              if (playingVideo !== videoId) {
+                videoElement.pause();
+              }
+            }
+          },
+          { threshold: 0.5 }
+        );
+        observer.observe(videoElement);
+        observers.push(observer);
+      }
+    });
+
+    return () => {
+      observers.forEach(observer => observer.disconnect());
+    };
+  }, [currentVideos, playingVideo]);
 
   const fadeInUpVariants = {
     hidden: { opacity: 0, y: 50 },
@@ -70,28 +158,10 @@ export default function RecipeInspirationSection() {
     }
   };
 
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30, scale: 0.9 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1,
-      transition: { ...SMOOTH_BOUNCY, duration: 0.5 }
-    }
-  };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-white ">
+    <section className="relative h-screen overflow-hidden bg-white">
       {/* Background */}
       <div className="absolute inset-0">
         <Image
@@ -104,8 +174,8 @@ export default function RecipeInspirationSection() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 min-h-screen flex flex-col">
-        <div className="container mx-auto px-8 py-16 flex-1">
+      <div className="relative z-10 min-h-[100vh] flex flex-col">
+        <div className="container mx-auto px-8 py-16 flex-1 ">
           
           {/* Left Side - Title and Controls */}
           <div className="grid grid-cols-12 gap-8 h-full items-center">
@@ -197,52 +267,63 @@ export default function RecipeInspirationSection() {
               </motion.div>
             </div>
 
-            {/* Right Side - Recipe Cards */}
+            {/* Right Side - Video Carousel */}
             <div className="col-span-7 pl-8">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedCategory}
-                  variants={staggerContainer}
-                  initial="hidden"
-                  animate="visible"
-                  exit="hidden"
-                  className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
-                >
-                  {currentRecipes.map((recipe, index) => (
-                    <motion.div
-                      key={recipe.id}
-                      variants={cardVariants}
-                      className="group cursor-pointer"
-                      whileHover={{ y: -8, scale: 1.03 }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
-                    >
-                      <div className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 border-4 border-yellow-400 hover:border-yellow-500">
-                        {/* Recipe Image - Fixed Square Aspect Ratio */}
-                        <div className="aspect-square relative overflow-hidden bg-gray-100">
-                          <Image
-                            src={recipe.image}
-                            alt={recipe.title}
-                            width={400}
-                            height={400}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                          
-                          {/* Hover Overlay */}
-                          <div className="absolute inset-0 bg-yellow-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <motion.div
+                variants={fadeInUpVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ delay: 0.4 }}
+              >
+                <Carousel className="w-full">
+                  <CarouselContent className="-ml-4">
+                    {currentVideos.map((video, index) => (
+                      <CarouselItem key={video.id} className="pl-4 basis-1/3">
+                        <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-black">
+                                                    {playingVideo === video.id ? (
+                            <video
+                              src={video.videoUrl}
+                              controls
+                              autoPlay
+                              className="w-full h-full object-cover"
+                              onEnded={() => setPlayingVideo(null)}
+                            />
+                          ) : (
+                            <div 
+                              className="relative w-full h-full cursor-pointer group"
+                              onClick={() => handleVideoClick(video.id)}
+                            >
+                              <video
+                                ref={(el) => {
+                                  if (el) videoRefs.current[video.id] = el;
+                                }}
+                                src={video.videoUrl}
+                                className="w-full h-full object-cover"
+                                muted
+                                loop
+                                playsInline
+                                preload="metadata"
+                                onLoadedMetadata={(e) => {
+                                  // Set video to beginning for autoplay
+                                  e.currentTarget.currentTime = 0;
+                                }}
+                              />
+                               
+                               {/* Play Button Overlay */}
+                               <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors duration-300">
+                                
+                               </div>
+                            </div>
+                          )}
                         </div>
-                        
-                        {/* Recipe Title */}
-                        <div className="p-6">
-                          <h3 className="text-xl font-bold text-blue-900 text-center leading-tight group-hover:text-yellow-600 transition-colors duration-300 min-h-[3rem] flex items-center justify-center">
-                            {recipe.title}
-                          </h3>
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </AnimatePresence>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="left-4" />
+                  <CarouselNext className="right-4" />
+                </Carousel>
+              </motion.div>
             </div>
           </div>
         </div>
