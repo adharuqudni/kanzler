@@ -1,12 +1,27 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, useScroll } from 'framer-motion';
 import Image from 'next/image';
-import { motionVariants, BOUNCY_TRANSITION, SMOOTH_BOUNCY } from '@/lib/motion';
-import MotionWrapper from '@/components/animations/MotionWrapper';
+import { BOUNCY_TRANSITION } from '@/lib/motion';
 
-export default function HomepackHero() {
+export default function HomepackHeroSection() {
+  const [shouldExit, setShouldExit] = useState(false);
+  const { scrollY } = useScroll();
+
+  useEffect(() => {
+    const unsubscribe = scrollY.on('change', (latest) => {
+      // Start exit animation when scrolled past 50% of viewport height
+      if (latest > window.innerHeight * 0.5) {
+        setShouldExit(true);
+      } else {
+        setShouldExit(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [scrollY]);
+
   const fadeInUpVariants = {
     hidden: {
       opacity: 0,
@@ -18,6 +33,15 @@ export default function HomepackHero() {
       transition: {
         ...BOUNCY_TRANSITION,
         duration: 0.8,
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -100,
+      transition: {
+        ...BOUNCY_TRANSITION,
+
+        duration: 0.6,
       },
     },
   };
@@ -36,72 +60,19 @@ export default function HomepackHero() {
         delay: 0.2,
       },
     },
-  };
-
-  const productSlideVariants = {
-    hidden: {
+    exit: {
       opacity: 0,
-      y: 100,
-      scale: 0.8,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        ...BOUNCY_TRANSITION,
-        duration: 1.2,
-        delay: 0.6,
-      },
-    },
-  };
-
-  const nuggetFloatVariants = {
-    hidden: {
-      opacity: 0,
-      y: -200,
-      x: 0,
-      rotate: 0,
       scale: 0.5,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      x: 0,
-      rotate: -15,
-      scale: 1,
       transition: {
         ...BOUNCY_TRANSITION,
-        duration: 1.4,
-        delay: 1.2,
-      },
-    },
-  };
 
-  const mockupSlideVariants = {
-    hidden: {
-      opacity: 0,
-      y: 200,
-      x: 0,
-      rotate: 0,
-      scale: 0.7,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      x: 0,
-      rotate: -15,
-      scale: 1,
-      transition: {
-        ...BOUNCY_TRANSITION,
-        duration: 1.3,
-        delay: 0.8,
+        duration: 0.6,
       },
     },
   };
 
   return (
-    <section className="relative h-[100vh] overflow-hidden">
+    <section className="relative min-h-screen overflow-visible pb-32 w-full">
       {/* Background */}
       <div className="absolute inset-0">
         <Image
@@ -120,8 +91,21 @@ export default function HomepackHero() {
           />
         </div>
       </div>
+
+      {/* Curved bottom transition */}
+      <div className="absolute bottom-0 left-0 w-full h-[20vw] overflow-hidden scale-y-[-1] border-0">
+        <div 
+          className="absolute bottom-0 left-0 w-full h-full border-0"
+          style={{
+            background: '#fff',
+            clipPath: 'ellipse(150% 100% at 50% 0%)',
+            transform: 'translateY(-80%)'
+          }}
+        />
+      </div>
+
       {/* Content Container */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-[120vh] px-8 py-24">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 py-24">
         {/* Top Section - Crown and Logo Split */}
         <div className="flex flex-col items-center mb-20">
           {/* Crown */}
@@ -129,7 +113,7 @@ export default function HomepackHero() {
             className="mb-8"
             variants={logoFadeInVariants}
             initial="hidden"
-            animate="visible"
+            animate={shouldExit ? "exit" : "visible"}
           >
             <Image
               src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
@@ -145,7 +129,7 @@ export default function HomepackHero() {
             className="mb-6"
             variants={fadeInUpVariants}
             initial="hidden"
-            animate="visible"
+            animate={shouldExit ? "exit" : "visible"}
             transition={{ delay: 0.3 }}
           >
             <Image
@@ -157,7 +141,7 @@ export default function HomepackHero() {
             />
           </motion.div>
 
-          {/* Kanzler Title */}
+          {/* Kanzler Quote */}
           <motion.div
             className="mb-6"
             variants={{
@@ -174,14 +158,21 @@ export default function HomepackHero() {
                   delay: 0.5,
                 },
               },
+              exit: {
+                opacity: 0,
+                y: -100,
+                transition: {
+                  duration: 0.6,
+                },
+              },
             }}
             initial="hidden"
-            animate="visible"
+            animate={shouldExit ? "exit" : "visible"}
             transition={{ delay: 1 }}
           >
             <Image
               src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler Quote.png"
-              alt="Kanzler"
+              alt="Kanzler Quote"
               width={800}
               height={100}
               className="object-contain filter brightness-110"
@@ -190,7 +181,7 @@ export default function HomepackHero() {
         </div>
 
         {/* Products Section */}
-        <div className="relative w-full max-w-7xl mx-auto">
+        <div className="relative w-full max-w-7xl mx-auto overflow-visible">
           {/* Central Nugget Package */}
           <motion.div
             className="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"
@@ -211,9 +202,18 @@ export default function HomepackHero() {
                   delay: 1.2,
                 },
               },
+              exit: {
+                opacity: 0,
+                y: 200,
+                x: -200,
+                scale: 0.5,
+                transition: {
+                  duration: 0.8,
+                },
+              },
             }}
             initial="hidden"
-            animate="visible"
+            animate={shouldExit ? "exit" : "visible"}
           >
             <Image
               src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK NUGGET PACKAGING.png"
@@ -248,9 +248,19 @@ export default function HomepackHero() {
                   delay: 0.8,
                 },
               },
+              exit: {
+                opacity: 0,
+                y: 800,
+                x: 400,
+                rotate: 45,
+                scale: 0.3,
+                transition: {
+                  duration: 0.8,
+                },
+              },
             }}
             initial="hidden"
-            animate="visible"
+            animate={shouldExit ? "exit" : "visible"}
           >
             <Image
               src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK BEEF COCKTAIL MOCKUP.png"
@@ -284,9 +294,19 @@ export default function HomepackHero() {
                   delay: 1.0,
                 },
               },
+              exit: {
+                opacity: 0,
+                y: 800,
+                x: -400,
+                rotate: -45,
+                scale: 0.3,
+                transition: {
+                  duration: 0.8,
+                },
+              },
             }}
             initial="hidden"
-            animate="visible"
+            animate={shouldExit ? "exit" : "visible"}
           >
             <Image
               src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK CRISPY NUGGET MOCKUP.png"
@@ -299,7 +319,7 @@ export default function HomepackHero() {
 
           {/* Top right Floating Nugget */}
           <motion.div
-            className="absolute top-0 right-0 z-30 "
+            className="absolute top-0 right-0 z-30"
             variants={{
               hidden: {
                 opacity: 0,
@@ -320,9 +340,19 @@ export default function HomepackHero() {
                   delay: 1.2,
                 },
               },
+              exit: {
+                opacity: 0,
+                y: -1000,
+                x: 300,
+                rotate: 90,
+                scale: 0.2,
+                transition: {
+                  duration: 0.8,
+                },
+              },
             }}
             initial="hidden"
-            animate="visible"
+            animate={shouldExit ? "exit" : "visible"}
           >
             <Image
               src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK NUGGET KIRI ATAS.png"
@@ -356,9 +386,19 @@ export default function HomepackHero() {
                   delay: 1.4,
                 },
               },
+              exit: {
+                opacity: 0,
+                y: -1200,
+                x: -300,
+                rotate: -90,
+                scale: 0.2,
+                transition: {
+                  duration: 0.8,
+                },
+              },
             }}
             initial="hidden"
-            animate="visible"
+            animate={shouldExit ? "exit" : "visible"}
           >
             <Image
               src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK NUGGET KANAN ATAS.png"
@@ -369,15 +409,6 @@ export default function HomepackHero() {
             />
           </motion.div>
         </div>
-
-        {/* Bottom Text Section */}
-        <motion.div
-          className="mt-32 text-center max-w-4xl"
-          variants={fadeInUpVariants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 1.6 }}
-        ></motion.div>
       </div>
     </section>
   );

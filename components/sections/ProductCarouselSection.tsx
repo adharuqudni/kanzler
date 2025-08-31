@@ -5,8 +5,22 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { SMOOTH_BOUNCY } from '@/lib/motion';
 
-// Product data structure
-const productData = {
+// Product data type
+export interface Product {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  mockup: string;
+  details: string;
+}
+
+export interface ProductData {
+  [key: string]: Product[];
+}
+
+// Default Singles product data
+const singlesProductData: ProductData = {
   bakso: [
     {
       id: 'bakso-ori',
@@ -121,17 +135,32 @@ const productData = {
   ],
 };
 
-export default function ProductCarouselSection() {
-  const [activeCategory, setActiveCategory] = useState<'bakso' | 'sosis'>(
-    'bakso'
-  );
+interface ProductCarouselSectionProps {
+  productData?: ProductData;
+  backgroundImage?: string;
+  title?: string;
+  defaultCategory?: string;
+}
+
+export default function ProductCarouselSection({
+  productData = singlesProductData,
+  backgroundImage = '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES SPLIT BACKGROUND.png',
+  title = 'Products',
+  defaultCategory,
+}: ProductCarouselSectionProps) {
+  const categories = Object.keys(productData);
+  const initialCategory = defaultCategory || categories[0];
+
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [animationDirection, setAnimationDirection] = useState<'left' | 'right'>('right');
+  const [animationDirection, setAnimationDirection] = useState<
+    'left' | 'right'
+  >('right');
 
   const currentProducts = productData[activeCategory];
   const currentProduct = currentProducts[currentIndex];
 
-  const handleCategoryChange = (category: 'bakso' | 'sosis') => {
+  const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
     setCurrentIndex(0); // Reset to first product when switching category
   };
@@ -163,8 +192,8 @@ export default function ProductCarouselSection() {
       <div className="absolute inset-0">
         {/* Main split background */}
         <Image
-          src="/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES SPLIT BACKGROUND.png"
-          alt="Split Background"
+          src={backgroundImage}
+          alt="Background"
           fill
           className="object-cover"
           priority
@@ -178,82 +207,56 @@ export default function ProductCarouselSection() {
             {/* Left Side - Category Toggle */}
             <div className="col-span-3">
               <div className="space-y-8">
-                <motion.button
-                  onClick={() => handleCategoryChange('bakso')}
-                  className={`flex items-center gap-4 text-left w-full transition-all duration-300 ${
-                    activeCategory === 'bakso'
-                      ? 'text-white'
-                      : 'text-white/60 hover:text-white/80'
-                  }`}
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: {
-                      opacity: 1,
-                      y: activeCategory === 'bakso' ? 90 : 0,
-
-                      transition: { ...SMOOTH_BOUNCY, duration: 0.2 },
-                    },
-                  }}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                >
-                  <div className="flex items-center gap-4">
-                    <h2 className="text-6xl font-bold">BAKSO</h2>
-                    <div className="w-12 h-12 relative">
-                      <Image
-                        src="/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES ARROW CIRCLE.png"
-                        alt="Arrow Circle"
-                        style={{
-                          transform: `rotate(${
-                            activeCategory === 'bakso' ? '270' : '0'
-                          }deg)`,
-                        }}
-                        width={48}
-                        height={48}
-                        className="object-contain"
-                      />
+                {categories.map((category, index) => (
+                  <motion.button
+                    key={category}
+                    onClick={() => handleCategoryChange(category)}
+                    className={`flex items-center gap-4 text-left w-full transition-all duration-300 ${
+                      activeCategory === category
+                        ? 'text-white'
+                        : 'text-white/60 hover:text-white/80'
+                    }`}
+                    variants={{
+                      hidden: { opacity: 0, y: 30 },
+                      visible: {
+                        opacity: 1,
+                        y:
+                          activeCategory === category
+                            ? index === 0
+                              ? 90
+                              : 0
+                            : index === 0
+                            ? 0
+                            : -90,
+                        transition: { ...SMOOTH_BOUNCY, duration: 0.2 },
+                      },
+                    }}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.2 }}
+                  >
+                    <div className="flex items-center gap-4">
+                      <h2 className="text-6xl font-bold">
+                        {category.toUpperCase()}
+                      </h2>
+                      <div className="w-12 h-12 relative">
+                        <Image
+                          src="/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES ARROW CIRCLE.png"
+                          alt="Arrow Circle"
+                          style={{
+                            transform: `rotate(${
+                              activeCategory === category ? '270' : '0'
+                            }deg)`,
+                          }}
+                          width={48}
+                          height={48}
+                          className="object-contain"
+                        />
+                      </div>
                     </div>
-                  </div>
-                </motion.button>
-
-                <motion.button
-                  onClick={() => handleCategoryChange('sosis')}
-                  className={`flex items-center gap-4 text-left w-full transition-all duration-300 ${
-                    activeCategory === 'sosis'
-                      ? 'text-white '
-                      : 'text-white/60 hover:text-white/80'
-                  }`}
-                  variants={{
-                    hidden: { opacity: 0, y: 30 },
-                    visible: {
-                      opacity: 1,
-                      y: activeCategory === 'bakso' ? -90 : 0,
-                      transition: { ...SMOOTH_BOUNCY, duration: 0.2 },
-                    },
-                  }}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <div className="flex items-center gap-4">
-                    <h2 className="text-6xl font-bold">SOSIS</h2>
-                    <div className="w-12 h-12 relative">
-                      <Image
-                        src="/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES ARROW CIRCLE.png"
-                        alt="Arrow Circle"
-                        style={{
-                          transform: `rotate(${
-                            activeCategory === 'sosis' ? '270' : '0'
-                          }deg)`,
-                        }}
-                        width={48}
-                        height={48}
-                      />
-                    </div>
-                  </div>
-                </motion.button>
+                  </motion.button>
+                ))}
               </div>
 
               {/* Category Description */}
@@ -266,9 +269,8 @@ export default function ProductCarouselSection() {
                 transition={{ delay: 0.4 }}
               >
                 <p className="text-lg leading-relaxed">
-                  {activeCategory === 'bakso'
-                    ? 'Bakso siap makan dengan berbagai varian rasa. Praktis bisa dimakan di mana pun & kapan pun.'
-                    : 'Sosis siap makan dengan berbagai varian rasa. Praktis bisa dimakan di mana pun & kapan pun.'}
+                  {currentProduct?.description ||
+                    'Produk berkualitas dengan berbagai varian rasa.'}
                 </p>
               </motion.div>
             </div>
@@ -358,23 +360,24 @@ export default function ProductCarouselSection() {
                 <AnimatePresence mode="wait">
                   <motion.div
                     key={`${activeCategory}-${currentIndex}-title`}
-                    initial={{ 
-                      opacity: 0, 
-                      x: animationDirection === 'right' ? 50 : -50 
+                    initial={{
+                      opacity: 0,
+                      x: animationDirection === 'right' ? 50 : -50,
                     }}
                     animate={{ opacity: 1, x: 0 }}
-                    exit={{ 
-                      opacity: 0, 
-                      x: animationDirection === 'right' ? -50 : 50 
+                    exit={{
+                      opacity: 0,
+                      x: animationDirection === 'right' ? -50 : 50,
                     }}
                     transition={{ ...SMOOTH_BOUNCY, duration: 0.5 }}
                     className="text-center min-w-[200px]"
                   >
                     <h3 className="text-5xl font-bold text-blue-900 mb-2">
-                      {activeCategory === 'sosis' ? 'Sosis' : 'Bakso'}
+                      {activeCategory.charAt(0).toUpperCase() +
+                        activeCategory.slice(1)}
                     </h3>
                     <h4 className="text-3xl font-bold text-blue-900">
-                      {currentProduct.name.split(' ').slice(-1)[0]}
+                      {currentProduct.name}
                     </h4>
                   </motion.div>
                 </AnimatePresence>
@@ -399,14 +402,14 @@ export default function ProductCarouselSection() {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeCategory}-${currentIndex}-info`}
-                  initial={{ 
-                    opacity: 0, 
-                    x: animationDirection === 'right' ? 50 : -50 
+                  initial={{
+                    opacity: 0,
+                    x: animationDirection === 'right' ? 50 : -50,
                   }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ 
-                    opacity: 0, 
-                    x: animationDirection === 'right' ? -50 : 50 
+                  exit={{
+                    opacity: 0,
+                    x: animationDirection === 'right' ? -50 : 50,
                   }}
                   transition={{ ...SMOOTH_BOUNCY, duration: 0.4, delay: 0.1 }}
                   className="space-y-6 max-w-sm"
@@ -441,7 +444,9 @@ export default function ProductCarouselSection() {
                   <motion.button
                     key={index}
                     onClick={() => {
-                      setAnimationDirection(index > currentIndex ? 'right' : 'left');
+                      setAnimationDirection(
+                        index > currentIndex ? 'right' : 'left'
+                      );
                       setCurrentIndex(index);
                     }}
                     className={`w-4 h-4 rounded-full transition-all duration-300 ${
