@@ -14,12 +14,16 @@ export default function HomepackPage() {
       <HomepackHeroSection />
       <HomepackProductsSection />
       <WhyKanzler />
-      <ProductCarouselSection
-        productData={homepackProductData}
-        title="Homepack Products"
-        defaultCategory="nuggets"
-      />
-      <RecipeInspirationSection />
+      <section id="produk">
+        <ProductCarouselSection
+          productData={homepackProductData}
+          title="Homepack Products"
+          defaultCategory="nuggets"
+        />
+      </section>
+      <section id="resep">
+        <RecipeInspirationSection />
+      </section>
     </>
   );
 }

@@ -23,10 +23,28 @@ function SplitHero({ className = '' }: SplitHeroProps) {
   const [isHoveringLeft, setIsHoveringLeft] = useState(false);
   const [isHoveringRight, setIsHoveringRight] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Memoize calculations to prevent unnecessary computations
   const mouseCalculations = useMemo(() => {
     if (!mousePosition.x || !mousePosition.y) return null;
+
+    // Disable hover interactions on mobile devices
+    if (isMobile) {
+      return { isLeft: false, isRight: false, reset: true };
+    }
 
     // Disable hover interactions when user has scrolled
     if (hasScrolled) {
@@ -53,7 +71,7 @@ function SplitHero({ className = '' }: SplitHeroProps) {
       width: isLeft ? 60 : 40,
       index: isLeft ? 7 : 3,
     };
-  }, [mousePosition.x, mousePosition.y, hasScrolled]);
+  }, [mousePosition.x, mousePosition.y, hasScrolled, isMobile]);
 
   // Update state based on calculations
   useEffect(() => {
@@ -184,44 +202,44 @@ const LeftSide = memo(function LeftSide({
       }}
       transition={BOUNCY_TRANSITION}
     >
-      <div className="relative w-full h-full flex flex-col items-center justify-center p-8">
+      <div className="relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
         {isHoveringLeft && (
           <>
             {/* Split Logo Animation - Crown and Text */}
             <div className="flex flex-col items-center z-10">
               {/* Crown - animates first */}
-              <MotionWrapper variant="scaleInBig" delay={0.1} className="mb-4">
+              <MotionWrapper variant="scaleInBig" delay={0.1} className="mb-2 sm:mb-4">
                 <Image
                   src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
                   alt="Kanzler Crown"
                   width={120}
                   height={120}
-                  className="object-contain"
+                  className="object-contain w-16 h-16 sm:w-20 sm:h-20 md:w-[120px] md:h-[120px]"
                   loading="lazy"
                 />
               </MotionWrapper>
 
               {/* Kanzler Text - animates second */}
-              <MotionWrapper variant="fadeInUp" delay={0.3} className="mb-6">
+              <MotionWrapper variant="fadeInUp" delay={0.3} className="mb-3 sm:mb-6">
                 <Image
                   src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler R.png"
                   alt="Kanzler"
                   width={400}
                   height={80}
-                  className="object-contain"
+                  className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px]"
                   loading="lazy"
                 />
               </MotionWrapper>
             </div>
 
             {/* Tagline Image */}
-            <MotionWrapper variant="fadeInUp" delay={0.5} className="mb-6 z-10">
+            <MotionWrapper variant="fadeInUp" delay={0.5} className="mb-3 sm:mb-6 z-10">
               <Image
                 src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler Quote.png"
                 alt="Premium Quality Since 1999"
                 width={500}
                 height={60}
-                className="object-contain"
+                className="object-contain w-60 h-7 sm:w-80 sm:h-9 md:w-[500px] md:h-[60px]"
                 loading="lazy"
               />
             </MotionWrapper>
@@ -232,7 +250,7 @@ const LeftSide = memo(function LeftSide({
               delay={0.7}
               className="text-white text-center z-10"
             >
-              <p className="mb-6 max-w-md text-base leading-relaxed">
+              <p className="mb-4 sm:mb-6 max-w-xs sm:max-w-md text-xs sm:text-sm md:text-base leading-relaxed">
                 Produk sosis dan nugget dari daging sapi dan ayam pilihan.
                 <span className="italic">Extra Meaty, Extra Juicy</span>, dan
                 mudah diolah menjadi menu lezat setiap hari.
@@ -243,7 +261,7 @@ const LeftSide = memo(function LeftSide({
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               >
                 <Link href="/homepack">
-                  <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-6">
+                  <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 text-xs sm:text-sm md:text-base">
                     Lihat semua produk ›
                   </Button>
                 </Link>
@@ -350,44 +368,44 @@ const RightSide = memo(function RightSide({
       }}
       transition={BOUNCY_TRANSITION}
     >
-      <div className="relative w-full h-full flex flex-col items-center justify-center p-8">
+      <div className="relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
         {isHoveringRight && (
           <>
             {/* Split Logo Animation - Crown and Text */}
             <div className="flex flex-col items-center z-10">
               {/* Crown - animates first */}
-              <MotionWrapper variant="scaleInBig" delay={0.1} className="mb-4">
+              <MotionWrapper variant="scaleInBig" delay={0.1} className="mb-2 sm:mb-4">
                 <Image
                   src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
                   alt="Kanzler Crown"
                   width={120}
                   height={120}
-                  className="object-contain"
+                  className="object-contain w-16 h-16 sm:w-20 sm:h-20 md:w-[120px] md:h-[120px]"
                   loading="lazy"
                 />
               </MotionWrapper>
 
               {/* Kanzler Text - animates second */}
-              <MotionWrapper variant="fadeInUp" delay={0.3} className="mb-6">
+              <MotionWrapper variant="fadeInUp" delay={0.3} className="mb-3 sm:mb-6">
                 <Image
                   src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler R.png"
                   alt="Kanzler"
                   width={400}
                   height={80}
-                  className="object-contain"
+                  className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px]"
                   loading="lazy"
                 />
               </MotionWrapper>
             </div>
 
             {/* Singles Product Line */}
-            <MotionWrapper variant="fadeInUp" delay={0.5} className="mb-6 z-10">
+            <MotionWrapper variant="fadeInUp" delay={0.5} className="mb-3 sm:mb-6 z-10">
               <Image
                 src="/assets/ASSET - HOME/1 ASSET - HOME/Singles.png"
                 alt="Singles"
                 width={400}
                 height={80}
-                className="object-contain"
+                className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px]"
                 loading="lazy"
               />
             </MotionWrapper>
@@ -398,7 +416,7 @@ const RightSide = memo(function RightSide({
               delay={0.7}
               className="text-white text-center z-10"
             >
-              <p className="mb-6 max-w-md text-base leading-relaxed">
+              <p className="mb-4 sm:mb-6 max-w-xs sm:max-w-md text-xs sm:text-sm md:text-base leading-relaxed">
                 Produk sosis dan bakso berkualitas yang terbuat dari daging sapi
                 dan ayam pilihan. Sudah matang, siap untuk langsung dimakan,
                 atau diolah menjadi berbagai menu harian.
@@ -409,7 +427,7 @@ const RightSide = memo(function RightSide({
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               >
                 <Link href="/singles">
-                  <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-6">
+                  <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 text-xs sm:text-sm md:text-base">
                     Lihat semua produk ›
                   </Button>
                 </Link>
@@ -468,13 +486,13 @@ const LogoOverlay = memo(function LogoOverlay() {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none">
       {/* Crown - animates first */}
-      <MotionWrapper variant="scaleInBig" delay={0.2} className="mb-8">
+      <MotionWrapper variant="scaleInBig" delay={0.2} className="mb-4 sm:mb-8">
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
           alt="Kanzler Crown"
           width={200}
           height={200}
-          className="object-contain"
+          className="object-contain w-24 h-24 sm:w-32 sm:h-32 md:w-[200px] md:h-[200px]"
           loading="lazy"
         />
       </MotionWrapper>
@@ -486,7 +504,7 @@ const LogoOverlay = memo(function LogoOverlay() {
           alt="Kanzler"
           width={800}
           height={160}
-          className="object-contain"
+          className="object-contain w-64 h-12 sm:w-96 sm:h-20 md:w-[800px] md:h-[160px]"
           loading="lazy"
         />
       </MotionWrapper>
@@ -582,7 +600,7 @@ const FloatingProducts = memo(function FloatingProducts({
           x: 50,
           zIndex: isHoveringRight ? 5 : 20,
         }}
-        transition={{ duration: 1, ease: 'easeIn', delay: 1 }}
+        transition={{ duration: 1, ease: 'easeIn', }}
       >
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME BEEF COCKTAIL.png"
@@ -606,7 +624,7 @@ const FloatingProducts = memo(function FloatingProducts({
           x: 120,
           zIndex: isHoveringRight ? 5 : 20,
         }}
-        transition={{ duration: 1, ease: 'easeIn', delay: 1 }}
+        transition={{ duration: 1, ease: 'easeIn',  }}
       >
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME CRISPY NUGGET.png"
@@ -628,7 +646,7 @@ const FloatingProducts = memo(function FloatingProducts({
           y: 0,
           zIndex: isHoveringLeft ? 5 : 20,
         }}
-        transition={{ duration: 1, ease: 'easeIn', delay: 0.9 }}
+        transition={{ duration: 1, ease: 'easeIn',  }}
       >
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME BAKSO HOT.png"
@@ -650,7 +668,7 @@ const FloatingProducts = memo(function FloatingProducts({
           y: 0,
           zIndex: isHoveringLeft ? 5 : 20,
         }}
-        transition={{ duration: 1, ease: 'easeIn', delay: 0.8 }}
+        transition={{ duration: 1, ease: 'easeIn',  }}
       >
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME SOSIS GOCHU.png"

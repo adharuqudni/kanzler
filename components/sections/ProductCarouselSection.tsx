@@ -228,6 +228,14 @@ export default function ProductCarouselSection({
                             : index === 0
                             ? 0
                             : -90,
+                        scale:
+                          activeCategory === category
+                            ? index === 0
+                              ? 1
+                              : 1
+                            : index === 0
+                            ? 0.8
+                            : 0.8,
                         transition: { ...SMOOTH_BOUNCY, duration: 0.2 },
                       },
                     }}
@@ -426,7 +434,7 @@ export default function ProductCarouselSection({
 
                   {/* Recipe Button */}
                   <motion.button
-                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="bg-yellow-600 hover:bg-yellow-700 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.3 }}
@@ -438,7 +446,7 @@ export default function ProductCarouselSection({
                 </motion.div>
               </AnimatePresence>
 
-              {/* Dot Indicators - Bottom */}
+              {/* Dot Indicators - Bottom
               <div className="flex space-x-3 mt-12">
                 {currentProducts.map((_, index) => (
                   <motion.button
@@ -458,7 +466,7 @@ export default function ProductCarouselSection({
                     whileTap={{ scale: 0.9 }}
                   />
                 ))}
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -11,13 +11,13 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
+} from '@/components/ui/carousel';
 
 // Product categories for dropdown
 const productCategories = [
   'Produk Kanzler',
   'Kanzler Singles - Bakso',
-  'Kanzler Singles - Sosis'
+  'Kanzler Singles - Sosis',
 ];
 
 // Video data structure
@@ -26,77 +26,89 @@ const videoData = [
     id: 'video-1',
     title: 'Creamy Pasta with Chicken Nuggets',
     thumbnail: '/placeholder.jpg',
-    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
-    category: 'Kanzler Singles - Bakso'
+    videoUrl:
+      'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Kanzler Singles - Bakso',
   },
   {
     id: 'video-2',
     title: 'Crispy Nugget Sambal Tempong',
     thumbnail: '/placeholder.jpg',
-    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
-    category: 'Kanzler Singles - Bakso'
+    videoUrl:
+      'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Kanzler Singles - Bakso',
   },
   {
     id: 'video-3',
     title: 'Chicken Nugget Wrap',
     thumbnail: '/placeholder.jpg',
-    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
-    category: 'Kanzler Singles - Bakso'
+    videoUrl:
+      'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Kanzler Singles - Bakso',
   },
   {
     id: 'video-4',
     title: 'Sosis Bakar Bumbu Kecap',
     thumbnail: '/placeholder.jpg',
-    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
-    category: 'Kanzler Singles - Sosis'
+    videoUrl:
+      'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Kanzler Singles - Sosis',
   },
   {
     id: 'video-5',
     title: 'Kari Sosis Santan',
     thumbnail: '/placeholder.jpg',
-    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
-    category: 'Kanzler Singles - Sosis'
+    videoUrl:
+      'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Kanzler Singles - Sosis',
   },
   {
     id: 'video-6',
     title: 'Sosis Roll Keju',
     thumbnail: '/placeholder.jpg',
-    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
-    category: 'Kanzler Singles - Sosis'
+    videoUrl:
+      'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Kanzler Singles - Sosis',
   },
   {
     id: 'video-7',
     title: 'Tumis Sayur Campur',
     thumbnail: '/placeholder.jpg',
-    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
-    category: 'Produk Kanzler'
+    videoUrl:
+      'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Produk Kanzler',
   },
   {
     id: 'video-8',
     title: 'Sandwich Spesial',
     thumbnail: '/placeholder.jpg',
-    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
-    category: 'Produk Kanzler'
+    videoUrl:
+      'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Produk Kanzler',
   },
   {
     id: 'video-9',
     title: 'Pizza Mini Homemade',
     thumbnail: '/placeholder.jpg',
-    videoUrl: 'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
-    category: 'Produk Kanzler'
-  }
+    videoUrl:
+      'https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_ea920741c0.mp4',
+    category: 'Produk Kanzler',
+  },
 ];
 
 export default function RecipeInspirationSection() {
-  const [selectedCategory, setSelectedCategory] = useState(productCategories[0]);
+  const [selectedCategory, setSelectedCategory] = useState(
+    productCategories[0]
+  );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [playingVideo, setPlayingVideo] = useState<string | null>(null);
   const [visibleVideos, setVisibleVideos] = useState<Set<string>>(new Set());
   const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
 
-  const currentVideos = selectedCategory === 'Produk Kanzler' 
-    ? videoData 
-    : videoData.filter(video => video.category === selectedCategory);
+  const currentVideos =
+    selectedCategory === 'Produk Kanzler'
+      ? videoData
+      : videoData.filter((video) => video.category === selectedCategory);
 
   const handleVideoClick = (videoId: string) => {
     setPlayingVideo(playingVideo === videoId ? null : videoId);
@@ -104,7 +116,7 @@ export default function RecipeInspirationSection() {
 
   // Auto-play visible videos
   useEffect(() => {
-    visibleVideos.forEach(videoId => {
+    visibleVideos.forEach((videoId) => {
       const videoElement = videoRefs.current[videoId];
       if (videoElement && playingVideo !== videoId) {
         videoElement.play().catch(() => {
@@ -117,16 +129,16 @@ export default function RecipeInspirationSection() {
   // Intersection Observer to detect visible videos
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
-    
-    Object.keys(videoRefs.current).forEach(videoId => {
+
+    Object.keys(videoRefs.current).forEach((videoId) => {
       const videoElement = videoRefs.current[videoId];
       if (videoElement) {
         const observer = new IntersectionObserver(
           ([entry]) => {
             if (entry.isIntersecting) {
-              setVisibleVideos(prev => new Set([...prev, videoId]));
+              setVisibleVideos((prev) => new Set([...prev, videoId]));
             } else {
-              setVisibleVideos(prev => {
+              setVisibleVideos((prev) => {
                 const newSet = new Set(prev);
                 newSet.delete(videoId);
                 return newSet;
@@ -145,44 +157,29 @@ export default function RecipeInspirationSection() {
     });
 
     return () => {
-      observers.forEach(observer => observer.disconnect());
+      observers.forEach((observer) => observer.disconnect());
     };
   }, [currentVideos, playingVideo]);
 
   const fadeInUpVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { ...SMOOTH_BOUNCY, duration: 0.6 }
-    }
+      transition: { ...SMOOTH_BOUNCY, duration: 0.6 },
+    },
   };
-
-
 
   return (
     <section className="relative h-screen overflow-hidden bg-white">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <Image
-          src="/assets/ASSET - SINGLES/4 ASSET - SINGLES/4 ASSET - SINGLES BACKGROUND.png"
-          alt="Recipe Background"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
+
 
       {/* Main Content */}
       <div className="relative z-10 min-h-[100vh] flex flex-col">
-        <div className="container mx-auto px-8 py-16 flex-1 ">
-          
+        <div className="container mx-auto px-8 py-16 flex-1 content-center">
           {/* Left Side - Title and Controls */}
           <div className="grid grid-cols-12 gap-8 h-full items-center">
             <div className="col-span-5 sticky top-16 ">
-              
-            
-
               {/* Main Title */}
               <motion.div
                 className="mb-12"
@@ -192,11 +189,12 @@ export default function RecipeInspirationSection() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
-                <h1 className="text-7xl text-center font-bold text-blue-900 leading-tight">
+                <p className="text-[5rem] text-center font-bold text-blue-900 leading-tight">
                   Inspirasi
-                  <br />
+                </p>
+                <p className="text-[8rem] text-center font-bold text-blue-900 -mt-12 leading-tight">
                   Resep
-                </h1>
+                </p>
               </motion.div>
 
               {/* Category Dropdown */}
@@ -208,61 +206,66 @@ export default function RecipeInspirationSection() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="text-white bg-yellow-600 px-6 py-3 rounded-full font-semibold text-lg">
-                    Kategori
-                  </span>
-                  
-                
-                </div>
-
-                {/* Dropdown */}
-                <div className="relative">
-                  <motion.button
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="w-full max-w-sm bg-white border-2 border-yellow-600 rounded-xl px-6 py-4 text-left flex items-center justify-between font-semibold text-blue-900 hover:bg-gray-50 transition-all duration-300 shadow-lg"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <span className="text-lg">{selectedCategory}</span>
-                    <motion.div
-                      animate={{ rotate: isDropdownOpen ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
+                <div className="flex items-center justify-between gap-4 mb-4 bg-yellow-600 px-6 py-3 rounded-full">
+                  <p className="text-white  font-semibold text-lg">Kategori</p>
+                  {/* Dropdown */}
+                  <div className="relative w-full">
+                    <motion.button
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      className="w-full max-w-sm bg-white border-2 border-yellow-600 rounded-xl px-6 py-4 text-left flex items-center justify-between font-semibold text-blue-900 hover:bg-gray-50 transition-all duration-300 shadow-lg"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      <ChevronDown size={24} className="text-yellow-600" />
-                    </motion.div>
-                  </motion.button>
-
-                  <AnimatePresence>
-                    {isDropdownOpen && (
+                      <span className="text-lg">{selectedCategory}</span>
                       <motion.div
-                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                        transition={{ duration: 0.2 }}
-                        className="absolute top-full left-0 right-0 max-w-sm bg-white border-2 border-yellow-600 border-t-0 rounded-b-xl shadow-xl z-20 overflow-hidden"
+                        animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
                       >
-                        {productCategories.map((category) => (
-                          <motion.button
-                            key={category}
-                            onClick={() => {
-                              setSelectedCategory(category);
-                              setIsDropdownOpen(false);
-                            }}
-                            className={`w-full px-6 py-4 text-left hover:bg-yellow-50 transition-colors duration-200 border-b border-gray-100 last:border-b-0 text-lg ${
-                              category === selectedCategory 
-                                ? 'bg-yellow-100 text-yellow-700 font-bold' 
-                                : 'text-blue-900 font-semibold'
-                            }`}
-                            whileHover={{ x: 4 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            {category}
-                          </motion.button>
-                        ))}
+                        <ChevronDown size={24} className="text-yellow-600" />
                       </motion.div>
-                    )}
-                  </AnimatePresence>
+                    </motion.button>
+
+                    <AnimatePresence>
+                      {isDropdownOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                          transition={{ duration: 0.2 }}
+                          className="absolute top-full left-0 right-0 max-w-sm bg-white border-2 border-yellow-600 border-t-0 rounded-b-xl shadow-xl z-20 overflow-hidden"
+                        >
+                          {productCategories.map((category) => (
+                            <motion.button
+                              key={category}
+                              onClick={() => {
+                                setSelectedCategory(category);
+                                setIsDropdownOpen(false);
+                              }}
+                              className={`w-full px-6 py-4 text-left hover:bg-yellow-50 transition-colors duration-200 border-b border-gray-100 last:border-b-0 text-lg ${
+                                category === selectedCategory
+                                  ? 'bg-yellow-100 text-yellow-700 font-bold'
+                                  : 'text-blue-900 font-semibold'
+                              }`}
+                              whileHover={{ x: 4 }}
+                              transition={{ duration: 0.2 }}
+                            >
+                              {category}
+                            </motion.button>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  <div className="w-24 h-24 content-center">
+                    {/* Main split background */}
+                    <Image
+                      src="/assets/ASSET - HOMEPACK/5 ASSET - HOMEPACK/5 ASSET - HOMEPACK SEARCH.png"
+                      alt="Recipe Background"
+                      width={76}
+                      height={76}
+                    />
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -281,7 +284,7 @@ export default function RecipeInspirationSection() {
                     {currentVideos.map((video, index) => (
                       <CarouselItem key={video.id} className="pl-4 basis-1/3">
                         <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-black">
-                                                    {playingVideo === video.id ? (
+                          {playingVideo === video.id ? (
                             <video
                               src={video.videoUrl}
                               controls
@@ -290,7 +293,7 @@ export default function RecipeInspirationSection() {
                               onEnded={() => setPlayingVideo(null)}
                             />
                           ) : (
-                            <div 
+                            <div
                               className="relative w-full h-full cursor-pointer group"
                               onClick={() => handleVideoClick(video.id)}
                             >
@@ -309,11 +312,9 @@ export default function RecipeInspirationSection() {
                                   e.currentTarget.currentTime = 0;
                                 }}
                               />
-                               
-                               {/* Play Button Overlay */}
-                               <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors duration-300">
-                                
-                               </div>
+
+                              {/* Play Button Overlay */}
+                              <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
                             </div>
                           )}
                         </div>

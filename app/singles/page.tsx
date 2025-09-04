@@ -32,8 +32,12 @@ export default function SinglesPage() {
       <FixedAnimatedProducts currentSection={currentSection} />
       <SinglesHero />
       <SinglesSecondSection />
-      <ProductCarouselSection />
-      <RecipeInspirationSection />
+      <section id="produk">
+        <ProductCarouselSection />
+      </section>
+      <section id="resep">
+        <RecipeInspirationSection />
+      </section>
     </>
   );
 }

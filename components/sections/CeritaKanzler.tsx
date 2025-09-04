@@ -22,15 +22,15 @@ const CeritaKanzler = React.memo(function CeritaKanzler() {
     
       
       {/* Content Container */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 pt-32">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 sm:px-6 md:px-8 pt-20 sm:pt-24 md:pt-32">
 
         {/* CERITA Header */}
         <MotionWrapper
           variant="fadeInUp"
           delay={0.2}
-          className="text-center mb-4"
+          className="text-center mb-2 sm:mb-4"
         >
-          <h1 className="text-6xl md:text-8xl font-serif text-[#C9A961] tracking-wider">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-serif text-[#C9A961] tracking-wider">
             CERITA
           </h1>
         </MotionWrapper>
@@ -39,9 +39,9 @@ const CeritaKanzler = React.memo(function CeritaKanzler() {
         <MotionWrapper
           variant="fadeInUp"
           delay={0.4}
-          className="text-center mb-12"
+          className="text-center mb-6 sm:mb-8 md:mb-12"
         >
-          <h2 className="text-6xl md:text-8xl font-serif text-[#1C2653] tracking-wider">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-serif text-[#1C2653] tracking-wider">
             KANZLER
           </h2>
         </MotionWrapper>
@@ -50,9 +50,9 @@ const CeritaKanzler = React.memo(function CeritaKanzler() {
         <MotionWrapper
           variant="fadeInUp"
           delay={0.6}
-          className="text-center mb-8 max-w-4xl"
+          className="text-center mb-4 sm:mb-6 md:mb-8 max-w-xs sm:max-w-2xl md:max-w-4xl"
         >
-          <p className="text-lg md:text-xl text-[#1C2653] leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[#1C2653] leading-relaxed">
             Didirikan pada 1999, Kanzler hadir untuk menghadirkan cita rasa otentik 
             sosis Jerman ke Indonesia.
           </p>
@@ -62,9 +62,9 @@ const CeritaKanzler = React.memo(function CeritaKanzler() {
         <MotionWrapper
           variant="fadeInUp"
           delay={0.8}
-          className="text-center max-w-5xl"
+          className="text-center max-w-sm sm:max-w-3xl md:max-w-5xl"
         >
-          <p className="text-lg md:text-xl text-[#1C2653] leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-[#1C2653] leading-relaxed">
             Sebagai brand premium, Kanzler konsisten mengawarkaan produk daging olahan berkualitas tinggi 
             melalui proses modern dan higienis, menjadikannya pilihan terpercaya keluarga Indonesia.
           </p>
