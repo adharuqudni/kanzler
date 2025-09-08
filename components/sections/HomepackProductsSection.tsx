@@ -9,17 +9,17 @@ export default function HomepackProductsSection() {
     <section className="relative bg-white">
       {/* Curved transition from blue to white */}
       <div
-        className="absolute top-0 left-0 right-0 h-32 bg-white z-0"
+        className="absolute top-0 left-0 right-0 h-16 bg-white z-0"
         style={{
           borderRadius: '100px 100px 0 0',
-          marginTop: '-2rem',
+          marginTop: '-1rem',
           transform: 'scaleX(1.5)',
         }}
       />
 
-      <div className="container mx-auto pt-32 pb-24 relative z-10 text-center">
+      <div className="container mx-auto pb-12 relative z-10 text-center">
         {/* Logo */}
-        <motion.div 
+        <motion.div
           className="flex justify-center mb-6"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -36,7 +36,7 @@ export default function HomepackProductsSection() {
         </motion.div>
 
         {/* Description */}
-        <motion.p 
+        <motion.p
           className="text-lg md:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -51,7 +51,7 @@ export default function HomepackProductsSection() {
         </motion.p>
 
         {/* MOBILE: Stack layout */}
-        <motion.div 
+        <motion.div
           className="mt-10 md:hidden flex flex-col items-center gap-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -86,9 +86,9 @@ export default function HomepackProductsSection() {
           className="hidden md:block"
           style={{
             position: 'relative',
-            height: 480,
+            height: 420, // lebih rapat
             maxWidth: 1200,
-            margin: '3rem auto 0',
+            margin: '2rem auto 0', // lebih rapat
           }}
         >
           {/* Left Product */}
