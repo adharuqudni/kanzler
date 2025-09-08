@@ -10,19 +10,19 @@ import RecipeSection from '@/components/recipe-section'
 import StoreLocator from '@/components/store-locator'
 import ContactForm from '@/components/contact-form'
 
-export default function Home() {
-  return (
-    <>
+// export default function Home() {
+//   return (
+//     <>
       {/* Hero Section */}
-      <HeroSection
+      {/* <HeroSection
         title="KANZLER"
         subtitle="HOMEPACK"
         showScrollIndicator={true}
         height="screen"
-      />
+      /> */}
 
       {/* Main content */}
-      <main className="relative z-10 bg-white">
+      {/* <main className="relative z-10 bg-white">
         <div className="container mx-auto pt-40 pb-20 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-6xl font-heading text-kanzler-navy mb-2">
@@ -36,8 +36,8 @@ export default function Home() {
               kualitas terbaik untuk konsumen
             </p>
           </div>
-        </div>
-
+        </div> */}
+{/* 
         <FeaturedProducts />
         <CategoryHighlights />
         <OurStorySection />
@@ -55,4 +55,4 @@ export default function Home() {
       </main>
     </>
   )
-}
+} */}

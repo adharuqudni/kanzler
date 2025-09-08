@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import type React from "react";
 import Image from "next/image";
@@ -7,7 +7,7 @@ import { DM_Serif_Display } from "next/font/google";
 import { BOUNCY_TRANSITION } from "@/lib/motion";
 
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
-const ICON = 96; // <<< perbesar ikon di sini (mis. 72 untuk lebih besar)
+const ICON = 96; // ukuran ikon
 
 function OutlineBox({
   side,
@@ -63,56 +63,38 @@ function OutlineBox({
 
 export default function WhyKanzler() {
   const fadeInUpVariants = {
-    hidden: {
-      opacity: 0,
-      y: 60,
-    },
+    hidden: { opacity: 0, y: 60 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: {
-        ...BOUNCY_TRANSITION,
-        duration: 0.8,
-      },
+      transition: { ...BOUNCY_TRANSITION, duration: 0.8 },
     },
   };
 
   const slideInLeftVariants = {
-    hidden: {
-      opacity: 0,
-      x: -100,
-    },
+    hidden: { opacity: 0, x: -100 },
     visible: {
       opacity: 1,
       x: 0,
-      transition: {
-        ...BOUNCY_TRANSITION,
-        duration: 1,
-      },
+      transition: { ...BOUNCY_TRANSITION, duration: 1 },
     },
   };
 
   const slideInRightVariants = {
-    hidden: {
-      opacity: 0,
-      x: 100,
-    },
+    hidden: { opacity: 0, x: 100 },
     visible: {
       opacity: 1,
       x: 0,
-      transition: {
-        ...BOUNCY_TRANSITION,
-        duration: 1,
-      },
+      transition: { ...BOUNCY_TRANSITION, duration: 1 },
     },
   };
 
   return (
-    <section className="bg-white py-20 min-h-[100vh] flex items-center justify-center">
+    <section className="bg-white py-12 flex items-center justify-center">
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center justify-center max-w-7xl mx-auto">
           {/* Left box */}
-          <motion.div 
+          <motion.div
             className="order-2 lg:order-1"
             variants={{
               ...slideInLeftVariants,
@@ -145,8 +127,7 @@ export default function WhyKanzler() {
                     Juicy
                   </h3>
                   <p className="text-gray-600 text-sm leading-relaxed max-w-[220px]">
-                    Setiap gigitan menghadirkan sensasi juicy di dalam dan
-                    garing di luar.
+                    Setiap gigitan menghadirkan sensasi juicy di dalam dan garing di luar.
                   </p>
                 </div>
               </div>
@@ -154,7 +135,7 @@ export default function WhyKanzler() {
           </motion.div>
 
           {/* Title */}
-          <motion.div 
+          <motion.div
             className="text-center relative order-1 lg:order-2"
             variants={fadeInUpVariants}
             initial="hidden"
@@ -171,7 +152,7 @@ export default function WhyKanzler() {
           </motion.div>
 
           {/* Right box */}
-          <motion.div 
+          <motion.div
             className="order-3"
             variants={{
               ...slideInRightVariants,
@@ -204,8 +185,7 @@ export default function WhyKanzler() {
                     Meaty
                   </h3>
                   <p className="text-gray-600 text-sm leading-relaxed max-w-[220px]">
-                    Memiliki kandungan daging yang lebih banyak dibandingkan
-                    produk sejenis.
+                    Memiliki kandungan daging yang lebih banyak dibandingkan produk sejenis.
                   </p>
                 </div>
               </div>
