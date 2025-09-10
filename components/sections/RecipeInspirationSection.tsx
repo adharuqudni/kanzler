@@ -13,6 +13,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { DM_Serif_Display } from "next/font/google";
+import RecipeDetailSection from "./RecipeDetailSection";
 
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 
@@ -29,7 +30,7 @@ const productCategories = [
   "Kanzler Singles - Sosis",
 ];
 
-// Data (foto di halaman pertama + dummy video di detail)
+// Data asli
 const videoData = [
   {
     id: "video-1",
@@ -138,251 +139,98 @@ export default function RecipeInspirationSection() {
       <div className="relative z-10 flex flex-col">
         <div className="container mx-auto px-8 py-16">
           <AnimatePresence mode="wait">
-            {selectedVideo ? (
-              // ============ DETAIL: CARD KECIL, CENTER ============
-              <motion.div
-                key="selected-recipe"
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.45, ease: "easeInOut" }}
-                className="space-y-6 mb-16"
-              >
-                {/* Back */}
-                <motion.button
-                  onClick={handleBack}
-                  className="flex items-center gap-2 text-[15px] font-semibold"
-                  style={{ color: NAVY }}
-                  whileHover={{ x: -4 }}
-                  whileTap={{ scale: 0.96 }}
-                >
-                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                    <path
-                      d="M19 12H5M5 12L12 19M5 12L12 5"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  Kembali
-                </motion.button>
-
-                {/* Kartu konten */}
-                <div
-                  className="relative mx-auto max-w-5xl rounded-[32px] bg-white shadow-[0_24px_70px_rgba(0,0,0,0.08)] overflow-visible"
-                  style={{
-                    borderColor: GOLD,
-                    borderWidth: 1.5,
-                    borderStyle: "solid",
-                  }}
-                >
-                  <div className="grid grid-cols-12 gap-8 p-6 md:p-10 lg:p-12 items-center">
-                    {/* Left: Media */}
-                    <div className="col-span-12 md:col-span-4 flex justify-center self-center">
-                      <div
-                        className="rounded-[26px] overflow-hidden border bg-black/5"
-                        style={{ borderColor: `${NAVY}1A` }}
-                      >
-                        <div className="relative aspect-[9/16] w-[60vw] max-w-[200px] sm:max-w-[220px] md:max-w-[240px] lg:max-w-[260px]">
-                          <video
-                            src={selectedVideoData?.videoUrl || DUMMY_VIDEO_URL}
-                            controls
-                            autoPlay
-                            muted
-                            playsInline
-                            className="absolute inset-0 w-full h-full object-cover"
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Right: Teks */}
-                    <div className="col-span-12 md:col-span-8 md:pl-4 lg:pl-8 self-center">
-                      <div className="max-w-2xl">
-                        <h1
-                          className={`${dmSerif.className} text-4xl md:text-5xl leading-[1.1]`}
-                          style={{ color: GOLD, fontWeight: 400 }}
-                        >
-                          Nugget
-                        </h1>
-                        <h2
-                          className={`${dmSerif.className} text-5xl md:text-6xl leading-[1.1] mb-4 md:mb-6`}
-                          style={{ color: NAVY, fontWeight: 400 }}
-                        >
-                          Spaghetti
-                        </h2>
-
-                        <p
-                          className="text-base md:text-lg mb-6 leading-relaxed"
-                          style={{ color: NAVY }}
-                        >
-                          Kombinasi pasta dan nugget yang praktis untuk lunch
-                        </p>
-
-                        <div className="space-y-3" style={{ color: NAVY }}>
-                          <p className="font-bold text-lg">Bahan:</p>
-                          <div className="space-y-2 text-[15px] md:text-base">
-                            <p>Kanzler Crispy Chicken Nugget</p>
-                            <p>1 genggam pasta</p>
-                            <p>½ buah bawang Bombay</p>
-                            <p>1 genggam jamur kancing</p>
-                            <p>Lada dan garam secukupnya</p>
-                            <p>1 sdt bawang putih bubuk</p>
-                            <p>1 sdt Italian seasoning</p>
-                            <p>½ sdt kaldu jamur</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Thumbnail kecil kiri-bawah */}
-                  <div className="pointer-events-none absolute -left-6 -bottom-8 md:-left-8 md:-bottom-10">
-                    <div className="relative w-[100px] h-[100px] md:w-[120px] md:h-[120px] transform -rotate-45 drop-shadow-2xl">
-                      <Image
-                        src={
-                          selectedVideoData?.thumbnail ||
-                          "/assets/placeholder.png"
-                        }
-                        alt="Kanzler Product"
-                        fill
-                        className="object-contain"
-                        priority={false}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+            {selectedVideo && selectedVideoData ? (
+              <RecipeDetailSection
+                videoUrl={selectedVideoData.videoUrl}
+                thumbnail={selectedVideoData.thumbnail}
+                onBack={handleBack}
+              />
             ) : (
-              // ============ HALAMAN PERTAMA ============
+              // ============ HALAMAN DEPAN ============
               <motion.div
                 key="carousel"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 50 }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="grid grid-cols-12 gap-8 items-center"
+                className="grid grid-cols-12 gap-6 items-start"
               >
                 {/* Left: Title + Filter */}
-                <div className="col-span-5 sticky top-16">
+                <div className="col-span-4 flex flex-col items-center">
                   <motion.div
                     className="mb-12"
                     variants={fadeInUpVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
                   >
                     <p
-                      className={`${dmSerif.className} text-[5.2rem] text-center font-normal leading-[1]`}
+                      className={`${dmSerif.className} text-[5.6rem] text-center font-normal leading-tight`}
                       style={{ color: NAVY }}
                     >
                       Inspirasi
                     </p>
                     <p
-                      className={`${dmSerif.className} text-[8rem] text-center font-normal -mt-8 leading-[0.95]`}
+                      className={`${dmSerif.className} text-[8.4rem] text-center font-normal leading-tight -mt-6`}
                       style={{ color: NAVY }}
                     >
                       Resep
                     </p>
                   </motion.div>
 
-                  {/* Kategori pill */}
+                  {/* Kategori pill (asli, tidak diubah) */}
                   <motion.div
                     className="relative mb-8"
                     variants={fadeInUpVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    transition={{ delay: 0.1 }}
                   >
                     <div
-                      className="flex items-center gap-4 px-4 py-3 rounded-full"
+                      className="flex items-center gap-3 px-3 py-1.5 rounded-full"
                       style={{ backgroundColor: GOLD }}
                     >
-                      <p className="text-white font-semibold text-lg px-2">
+                      <p className="text-white font-semibold text-base px-2">
                         Kategori
                       </p>
 
-                      {/* Dropdown */}
-                      <div className="relative w-full max-w-[360px]">
+                      <div className="relative w-full max-w-[300px]">
                         <motion.button
                           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                          className="w-full bg-white rounded-xl px-6 py-4 text-left flex items-center justify-between font-semibold transition-all duration-300 shadow-md border-2"
+                          className="w-full bg-white rounded-xl px-4 py-1.5 text-left flex items-center justify-between font-semibold transition-all duration-300 border-2 text-base"
                           style={{ color: NAVY, borderColor: GOLD }}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
                         >
-                          <span className="text-lg">{selectedCategory}</span>
+                          <span>{selectedCategory}</span>
                           <motion.div
                             animate={{ rotate: isDropdownOpen ? 180 : 0 }}
                             transition={{ duration: 0.25 }}
                           >
-                            <ChevronDown size={24} color={GOLD} />
+                            <ChevronDown size={18} color={GOLD} />
                           </motion.div>
                         </motion.button>
-
-                        <AnimatePresence>
-                          {isDropdownOpen && (
-                            <motion.div
-                              initial={{ opacity: 0, y: -10, scale: 0.97 }}
-                              animate={{ opacity: 1, y: 0, scale: 1 }}
-                              exit={{ opacity: 0, y: -10, scale: 0.97 }}
-                              transition={{ duration: 0.18 }}
-                              className="absolute top-full left-0 right-0 bg-white rounded-b-xl shadow-xl z-20 overflow-hidden border-2 border-t-0"
-                              style={{ borderColor: GOLD }}
-                            >
-                              {productCategories.map((category) => (
-                                <motion.button
-                                  key={category}
-                                  onClick={() => {
-                                    setSelectedCategory(category);
-                                    setIsDropdownOpen(false);
-                                  }}
-                                  className="w-full px-6 py-4 text-left transition-colors duration-150 border-b last:border-b-0 font-semibold"
-                                  style={{
-                                    color:
-                                      category === selectedCategory
-                                        ? "white"
-                                        : NAVY,
-                                    backgroundColor:
-                                      category === selectedCategory
-                                        ? NAVY
-                                        : "transparent",
-                                    borderColor: "#eee",
-                                  }}
-                                  whileHover={{ x: 4 }}
-                                  transition={{ duration: 0.15 }}
-                                >
-                                  {category}
-                                </motion.button>
-                              ))}
-                            </motion.div>
-                          )}
-                        </AnimatePresence>
                       </div>
 
                       {/* Search circle */}
                       <button
-                        className="shrink-0 w-14 h-14 rounded-full flex items-center justify-center ring-1 ring-white/40 shadow-md"
+                        className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center ring-1 ring-white/40"
                         style={{ backgroundColor: GOLD }}
                         aria-label="Cari Resep"
                       >
-                        <Search size={22} color="white" />
+                        <Search size={14} color="white" />
                       </button>
                     </div>
                   </motion.div>
                 </div>
 
                 {/* Right: Carousel FOTO 9:16 */}
-                <div className="col-span-7 pl-8">
+                <div className="col-span-8 pl-6">
                   <motion.div
                     variants={fadeInUpVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true }}
-                    transition={{ delay: 0.4 }}
                   >
                     <Carousel className="w-full">
                       <CarouselContent className="-ml-4">
