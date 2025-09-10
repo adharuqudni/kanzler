@@ -135,6 +135,24 @@ function SplitHero({ className = '' }: SplitHeroProps) {
     <main
       className={`min-h-screen relative flex flex-col bg-[#1C2653] ${className}`}
     >
+
+<div className="absolute inset-0">
+        <Image
+          src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES BACKGROUND BIRU.png"
+          alt="Singles Background"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0">
+          <Image
+            src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES GRADIENT BLENDING SCREEN.png"
+            alt="Gradient Overlay"
+            fill
+            className="object-cover object-center mix-blend-screen opacity-80"
+          />
+        </div>
+      </div>
       {/* Left Side - Premium Quality */}
       <LeftSide
         isHoveringLeft={isHoveringLeft}
@@ -168,6 +186,7 @@ function SplitHero({ className = '' }: SplitHeroProps) {
         isHoveringLeft={isHoveringLeft}
         isHoveringRight={isHoveringRight}
       />
+
     </main>
   );
 }
@@ -403,9 +422,9 @@ const RightSide = memo(function RightSide({
               <Image
                 src="/assets/ASSET - HOME/1 ASSET - HOME/Singles.png"
                 alt="Singles"
-                width={400}
+                width={500}
                 height={80}
-                className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px]"
+                className="object-contain "
                 loading="lazy"
               />
             </MotionWrapper>
@@ -427,7 +446,7 @@ const RightSide = memo(function RightSide({
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               >
                 <Link href="/singles">
-                  <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 text-xs sm:text-sm md:text-base">
+                  <Button className="bg-white text-kanzler-navy font-bold hover:bg-gray-100 rounded-full px-4 sm:px-6  py-0 text-xs sm:text-sm md:text-base">
                     Lihat semua produk ›
                   </Button>
                 </Link>
@@ -484,15 +503,15 @@ const RightSide = memo(function RightSide({
 
 const LogoOverlay = memo(function LogoOverlay() {
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none">
+    <div className="absolute inset-0 h-full flex flex-col items-center justify-center z-0 pointer-events-none">
       {/* Crown - animates first */}
-      <MotionWrapper variant="scaleInBig" delay={0.2} className="mb-4 sm:mb-8">
+      <MotionWrapper variant="scaleInBig" delay={0.2} className="">
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
           alt="Kanzler Crown"
-          width={200}
+          width={400}
           height={200}
-          className="object-contain w-24 h-24 sm:w-32 sm:h-32 md:w-[200px] md:h-[200px]"
+          className="object-contain "
           loading="lazy"
         />
       </MotionWrapper>
@@ -502,9 +521,9 @@ const LogoOverlay = memo(function LogoOverlay() {
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler R.png"
           alt="Kanzler"
-          width={800}
+          width={1400}
           height={160}
-          className="object-contain w-64 h-12 sm:w-96 sm:h-20 md:w-[800px] md:h-[160px]"
+          className="object-contain "
           loading="lazy"
         />
       </MotionWrapper>
