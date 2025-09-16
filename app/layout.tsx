@@ -13,8 +13,6 @@ const fontSans = FontSans({
   variable: "--font-sans",
 })
 
-
-
 export const metadata: Metadata = {
   title: "Kanzler | Premium Sausages & Meat Products",
   description:
