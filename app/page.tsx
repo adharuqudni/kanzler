@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import SplitHero from '@/components/hero/SplitHero'
+import SplitHero from '@/components/hero/Hero'
 import CeritaKanzler from '@/components/sections/CeritaKanzler'
 import MapSection from '@/components/sections/MapSection'
 
