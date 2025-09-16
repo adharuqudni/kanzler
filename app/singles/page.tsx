@@ -14,7 +14,7 @@ export default function SinglesPage() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const windowHeight = window.innerHeight * 0.8;
+      const windowHeight = window.innerHeight * 0.6;
 
       // Determine which section we're in based on scroll position
       const sectionIndex = Math.floor(scrollPosition / windowHeight);

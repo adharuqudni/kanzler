@@ -9,7 +9,7 @@ import { BOUNCY_TRANSITION } from "@/lib/motion";
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 
 // Outline dimensions (sudah pas)
-const W = 340;
+const W = 300;
 const H = 220;
 const R = 28;
 const CUT = 110;
@@ -35,8 +35,8 @@ function OutlineBox({
 
   const inner =
     side === "left"
-      ? "pl-6 pr-14 justify-start"
-      : "pl-14 pr-6 justify-end";
+      ? "pl-6 pr-0 justify-start"
+      : "pl-6 pr-6 justify-end";
 
   return (
     <div className="relative flex items-center justify-center" style={{ width: W, height: H }}>
@@ -62,7 +62,7 @@ export default function WhyKanzler() {
   return (
     <section className="bg-white py-12 flex items-center justify-center">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center justify-center max-w-7xl mx-auto gap-8">
+        <div className="flex flex-col lg:flex-row items-center justify-center max-w-7xl mx-auto ">
           {/* LEFT CARD — icon kiri, heading kanan, deskripsi DI BAWAH IKON (span kolom) */}
           <motion.div
             className="order-2 lg:order-1"
@@ -82,13 +82,13 @@ export default function WhyKanzler() {
                   priority
                   className="row-start-1 col-start-1"
                 />
-                <h3 className="row-start-1 col-start-2 text-2xl font-extrabold text-[#1E2756] leading-[1.0]">
+                <h3 className="row-start-1 col-start-2 text-2xl font-extrabold text-[#1E2756] leading-tight">
                   Extra
                   <br />
                   Juicy
                 </h3>
                 {/* Row 2: span kedua kolom → tepat di bawah ikon */}
-                <p className="col-span-2 mt-2 text-gray-600 text-[15px] leading-7 max-w-[260px]">
+                <p className="col-span-2 mt-2 text-gray-600 text-[18px] leading-tight max-w-[260px]">
                   Setiap gigitan menghadirkan sensasi <em>juicy</em> di dalam dan garing di luar.
                 </p>
               </div>
@@ -123,7 +123,7 @@ export default function WhyKanzler() {
             <OutlineBox side="right">
               <div className="grid grid-cols-[1fr_auto] gap-x-4 items-start w-full max-w-[280px]">
                 {/* Row 1 */}
-                <h3 className="row-start-1 col-start-1 text-2xl font-extrabold text-[#1E2756] leading-[1.0] text-right">
+                <h3 className="row-start-1 col-start-1 text-2xl font-extrabold text-[#1E2756] leading-tight text-right">
                   Extra
                   <br />
                   Meaty
@@ -137,7 +137,7 @@ export default function WhyKanzler() {
                   className="row-start-1 col-start-2 justify-self-end"
                 />
                 {/* Row 2: span kedua kolom, RATA KANAN */}
-                <p className="col-span-2 mt-3 text-gray-600 text-[15px] leading-7 text-right">
+                <p className="col-span-2 mt-3 text-gray-600 text-[18px] leading-tight text-right">
                   Memiliki kandungan daging yang lebih banyak dibandingkan produk sejenis.
                 </p>
               </div>

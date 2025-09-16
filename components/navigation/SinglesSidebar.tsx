@@ -76,13 +76,13 @@ export default function SinglesSidebar() {
             <div className="mb-4">
               <Image
                 src={
-                  isScrolled
+                  activeSection != ""
                     ? '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES MAHKOTA.png'
                     : '/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png'
                 }
                 alt="Kanzler Crown"
-                width={60}
-                height={60}
+                width={60 }
+                height={60 }
                 className="object-contain filter brightness-110 drop-shadow-lg"
               />
             </div>
@@ -90,7 +90,7 @@ export default function SinglesSidebar() {
 
           {/* Menu Buttons - Only visible when scrolled */}
           <AnimatePresence>
-            {isScrolled && (
+            {activeSection != "" && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -107,10 +107,10 @@ export default function SinglesSidebar() {
                   >
                     <motion.button
                       onClick={() => scrollToSection(item.targetId)}
-                      className={`flex items-center justify-center px-3 py-2 rounded-lg transition-all duration-300 group w-full ${
+                      className={`flex items-center justify-center px-3 py-2 rounded-full transition-all duration-300 group w-full ${
                         item.isActive
-                          ? 'bg-gradient-to-r from-yellow-600 to-yellow-500 text-white border border-yellow-400/50 shadow-lg scale-105'
-                          : 'bg-transparent text-yellow-400 border border-yellow-400/60 hover:bg-yellow-400/20 hover:border-yellow-400/80 hover:text-yellow-300'
+                          ? 'bg-gradient-to-r from-yellow-600 to-yellow-500 text-white  shadow-lg scale-105'
+                          : 'bg-transparent text-yellow-400  hover:bg-yellow-400/20 hover:text-yellow-300'
                       }`}
                       whileHover={{ scale: item.isActive ? 1.05 : 1.08 }}
                       whileTap={{ scale: 0.95 }}

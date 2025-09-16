@@ -76,7 +76,7 @@ export default function HomepackHeroSection() {
       {/* Background */}
       <div className="absolute inset-0">
         <Image
-          src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK BACKGROUND.png"
+          src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME BACKGROUND.png"
           alt="Homepack Background"
           fill
           className="object-cover"

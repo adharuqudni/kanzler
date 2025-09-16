@@ -37,7 +37,7 @@ export default function HomepackProductsSection() {
 
         {/* Description */}
         <motion.p
-          className="text-lg md:text-xl text-gray-700 mx-auto leading-relaxed text-center max-w-3xl"
+          className="text-lg md:text-xl text-gray-700 mx-auto leading-relaxed text-center max-w-3xl mt-8 mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

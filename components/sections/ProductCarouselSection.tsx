@@ -1,12 +1,20 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { SMOOTH_BOUNCY } from "@/lib/motion";
-import { DM_Serif_Display } from "next/font/google";
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import { SMOOTH_BOUNCY } from '@/lib/motion';
+import { DM_Serif_Display, Poppins, Paytone_One } from 'next/font/google';
 
-const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
+const dmSerif = DM_Serif_Display({ subsets: ['latin'], weight: '400' });
+const poppins = Poppins({ 
+  subsets: ['latin'], 
+  weight: ['300', '400', '500', '600', '700'] 
+});
+const paytoneOne = Paytone_One({ 
+  subsets: ['latin'], 
+  weight: '400' 
+});
 
 // Product data type
 export interface Product {
@@ -26,114 +34,114 @@ export interface ProductData {
 const singlesProductData: ProductData = {
   bakso: [
     {
-      id: "bakso-ori",
-      name: "Bakso Original",
+      id: 'bakso-ori',
+      name: 'Bakso Original',
       description:
-        "Bakso siap makan dengan berbagai varian rasa. Praktis bisa dimakan di mana pun & kapan pun.",
+        'Bakso siap makan dengan berbagai varian rasa. Praktis bisa dimakan di mana pun & kapan pun.',
       image:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso ori/bakso-ori.png",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso ori/bakso-ori.png',
       mockup:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso ori/bakso-ori-thermopack-mockup.jpg",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso ori/bakso-ori-thermopack-mockup.jpg',
       details:
-        "Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
     },
     {
-      id: "bakso-hot",
-      name: "Bakso Hot",
+      id: 'bakso-hot',
+      name: 'Bakso Hot',
       description:
-        "Bakso siap makan dengan berbagai varian rasa. Praktis bisa dimakan di mana pun & kapan pun.",
+        'Bakso siap makan dengan berbagai varian rasa. Praktis bisa dimakan di mana pun & kapan pun.',
       image:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso hot/bakso-hot.png",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso hot/bakso-hot.png',
       mockup:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso hot/bakso-hot-thermopack-mockup.jpg",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso hot/bakso-hot-thermopack-mockup.jpg',
       details:
-        "Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
     },
     {
-      id: "bakso-keju",
-      name: "Bakso Keju",
+      id: 'bakso-keju',
+      name: 'Bakso Keju',
       description:
-        "Bakso siap makan dengan berbagai varian rasa. Praktis bisa dimakan di mana pun & kapan pun.",
+        'Bakso siap makan dengan berbagai varian rasa. Praktis bisa dimakan di mana pun & kapan pun.',
       image:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso keju/bakso-keju.png",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso keju/bakso-keju.png',
       mockup:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso keju/bakso-keju-thermopack-mockup.jpg",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso keju/bakso-keju-thermopack-mockup.jpg',
       details:
-        "Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
     },
     {
-      id: "bakso-gochu",
-      name: "Bakso Gochujang",
+      id: 'bakso-gochu',
+      name: 'Bakso Gochujang',
       description:
-        "Bakso siap makan dengan berbagai varian rasa. Praktis bisa dimakan di mana pun & kapan pun.",
+        'Bakso siap makan dengan berbagai varian rasa. Praktis bisa dimakan di mana pun & kapan pun.',
       image:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso gochujang/bakso-gochu.png",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso gochujang/bakso-gochu.png',
       mockup:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso gochujang/bakso-gochu-thermopack-mockup.jpg",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - BAKSO/kanzler singles bakso gochujang/bakso-gochu-thermopack-mockup.jpg',
       details:
-        "Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
     },
   ],
   sosis: [
     {
-      id: "sosis-ori",
-      name: "Sosis Original",
+      id: 'sosis-ori',
+      name: 'Sosis Original',
       description:
-        "Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
       image:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis ori/sosis-ori.png",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis ori/sosis-ori.png',
       mockup:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis ori/sosis-ori-thermopack-mockup.jpg",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis ori/sosis-ori-thermopack-mockup.jpg',
       details:
-        "Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
     },
     {
-      id: "sosis-hot",
-      name: "Sosis Hot",
+      id: 'sosis-hot',
+      name: 'Sosis Hot',
       description:
-        "Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
       image:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis hot/sosis-hot.png",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis hot/sosis-hot.png',
       mockup:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis hot/sosis-hot-thermopack-mockup.jpg",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis hot/sosis-hot-thermopack-mockup.jpg',
       details:
-        "Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
     },
     {
-      id: "sosis-keju",
-      name: "Sosis Keju",
+      id: 'sosis-keju',
+      name: 'Sosis Keju',
       description:
-        "Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
       image:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis keju/sosis-keju-2x.png",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis keju/sosis-keju-2x.png',
       mockup:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis keju/sosis-keju2x-thermopack-mockup.jpg",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis keju/sosis-keju2x-thermopack-mockup.jpg',
       details:
-        "Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
     },
     {
-      id: "sosis-gochu",
-      name: "Sosis Gochujang",
+      id: 'sosis-gochu',
+      name: 'Sosis Gochujang',
       description:
-        "Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
       image:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis gochujang/sosis-gochu.png",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis gochujang/sosis-gochu.png',
       mockup:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis gochujang/sosis-gochu-thermopack-mockup.jpg",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis gochujang/sosis-gochu-thermopack-mockup.jpg',
       details:
-        "Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
     },
     {
-      id: "sosis-mini",
-      name: "Sosis Mini",
+      id: 'sosis-mini',
+      name: 'Sosis Mini',
       description:
-        "Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
       image:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis mini/sosis-mini.png",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis mini/sosis-mini.png',
       mockup:
-        "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis mini/sosis-mini-thermopack-mockup.jpg",
+        '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES PRODUCTS/SINGLES - SOSIS/kanzler singles sosis mini/sosis-mini-thermopack-mockup.jpg',
       details:
-        "Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.",
+        'Sosis daging ayam dan sapi siap makan. Teksturnya renyah dan berdaging. Tersedia dalam kemasan 65 gr & 35 gr.',
     },
   ],
 };
@@ -147,8 +155,8 @@ interface ProductCarouselSectionProps {
 
 export default function ProductCarouselSection({
   productData = singlesProductData,
-  backgroundImage = "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES SPLIT BACKGROUND.png",
-  title = "Products",
+  backgroundImage = '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES SPLIT BACKGROUND.png',
+  title = 'Products',
   defaultCategory,
 }: ProductCarouselSectionProps) {
   const categories = Object.keys(productData);
@@ -157,8 +165,8 @@ export default function ProductCarouselSection({
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationDirection, setAnimationDirection] = useState<
-    "left" | "right"
-  >("right");
+    'left' | 'right'
+  >('right');
 
   const currentProducts = productData[activeCategory];
   const currentProduct = currentProducts[currentIndex];
@@ -169,12 +177,12 @@ export default function ProductCarouselSection({
   };
 
   const handleNext = () => {
-    setAnimationDirection("right");
+    setAnimationDirection('right');
     setCurrentIndex((prev) => (prev + 1) % currentProducts.length);
   };
 
   const handlePrev = () => {
-    setAnimationDirection("left");
+    setAnimationDirection('left');
     setCurrentIndex(
       (prev) => (prev - 1 + currentProducts.length) % currentProducts.length
     );
@@ -216,8 +224,8 @@ export default function ProductCarouselSection({
                     onClick={() => handleCategoryChange(category)}
                     className={`flex items-center gap-4 text-left w-full transition-all duration-300 ${
                       activeCategory === category
-                        ? "text-white"
-                        : "text-white/60 hover:text-white/80"
+                        ? 'text-white'
+                        : 'text-white/60 hover:text-white/80'
                     }`}
                     variants={{
                       hidden: { opacity: 0, y: 30 },
@@ -248,7 +256,7 @@ export default function ProductCarouselSection({
                     transition={{ delay: index * 0.2 }}
                   >
                     <div className="flex items-center gap-4">
-                      <h2 className={`${dmSerif.className} text-6xl font-bold`}>
+                      <h2 className={`${defaultCategory == "nuggets" ? dmSerif.className: paytoneOne.className} text-6xl font-bold`}>
                         {category.toUpperCase()}
                       </h2>
                       <div className="w-12 h-12 relative">
@@ -257,7 +265,7 @@ export default function ProductCarouselSection({
                           alt="Arrow Circle"
                           style={{
                             transform: `rotate(${
-                              activeCategory === category ? "270" : "0"
+                              activeCategory === category ? '270' : '0'
                             }deg)`,
                           }}
                           width={48}
@@ -279,9 +287,9 @@ export default function ProductCarouselSection({
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
               >
-                <p className="text-lg leading-relaxed">
+                <p className={`${poppins.className} text-lg leading-relaxed`}>
                   {currentProduct?.description ||
-                    "Produk berkualitas dengan berbagai varian rasa."}
+                    'Produk berkualitas dengan berbagai varian rasa.'}
                 </p>
               </motion.div>
             </div>
@@ -351,7 +359,7 @@ export default function ProductCarouselSection({
             {/* Right Side - Product Info */}
             <div className="col-span-3 flex flex-col justify-center items-center text-center">
               {/* Navigation Arrows with Product Name in between */}
-              <div className="flex items-center justify-center space-x-8 mb-12">
+              <div className="flex items-center justify-center space-x-8 mb-8">
                 <motion.button
                   onClick={handlePrev}
                   className="w-16 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-110"
@@ -373,27 +381,22 @@ export default function ProductCarouselSection({
                     key={`${activeCategory}-${currentIndex}-title`}
                     initial={{
                       opacity: 0,
-                      x: animationDirection === "right" ? 50 : -50,
+                      x: animationDirection === 'right' ? 50 : -50,
                     }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{
                       opacity: 0,
-                      x: animationDirection === "right" ? -50 : 50,
+                      x: animationDirection === 'right' ? -50 : 50,
                     }}
                     transition={{ ...SMOOTH_BOUNCY, duration: 0.5 }}
-                    className="text-center min-w-[200px]"
+                    className="text-center min-w-[200px] w-full  "
+                    style={{marginLeft: 0}}
                   >
                     <h3
-                      className={`${dmSerif.className} text-5xl font-bold text-[#1C2653] mb-2`}
-                    >
-                      {activeCategory.charAt(0).toUpperCase() +
-                        activeCategory.slice(1)}
-                    </h3>
-                    <h4
-                      className={`${dmSerif.className} text-3xl font-bold text-[#1C2653]`}
+                        className={`${defaultCategory != "nuggets" ? paytoneOne.className : dmSerif.className} text-4xl font-bold text-[#1C2653] mb-2`}
                     >
                       {currentProduct.name}
-                    </h4>
+                    </h3>
                   </motion.div>
                 </AnimatePresence>
 
@@ -402,6 +405,8 @@ export default function ProductCarouselSection({
                   className="w-16 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-110"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
+                  style={{marginLeft: 0}}
+
                 >
                   <Image
                     src="/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES ARROW NEXT.png"
@@ -419,19 +424,19 @@ export default function ProductCarouselSection({
                   key={`${activeCategory}-${currentIndex}-info`}
                   initial={{
                     opacity: 0,
-                    x: animationDirection === "right" ? 50 : -50,
+                    x: animationDirection === 'right' ? 50 : -50,
                   }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{
                     opacity: 0,
-                    x: animationDirection === "right" ? -50 : 50,
+                    x: animationDirection === 'right' ? -50 : 50,
                   }}
                   transition={{ ...SMOOTH_BOUNCY, duration: 0.4, delay: 0.1 }}
                   className="space-y-6 max-w-sm"
                 >
                   {/* Product Description */}
                   <motion.p
-                    className="leading-relaxed text-lg text-[#1C2653]"
+                    className={`leading-relaxed text-xl text-[#1C2653] mb-12 ${poppins.className}`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.3 }}
@@ -465,9 +470,9 @@ export default function ProductCarouselSection({
         <div
           className="absolute top-0 left-0 w-full h-full border-0"
           style={{
-            background: "#fff",
-            clipPath: "ellipse(150% 100% at 50% 0%)",
-            transform: "translateY(-80%)",
+            background: '#fff',
+            clipPath: 'ellipse(150% 100% at 50% 0%)',
+            transform: 'translateY(-80%)',
           }}
         />
       </div>
