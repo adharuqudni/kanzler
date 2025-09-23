@@ -7,6 +7,7 @@ import ProductCarouselSection from '@/components/sections/ProductCarouselSection
 import RecipeInspirationSection from '@/components/sections/RecipeInspirationSection';
 import FixedAnimatedProducts from '@/components/animations/FixedAnimatedProducts';
 import { useScroll } from 'framer-motion';
+import { BreadcrumbStructuredData } from '@/components/seo/StructuredData';
 
 export default function SinglesPage() {
   const [currentSection, setCurrentSection] = useState(0);
@@ -29,6 +30,12 @@ export default function SinglesPage() {
 
   return (
     <>
+      <BreadcrumbStructuredData 
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Singles", url: "/singles" }
+        ]} 
+      />
       <FixedAnimatedProducts currentSection={currentSection} />
       <SinglesHero />
       <SinglesSecondSection />
