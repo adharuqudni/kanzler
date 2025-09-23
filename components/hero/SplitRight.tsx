@@ -40,7 +40,7 @@ const SplitRight = memo(function SplitRight({
               {/* Crown - animates first */}
               <MotionWrapper variant="scaleInBig" delay={0.1} className="mb-2 sm:mb-4">
                 <Image
-                  src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
+                  src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
                   alt="Kanzler Crown"
                   width={120}
                   height={120}
@@ -52,7 +52,7 @@ const SplitRight = memo(function SplitRight({
               {/* Kanzler Text - animates second */}
               <MotionWrapper variant="fadeInUp" delay={0.3} className="mb-3 sm:mb-6">
                 <Image
-                  src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler R.png"
+                  src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler.svg"
                   alt="Kanzler"
                   width={400}
                   height={80}

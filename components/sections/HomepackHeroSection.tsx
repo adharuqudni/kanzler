@@ -116,7 +116,7 @@ export default function HomepackHeroSection() {
             animate={shouldExit ? "exit" : "visible"}
           >
             <Image
-              src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
+              src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
               alt="Crown"
               width={150}
               height={150}
@@ -133,7 +133,7 @@ export default function HomepackHeroSection() {
             transition={{ delay: 0.3 }}
           >
             <Image
-              src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler Title.png"
+              src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler.svg"
               alt="Kanzler"
               width={700}
               height={150}

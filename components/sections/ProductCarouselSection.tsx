@@ -7,13 +7,13 @@ import { SMOOTH_BOUNCY } from '@/lib/motion';
 import { DM_Serif_Display, Poppins, Paytone_One } from 'next/font/google';
 
 const dmSerif = DM_Serif_Display({ subsets: ['latin'], weight: '400' });
-const poppins = Poppins({ 
-  subsets: ['latin'], 
-  weight: ['300', '400', '500', '600', '700'] 
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
 });
-const paytoneOne = Paytone_One({ 
-  subsets: ['latin'], 
-  weight: '400' 
+const paytoneOne = Paytone_One({
+  subsets: ['latin'],
+  weight: '400',
 });
 
 // Product data type
@@ -256,7 +256,13 @@ export default function ProductCarouselSection({
                     transition={{ delay: index * 0.2 }}
                   >
                     <div className="flex items-center gap-4">
-                      <h2 className={`${defaultCategory == "nuggets" ? dmSerif.className: paytoneOne.className} text-6xl font-bold`}>
+                      <h2
+                        className={`${
+                          defaultCategory == 'nuggets'
+                            ? dmSerif.className
+                            : paytoneOne.className
+                        } text-6xl font-bold`}
+                      >
                         {category.toUpperCase()}
                       </h2>
                       <div className="w-12 h-12 relative">
@@ -304,7 +310,7 @@ export default function ProductCarouselSection({
                   initial={{ opacity: 1, scale: 0, x: 120, y: 0, rotate: -10 }}
                   animate={{
                     opacity: 1,
-                    scale: 1,
+                    scale: defaultCategory === 'nuggets' ? activeCategory === 'nuggets' ? 1.2 : 0.7 : 1,
                     rotate: -10,
                     x: 120,
                     y: 0,
@@ -316,7 +322,7 @@ export default function ProductCarouselSection({
                   <Image
                     src={currentProduct.image}
                     alt={`${currentProduct.name} Product`}
-                    width={500}
+                    width={defaultCategory === 'nuggets' ? 700 : 500}
                     height={800}
                     className="object-contain drop-shadow-2xl"
                     priority
@@ -347,7 +353,7 @@ export default function ProductCarouselSection({
                   <Image
                     src={currentProduct.mockup}
                     alt={`${currentProduct.name} Package`}
-                    width={500}
+                    width={defaultCategory == 'nuggets' ? 700 : 500}
                     height={800}
                     className="object-contain drop-shadow-2xl"
                     priority
@@ -355,7 +361,6 @@ export default function ProductCarouselSection({
                 </motion.div>
               </AnimatePresence>
             </div>
-
             {/* Right Side - Product Info */}
             <div className="col-span-3 flex flex-col justify-center items-center text-center">
               {/* Navigation Arrows with Product Name in between */}
@@ -390,10 +395,14 @@ export default function ProductCarouselSection({
                     }}
                     transition={{ ...SMOOTH_BOUNCY, duration: 0.5 }}
                     className="text-center min-w-[200px] w-full  "
-                    style={{marginLeft: 0}}
+                    style={{ marginLeft: 0 }}
                   >
                     <h3
-                        className={`${defaultCategory != "nuggets" ? paytoneOne.className : dmSerif.className} text-4xl font-bold text-[#1C2653] mb-2`}
+                      className={`${
+                        defaultCategory != 'nuggets'
+                          ? paytoneOne.className
+                          : dmSerif.className
+                      } text-4xl font-bold text-[#1C2653] mb-2`}
                     >
                       {currentProduct.name}
                     </h3>
@@ -405,8 +414,7 @@ export default function ProductCarouselSection({
                   className="w-16 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-110"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  style={{marginLeft: 0}}
-
+                  style={{ marginLeft: 0 }}
                 >
                   <Image
                     src="/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES ARROW NEXT.png"
@@ -446,7 +454,7 @@ export default function ProductCarouselSection({
 
                   {/* Recipe Button */}
                   <motion.button
-                    className="bg-[#B38038] hover:bg-[#A87430] text-white px-10 py-3 rounded-full
+                    className="bg-[#AA7B32] hover:bg-[#8A6B2A] text-white px-10 py-3 rounded-full
              font-medium ring-1 ring-white/40
              shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_2px_6px_rgba(0,0,0,0.12)]
              transition-all duration-200 hover:scale-[1.01] active:scale-[0.98] focus:outline-none"

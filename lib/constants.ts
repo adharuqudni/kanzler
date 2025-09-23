@@ -94,9 +94,9 @@ export const SEO_CONFIG = {
 export const THEME_CONFIG = {
   colors: {
     primary: '#1E2756',
-    gold: '#B89E5C',
-    goldLight: '#D4B978',
-    goldDark: '#9A7D3A',
+    gold: '#AA7B32',
+    goldLight: '#CA8B3A',
+    goldDark: '#8A6B2A',
     navy: '#1E2756',
     dark: '#1A1A1A',
     light: '#F5F5F5',

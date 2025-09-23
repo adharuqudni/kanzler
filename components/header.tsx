@@ -65,20 +65,20 @@ export default function Header() {
                         xmlns="http://www.w3.org/2000/svg"
                         className="w-full h-full"
                       >
-                        <path d="M12 1L15.5 8.5H8.5L12 1Z" fill="#B89E5C" />
-                        <path d="M12 1L8.5 8.5H1L12 1Z" fill="#B89E5C" />
-                        <path d="M12 1L15.5 8.5H23L12 1Z" fill="#B89E5C" />
-                        <path d="M8.5 8.5H15.5L12 16L8.5 8.5Z" fill="#B89E5C" />
-                        <path d="M1 8.5H8.5L4.75 16L1 8.5Z" fill="#B89E5C" />
+                        <path d="M12 1L15.5 8.5H8.5L12 1Z" fill="#AA7B32" />
+                        <path d="M12 1L8.5 8.5H1L12 1Z" fill="#AA7B32" />
+                        <path d="M12 1L15.5 8.5H23L12 1Z" fill="#AA7B32" />
+                        <path d="M8.5 8.5H15.5L12 16L8.5 8.5Z" fill="#AA7B32" />
+                        <path d="M1 8.5H8.5L4.75 16L1 8.5Z" fill="#AA7B32" />
                         <path
                           d="M15.5 8.5H23L19.25 16L15.5 8.5Z"
-                          fill="#B89E5C"
+                          fill="#AA7B32"
                         />
-                        <path d="M4.75 16L8.5 23H1L4.75 16Z" fill="#B89E5C" />
-                        <path d="M12 16L15.5 23H8.5L12 16Z" fill="#B89E5C" />
+                        <path d="M4.75 16L8.5 23H1L4.75 16Z" fill="#AA7B32" />
+                        <path d="M12 16L15.5 23H8.5L12 16Z" fill="#AA7B32" />
                         <path
                           d="M19.25 16L23 23H15.5L19.25 16Z"
-                          fill="#B89E5C"
+                          fill="#AA7B32"
                         />
                       </svg>
                     </div>
@@ -111,15 +111,15 @@ export default function Header() {
                   xmlns="http://www.w3.org/2000/svg"
                   className="w-full h-full"
                 >
-                  <path d="M12 1L15.5 8.5H8.5L12 1Z" fill="#B89E5C" />
-                  <path d="M12 1L8.5 8.5H1L12 1Z" fill="#B89E5C" />
-                  <path d="M12 1L15.5 8.5H23L12 1Z" fill="#B89E5C" />
-                  <path d="M8.5 8.5H15.5L12 16L8.5 8.5Z" fill="#B89E5C" />
-                  <path d="M1 8.5H8.5L4.75 16L1 8.5Z" fill="#B89E5C" />
-                  <path d="M15.5 8.5H23L19.25 16L15.5 8.5Z" fill="#B89E5C" />
-                  <path d="M4.75 16L8.5 23H1L4.75 16Z" fill="#B89E5C" />
-                  <path d="M12 16L15.5 23H8.5L12 16Z" fill="#B89E5C" />
-                  <path d="M19.25 16L23 23H15.5L19.25 16Z" fill="#B89E5C" />
+                  <path d="M12 1L15.5 8.5H8.5L12 1Z" fill="#AA7B32" />
+                  <path d="M12 1L8.5 8.5H1L12 1Z" fill="#AA7B32" />
+                  <path d="M12 1L15.5 8.5H23L12 1Z" fill="#AA7B32" />
+                  <path d="M8.5 8.5H15.5L12 16L8.5 8.5Z" fill="#AA7B32" />
+                  <path d="M1 8.5H8.5L4.75 16L1 8.5Z" fill="#AA7B32" />
+                  <path d="M15.5 8.5H23L19.25 16L15.5 8.5Z" fill="#AA7B32" />
+                  <path d="M4.75 16L8.5 23H1L4.75 16Z" fill="#AA7B32" />
+                  <path d="M12 16L15.5 23H8.5L12 16Z" fill="#AA7B32" />
+                  <path d="M19.25 16L23 23H15.5L19.25 16Z" fill="#AA7B32" />
                 </svg>
               </div>
               <span className="text-xl md:text-2xl font-heading font-bold tracking-wider text-white">

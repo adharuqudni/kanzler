@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Package, Info } from 'lucide-react';
+import Link from 'next/link';
 
 export default function SinglesSidebar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -17,15 +18,21 @@ export default function SinglesSidebar() {
       // Determine active section based on scroll position
       const produkSection = document.querySelector('#produk');
       const resepSection = document.querySelector('#resep');
-      
+
       if (produkSection && resepSection) {
         const produkRect = produkSection.getBoundingClientRect();
         const resepRect = resepSection.getBoundingClientRect();
-        
+
         // Check which section is more visible in the viewport
-        if (produkRect.top <= window.innerHeight / 2 && produkRect.bottom >= window.innerHeight / 2) {
+        if (
+          produkRect.top <= window.innerHeight / 2 &&
+          produkRect.bottom >= window.innerHeight / 2
+        ) {
           setActiveSection('produk');
-        } else if (resepRect.top <= window.innerHeight / 2 && resepRect.bottom >= window.innerHeight / 2) {
+        } else if (
+          resepRect.top <= window.innerHeight / 2 &&
+          resepRect.bottom >= window.innerHeight / 2
+        ) {
           setActiveSection('resep');
         } else if (produkRect.top > window.innerHeight / 2) {
           setActiveSection(''); // Before produk section
@@ -43,25 +50,25 @@ export default function SinglesSidebar() {
   const scrollToSection = (sectionId: string) => {
     const element = document.querySelector(`#${sectionId}`);
     if (element) {
-      element.scrollIntoView({ 
+      element.scrollIntoView({
         behavior: 'smooth',
-        block: 'start'
+        block: 'start',
       });
     }
   };
 
   const menuItems = [
-    { 
-      icon: Package, 
-      label: 'Produk', 
+    {
+      icon: Package,
+      label: 'Produk',
       targetId: 'produk',
-      isActive: activeSection === 'produk'
+      isActive: activeSection === 'produk',
     },
-    { 
-      icon: Info, 
-      label: 'Resep', 
+    {
+      icon: Info,
+      label: 'Resep',
       targetId: 'resep',
-      isActive: activeSection === 'resep'
+      isActive: activeSection === 'resep',
     },
   ];
 
@@ -73,24 +80,28 @@ export default function SinglesSidebar() {
         <div className="relative z-10 p-4 h-full flex flex-col">
           {/* Logo Section - Always visible */}
           <div className="flex flex-col items-center">
-            <div className="mb-4">
-              <Image
-                src={
-                  activeSection != ""
-                    ? '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES MAHKOTA.png'
-                    : '/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png'
-                }
-                alt="Kanzler Crown"
-                width={60 }
-                height={60 }
-                className="object-contain filter brightness-110 drop-shadow-lg"
-              />
-            </div>
+            <Link href="/">
+              <div className="mb-4">
+                <Image
+                  src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
+                  alt="Kanzler Crown"
+                  width={60}
+                  height={60}
+                  className="object-contain drop-shadow-lg"
+                  style={{
+                    filter:
+                      activeSection != ''
+                        ? 'brightness(0) saturate(100%) invert(51%) sepia(87%) saturate(558%) hue-rotate(15deg) brightness(96%) contrast(92%)'
+                        : 'brightness(0) saturate(100%) invert(100%)',
+                  }}
+                />
+              </div>
+            </Link>
           </div>
 
           {/* Menu Buttons - Only visible when scrolled */}
           <AnimatePresence>
-            {activeSection != "" && (
+            {activeSection != '' && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -116,18 +127,18 @@ export default function SinglesSidebar() {
                       whileTap={{ scale: 0.95 }}
                     >
                       <div className="flex items-center gap-2">
-                        <item.icon 
-                          size={16} 
+                        <item.icon
+                          size={16}
                           className={`transition-colors ${
-                            item.isActive 
-                              ? 'text-white' 
+                            item.isActive
+                              ? 'text-white'
                               : 'text-yellow-400 group-hover:text-yellow-300'
-                          }`} 
+                          }`}
                         />
                         <p
                           className={`text-sm font-semibold transition-colors ${
-                            item.isActive 
-                              ? 'text-white' 
+                            item.isActive
+                              ? 'text-white'
                               : 'text-yellow-400 group-hover:text-yellow-300'
                           }`}
                         >

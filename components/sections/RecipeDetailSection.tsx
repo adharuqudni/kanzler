@@ -11,7 +11,7 @@ interface RecipeDetailProps {
 }
 
 const NAVY = "#1C2653";
-const GOLD = "#B38038";
+const GOLD = "#AA7B32";
 
 export default function RecipeDetailSection({
   videoUrl,

@@ -43,7 +43,7 @@ function OutlineBox({
       <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 w-full h-full pointer-events-none" aria-hidden>
         <path
           d={side === "left" ? leftPath : rightPath}
-          stroke="#B89E5C"
+          stroke="#AA7B32"
           strokeWidth={1.8}
           fill="none"
           strokeLinecap="round"
@@ -61,7 +61,7 @@ function OutlineBox({
 export default function WhyKanzler() {
   return (
     <section className="bg-white py-12 flex items-center justify-center">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 my-20">
         <div className="flex flex-col lg:flex-row items-center justify-center max-w-7xl mx-auto ">
           {/* LEFT CARD — icon kiri, heading kanan, deskripsi DI BAWAH IKON (span kolom) */}
           <motion.div

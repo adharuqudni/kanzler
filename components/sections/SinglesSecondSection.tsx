@@ -3,7 +3,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { Poppins } from 'next/font/google';
 import { motionVariants, BOUNCY_TRANSITION, SMOOTH_BOUNCY } from '@/lib/motion';
+
+const poppins = Poppins({ subsets: ['latin'], weight: ['400'] });
 
 export default function SinglesSecondSection() {
   const fadeInUpVariants = {
@@ -57,7 +60,7 @@ export default function SinglesSecondSection() {
             <Image
               src="/assets/ASSET - SINGLES/2 ASSET - SINGLES/2 ASSET - SINGLES LOGO.png"
               alt="Singles"
-              width={600}
+              width={1000}
               height={200}
               className="object-contain filter brightness-110 mx-auto"
             />
@@ -71,7 +74,7 @@ export default function SinglesSecondSection() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <p className="text-white text-lg lg:text-xl leading-relaxed text-center">
+            <p className={`${poppins.className} text-white text-lg lg:text-xl leading-relaxed text-center`}>
               Produk sosis dan bakso sudah matang tinggal makan
               <br />
               pertama di Indonesia. Praktis dimakan kapan pun dan di mana pun.

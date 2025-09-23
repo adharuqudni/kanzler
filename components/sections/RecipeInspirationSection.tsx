@@ -19,7 +19,7 @@ const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 
 // Brand palette
 const NAVY = "#1C2653";
-const GOLD = "#B38038";
+const GOLD = "#AA7B32";
 const DUMMY_VIDEO_URL =
   "https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_63f1d1186d.mp4";
 

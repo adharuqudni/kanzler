@@ -29,9 +29,9 @@ const config = {
           dark: "#0E0E0E", // Even deeper for backgrounds
           light: "#F5F5F5", // Light gray background
           gray: "#A0A0A0", // Neutral gray
-          gold: "#B89E5C", // Elegant gold accent
-          goldLight: "#D4B978", // Lighter gold for gradient
-          goldDark: "#9A7D3A", // Darker gold for gradient
+          gold: "#AA7B32", // Elegant gold accent
+          goldLight: "#CA8B3A", // Lighter gold for gradient
+          goldDark: "#8A6B2A", // Darker gold for gradient
           navy: "#1E2756", // Navy blue from the image
           accent: "#2E2E2E", // Secondary dark element
           white: "#FFFFFF", // Text on dark background
@@ -66,9 +66,9 @@ const config = {
         },
       },
       backgroundImage: {
-        "gold-gradient": "linear-gradient(to right, #9A7D3A, #D4B978, #B89E5C)",
+        "gold-gradient": "linear-gradient(to right, #8A6B2A, #AA7B32, #CA8B3A)",
         "gold-shine":
-          "linear-gradient(90deg, rgba(184,158,92,0.8) 0%, rgba(212,185,120,1) 50%, rgba(184,158,92,0.8) 100%)",
+          "linear-gradient(90deg, rgba(170,123,50,0.8) 0%, rgba(202,139,58,1) 50%, rgba(170,123,50,0.8) 100%)",
       },
       borderRadius: {
         lg: "var(--radius)",

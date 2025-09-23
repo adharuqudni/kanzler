@@ -174,18 +174,18 @@ const LogoOverlay = memo(function LogoOverlay() {
     >
       <MotionWrapper variant="scaleInBig" delay={0.2}>
         <Image
-          src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
+          src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
           alt="Kanzler Crown"
-          width={400}
+          width={300}
           height={200}
-          className="object-contain"
+          className="object-contain mb-20 -mt-20"
           loading="lazy"
         />
       </MotionWrapper>
 
       <MotionWrapper variant="fadeInUp" delay={0.5} className="text-center">
         <Image
-          src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler R.png"
+          src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler.svg"
           alt="Kanzler"
           width={1400}
           height={160}

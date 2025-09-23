@@ -90,12 +90,12 @@
 
 /* Gold gradient */
 .bg-gold-gradient {
-  background: linear-gradient(90deg, #9a7d3a, #d4b978, #b89e5c);
+  background: linear-gradient(90deg, #8a6b2a, #aa7b32, #ca8b3a);
   background-size: 200% auto;
 }
 
 .text-gold-gradient {
-  background: linear-gradient(90deg, #9a7d3a, #d4b978, #b89e5c);
+  background: linear-gradient(90deg, #8a6b2a, #aa7b32, #ca8b3a);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;

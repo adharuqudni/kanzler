@@ -72,7 +72,7 @@ export default function Navbar({
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <Image
-                  src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
+                  src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
                   alt="Kanzler Mahkota Logo"
                   width={50}
                   height={50}

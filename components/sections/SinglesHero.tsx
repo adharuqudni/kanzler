@@ -115,7 +115,7 @@ export default function SinglesHero() {
             animate="visible"
           >
             <Image
-              src="/assets/ASSET - HOME/1 ASSET - HOME/Logo Mahkota.png"
+              src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
               alt="Crown"
               width={100}
               height={100}
@@ -131,7 +131,7 @@ export default function SinglesHero() {
             animate="visible"
           >
             <Image
-              src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler Title.png"
+              src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler.svg"
               alt="Kanzler"
               width={500}
               height={100}
