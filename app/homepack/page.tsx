@@ -7,10 +7,17 @@ import ProductCarouselSection from '@/components/sections/ProductCarouselSection
 import { homepackProductData } from '@/lib/homepack-products';
 import React from 'react';
 import RecipeInspirationSection from '@/components/sections/RecipeInspirationSection';
+import { BreadcrumbStructuredData } from '@/components/seo/StructuredData';
 
 export default function HomepackPage() {
   return (
     <>
+      <BreadcrumbStructuredData 
+        items={[
+          { name: "Home", url: "/" },
+          { name: "Homepack", url: "/homepack" }
+        ]} 
+      />
       <HomepackHeroSection />
       <HomepackProductsSection />
       <WhyKanzler />
