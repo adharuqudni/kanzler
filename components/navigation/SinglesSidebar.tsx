@@ -85,8 +85,8 @@ export default function SinglesSidebar() {
                 <Image
                   src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
                   alt="Kanzler Crown"
-                  width={60}
-                  height={60}
+                  width={40}
+                  height={40}
                   className="object-contain drop-shadow-lg"
                   style={{
                     filter:
@@ -118,23 +118,15 @@ export default function SinglesSidebar() {
                   >
                     <motion.button
                       onClick={() => scrollToSection(item.targetId)}
-                      className={`flex items-center justify-center px-3 py-2 rounded-full transition-all duration-300 group w-full ${
+                      className={`flex items-center justify-center px-0 py-1 rounded-full transition-all duration-300 group w-full ${
                         item.isActive
-                          ? 'bg-gradient-to-r from-yellow-600 to-yellow-500 text-white  shadow-lg scale-105'
-                          : 'bg-transparent text-yellow-400  hover:bg-yellow-400/20 hover:text-yellow-300'
+                          ? 'bg-[#AA7B32] text-white  shadow-lg scale-105'
+                          : 'bg-transparent text-[#AA7B32]  hover:bg-yellow-400/20 hover:text-yellow-300'
                       }`}
                       whileHover={{ scale: item.isActive ? 1.05 : 1.08 }}
                       whileTap={{ scale: 0.95 }}
                     >
                       <div className="flex items-center gap-2">
-                        <item.icon
-                          size={16}
-                          className={`transition-colors ${
-                            item.isActive
-                              ? 'text-white'
-                              : 'text-yellow-400 group-hover:text-yellow-300'
-                          }`}
-                        />
                         <p
                           className={`text-sm font-semibold transition-colors ${
                             item.isActive

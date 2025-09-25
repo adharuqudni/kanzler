@@ -1,49 +1,49 @@
 import { ProductData } from '@/components/sections/ProductCarouselSection';
 
 export const homepackProductData: ProductData = {
-  nuggets: [
+  nugget: [
     {
       id: 'crispy-nugget',
       name: 'Crispy Nugget',
-      description: 'Nugget ayam crispy dengan tekstur renyah di luar dan juicy di dalam. Siap masak untuk kemudahan di rumah.',
-      image: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/crispy/mockup-nugget-open-crispy.png',
-      mockup: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/crispy/crispy-nugget-mockup.png',
-      details: 'Nugget ayam premium dengan bumbu pilihan. Tekstur crispy yang tahan lama dan rasa yang memuaskan.'
+      description: 'Nugget kualitas premium yang Extra Crispy, Extra Meaty dan Extra Juicy ',
+      image: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/crispy/crispy-nugget-mockup.png',
+      mockup: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/premium/premium-nugget-mockup.png',
+      details: 'Nugget kualitas premium yang Extra Crispy, Extra Meaty dan Extra Juicy .'
     },
     {
       id: 'premium-nugget',
       name: 'Premium Nugget',
-      description: 'Nugget ayam premium dengan kualitas terbaik. Daging ayam pilihan dengan bumbu istimewa.',
-      image: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/premium/mockup-nugget-open-pcn.png',
-      mockup: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/premium/premium-nugget-mockup.png',
+      description: 'Nugget kualitas premium yang Extra Crispy, Extra Meaty dan Extra Juicy ',
+      image: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/premium/premium-nugget-mockup.png',
+      mockup: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/spicy/spicy-nugget-mockup.png',
       details: 'Nugget premium dengan daging ayam berkualitas tinggi dan bumbu rahasia yang memberikan cita rasa istimewa.'
     },
     {
       id: 'spicy-nugget',
       name: 'Spicy Nugget',
-      description: 'Nugget ayam dengan rasa pedas yang menggugah selera. Cocok untuk pecinta makanan pedas.',
-      image: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/spicy/mockup-nugget-open-spicy.png',
-      mockup: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/spicy/spicy-nugget-mockup.png',
+      description: 'Nugget kualitas premium yang Extra Crispy, Extra Meaty dan Extra Juicy ',
+      image: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/spicy/spicy-nugget-mockup.png',
+      mockup: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/stick/stick-nugget-mockup.png',
       details: 'Nugget dengan level kepedasan yang pas, memberikan sensasi hangat dan rasa yang addictive.'
     },
     {
       id: 'stick-nugget',
       name: 'Stick Nugget',
-      description: 'Nugget ayam dalam bentuk stick yang praktis dan mudah dimakan. Perfect untuk snacking.',
-      image: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/stick/mockup-nugget-open-stick.png',
-      mockup: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/stick/stick-nugget-mockup.png',
+      description: 'Nugget kualitas premium yang Extra Crispy, Extra Meaty dan Extra Juicy ',
+      image: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/stick/stick-nugget-mockup.png',
+      mockup: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/cordon bleu/cordon-bleu-nugget-mockup.png',
       details: 'Bentuk stick yang unik dan praktis, cocok untuk camilan atau lauk pauk sehari-hari.'
     },
     {
       id: 'cordon-bleu-nugget',
       name: 'Cordon Bleu Nugget',
-      description: 'Nugget ayam dengan isian keju yang creamy. Kombinasi sempurna antara ayam dan keju.',
+      description: 'Nugget kualitas premium yang Extra Crispy, Extra Meaty dan Extra Juicy ',
       image: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/cordon bleu/cordon-bleu-nugget-mockup.png',
       mockup: '/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/NUGGET/cordon bleu/cordon-bleu-nugget-mockup.png',
       details: 'Nugget premium dengan isian keju yang melted di dalam, memberikan pengalaman rasa yang luar biasa.'
     }
   ],
-  sausages: [
+  sosis: [
     {
       id: 'beef-cocktail',
       name: 'Beef Cocktail',

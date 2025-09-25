@@ -50,7 +50,7 @@ const SplitLeft = memo(function SplitLeft({
               </MotionWrapper>
 
               {/* Kanzler Text - animates second */}
-              <MotionWrapper variant="fadeInUp" delay={0.3} className="mb-3 sm:mb-6">
+              <MotionWrapper variant="fadeInUp" delay={0.3} className="-mt-8 mb-3 sm:mb-6">
                 <Image
                   src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler.svg"
                   alt="Kanzler"
@@ -63,7 +63,7 @@ const SplitLeft = memo(function SplitLeft({
             </div>
 
             {/* Tagline Image */}
-            <MotionWrapper variant="fadeInUp" delay={0.5} className="mb-3 sm:mb-6 z-10">
+            <MotionWrapper variant="fadeInUp" delay={0.5} className=" -mt-8 mb-3 sm:mb-6 z-10">
               <Image
                 src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler Quote.png"
                 alt="Premium Quality Since 1999"
@@ -91,7 +91,7 @@ const SplitLeft = memo(function SplitLeft({
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               >
                 <Link href="/homepack">
-                  <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 text-xs sm:text-sm md:text-base">
+                  <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 text-xs font-extrabold sm:text-sm md:text-base ">
                     Lihat semua produk ›
                   </Button>
                 </Link>
@@ -104,31 +104,26 @@ const SplitLeft = memo(function SplitLeft({
         <ProductImage
           src="/assets/ASSET - HOME/2 ASSET - HOME/2 ASSET - HOME BEEF.png"
           alt="Kanzler beef 1"
-          className="absolute top-28 -rotate-45 -left-24 z-10"
+          className="absolute top-28 -rotate-45 -left-28 z-10"
+          rotateOverride={320}
           isVisible={isHoveringLeft}
           animation="slideFromLeft"
         />
 
-        <ProductImage
-          src="/assets/ASSET - HOME/2 ASSET - HOME/2 ASSET - HOME BEEF.png"
-          alt="Kanzler beef 2"
-          className="absolute top-28 -rotate-45 -left-24 z-10"
-          isVisible={isHoveringLeft}
-          animation="slideFromLeft"
-        />
+       
 
         {/* Nugget image from remote version */}
         <ProductImage
           src="/assets/ASSET - HOME/2 ASSET - HOME/2 ASSET - HOME NUGGET.png"
           alt="Kanzler nugget"
-          className="absolute top-20 -right-4 z-10"
+          className="absolute top-20 -right-20 z-10"
           isVisible={isHoveringLeft}
           animation="slideFromRight"
         />
 
         {/* Floating cocktail products */}
         <motion.div
-          className="absolute -bottom-64 -rotate-45 left-96 w-1/2 max-w-md z-20"
+          className="absolute -bottom-64 -rotate-45 left-96 w-[30vw] max-w-[90vw] z-20"
           initial={{ opacity: 1, rotate: -15, y: 0 }}
           animate={{
             y: isHoveringLeft ? 70 : 0,
@@ -142,7 +137,7 @@ const SplitLeft = memo(function SplitLeft({
           <Image
             src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME BEEF COCKTAIL.png"
             alt="Kanzler cocktail 1"
-            width={400}
+            width={15000}
             height={300}
             className="object-contain"
             loading="lazy"
@@ -150,13 +145,13 @@ const SplitLeft = memo(function SplitLeft({
         </motion.div>
 
         <motion.div
-          className="absolute -bottom-64 -rotate-45 left-96 w-1/2 max-w-md z-20"
+          className="absolute -bottom-64 -rotate-45 left-96 w-[40vw] max-w-[90vw] z-20"
           initial={{ opacity: 1, rotate: -10, y: 0, x: 0 }}
           animate={{
-            y: isHoveringLeft ? 50 : -150,
-            x: isHoveringLeft ? 75 : 50,
+            y: isHoveringLeft ? 75 : -150,
+            x: isHoveringLeft ? 50 : 50,
             scale: isHoveringLeft ? 0.8 : 1,
-            rotate: isHoveringLeft ? -5 : -15,
+            rotate: isHoveringLeft ? -15 : -15,
             display: isHoveringLeft ? 'block' : ' none',
           }}
           transition={BOUNCY_TRANSITION}
@@ -164,7 +159,7 @@ const SplitLeft = memo(function SplitLeft({
           <Image
             src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME CRISPY NUGGET.png"
             alt="Kanzler crispy nugget"
-            width={1000}
+            width={1500}
             height={300}
             className="object-contain"
             loading="lazy"

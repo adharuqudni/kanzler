@@ -56,14 +56,14 @@ export default function RecipeDetailSection({
           borderStyle: "solid",
         }}
       >
-        <div className="grid grid-cols-12 gap-8 p-6 md:p-10 lg:p-12 items-center">
+        <div className="grid grid-cols-12 gap-8 p-6 md:p-10 lg:p-4 items-center">
           {/* Left: Media */}
-          <div className="col-span-12 md:col-span-4 flex justify-center self-center">
+          <div className="col-span-12 w-full md:col-span-4 flex justify-center self-center">
             <div
-              className="rounded-[26px] overflow-hidden border bg-black/5"
+              className="rounded-[26px] overflow-hidden border bg-black/5 "
               style={{ borderColor: `${NAVY}1A` }}
             >
-              <div className="relative aspect-[9/16] w-[60vw] max-w-[240px]">
+              <div className="relative aspect-[9/16] w-[60vw] max-w-[18vw]">
                 <video
                   src={videoUrl}
                   controls

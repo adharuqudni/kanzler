@@ -93,7 +93,7 @@ export default function HomepackHeroSection() {
       </div>
 
       {/* Curved bottom transition */}
-      <div className="absolute bottom-0 left-0 w-full h-[20vw] overflow-hidden scale-y-[-1] border-0">
+      <div className="absolute bottom-0 left-0 w-full h-[40vw] overflow-hidden scale-y-[-1] border-0">
         <div 
           className="absolute bottom-0 left-0 w-full h-full border-0"
           style={{
@@ -194,7 +194,7 @@ export default function HomepackHeroSection() {
               visible: {
                 opacity: 1,
                 y: -100,
-                x: 150,
+                x: 250,
                 scale: 1,
                 transition: {
                   ...BOUNCY_TRANSITION,
@@ -238,10 +238,10 @@ export default function HomepackHeroSection() {
               },
               visible: {
                 opacity: 1,
-                y: 350,
-                x: 120,
-                rotate: -25,
-                scale: 1,
+                y: 300,
+                x: 80,
+                rotate: -40,
+                scale: 1.1,
                 transition: {
                   ...BOUNCY_TRANSITION,
                   duration: 1.3,
@@ -284,8 +284,8 @@ export default function HomepackHeroSection() {
               },
               visible: {
                 opacity: 1,
-                y: 400,
-                x: -100,
+                y: 430,
+                x: 0,
                 rotate: 15,
                 scale: 1,
                 transition: {
@@ -319,7 +319,7 @@ export default function HomepackHeroSection() {
 
           {/* Top right Floating Nugget */}
           <motion.div
-            className="absolute top-0 right-0 z-30"
+            className="absolute top-0 right-[10%] z-30"
             variants={{
               hidden: {
                 opacity: 0,
@@ -330,9 +330,9 @@ export default function HomepackHeroSection() {
               },
               visible: {
                 opacity: 1,
-                y: -500,
+                y: -550,
                 x: 0,
-                rotate: 45,
+                rotate: 180,
                 scale: 1,
                 transition: {
                   ...BOUNCY_TRANSITION,
@@ -355,7 +355,7 @@ export default function HomepackHeroSection() {
             animate={shouldExit ? "exit" : "visible"}
           >
             <Image
-              src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK NUGGET KIRI ATAS.png"
+              src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK NUGGET KANAN ATAS.png"
               alt="Nugget Left"
               width={220}
               height={220}
@@ -376,8 +376,8 @@ export default function HomepackHeroSection() {
               },
               visible: {
                 opacity: 1,
-                y: -800,
-                x: 0,
+                y: -720,
+                x: 90,
                 rotate: -20,
                 scale: 1,
                 transition: {
@@ -401,7 +401,7 @@ export default function HomepackHeroSection() {
             animate={shouldExit ? "exit" : "visible"}
           >
             <Image
-              src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK NUGGET KANAN ATAS.png"
+              src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK NUGGET KIRI ATAS.png"
               alt="Nugget Right"
               width={300}
               height={300}

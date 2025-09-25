@@ -18,7 +18,7 @@ export default function HomepackPage() {
         <ProductCarouselSection
           productData={homepackProductData}
           title="Homepack Products"
-          defaultCategory="nuggets"
+          defaultCategory="nugget"
         />
       </section>
       <section id="resep">

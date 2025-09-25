@@ -203,6 +203,7 @@ interface ProductImageProps {
   className?: string;
   isVisible: boolean;
   animation: "slideFromLeft" | "slideFromRight" | "slideUp";
+  rotateOverride?: number;
 }
 
 export const ProductImage = memo(function ProductImage({
@@ -211,6 +212,7 @@ export const ProductImage = memo(function ProductImage({
   className = "",
   isVisible,
   animation,
+  rotateOverride = 0,
 }: ProductImageProps) {
   const getAnimationProps = () => {
     switch (animation) {
@@ -220,7 +222,8 @@ export const ProductImage = memo(function ProductImage({
           animate: {
             x: isVisible ? 50 : -350,
             opacity: isVisible ? 1 : 0,
-            rotate: 25,
+            rotate: rotateOverride ? rotateOverride :  25,
+            scale: rotateOverride ? 0.9 : 1,
           },
         };
       case "slideFromRight":
@@ -318,12 +321,12 @@ const FloatingProducts = memo(function FloatingProducts({
       </motion.div>
 
       <motion.div
-        className="absolute top-1/2 -rotate-45 left-[45%] z-30"
+        className="absolute top-1/2 -rotate-45 left-[44%] z-30"
         initial={{ opacity: 0, y: 350 }}
         animate={{
           opacity: 1,
           rotate: 20,
-          y: 100, // turun dari 0 → 100
+          y: 0, // turun dari 0 → 100
           zIndex: isHoveringLeft ? 5 : 20,
         }}
         transition={{ duration: 1, ease: "easeIn" }}
@@ -340,7 +343,7 @@ const FloatingProducts = memo(function FloatingProducts({
       </motion.div>
 
       <motion.div
-        className="absolute top-1/2 -rotate-45 right-96 z-30"
+        className="absolute top-1/2 -rotate-45 right-[30%] z-30"
         initial={{ opacity: 0, y: 350 }}
         animate={{
           opacity: 1,

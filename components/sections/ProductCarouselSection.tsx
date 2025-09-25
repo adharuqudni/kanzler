@@ -214,15 +214,15 @@ export default function ProductCarouselSection({
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex items-center">
         <div className="container mx-auto px-8 py-16">
-          <div className="grid grid-cols-12 gap-8 items-center">
+          <div className="grid grid-cols-12 items-center">
             {/* Left Side - Category Toggle */}
-            <div className="col-span-3">
-              <div className="space-y-8">
+            <div className="col-span-4">
+              <div className="space-y-8 items-center justify-center text-center ml-20 -mt-40 mb-8">
                 {categories.map((category, index) => (
                   <motion.button
                     key={category}
                     onClick={() => handleCategoryChange(category)}
-                    className={`flex items-center gap-4 text-left w-full transition-all duration-300 ${
+                    className={`flex items-center gap-4 text-left w-full transition-all duration-300  justify-center ${
                       activeCategory === category
                         ? 'text-white'
                         : 'text-white/60 hover:text-white/80'
@@ -238,12 +238,12 @@ export default function ProductCarouselSection({
                               : 0
                             : index === 0
                             ? 0
-                            : -90,
+                            : -80,
                         scale:
                           activeCategory === category
                             ? index === 0
-                              ? 1
-                              : 1
+                              ? 1.4
+                              : 1.4
                             : index === 0
                             ? 0.8
                             : 0.8,
@@ -258,14 +258,14 @@ export default function ProductCarouselSection({
                     <div className="flex items-center gap-4">
                       <h2
                         className={`${
-                          defaultCategory == 'nuggets'
+                          defaultCategory == 'nugget'
                             ? dmSerif.className
                             : paytoneOne.className
                         } text-6xl font-bold`}
                       >
                         {category.toUpperCase()}
                       </h2>
-                      <div className="w-12 h-12 relative">
+                      <div className="w-12 h-12 relative mt-4">
                         <Image
                           src="/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES ARROW CIRCLE.png"
                           alt="Arrow Circle"
@@ -286,14 +286,14 @@ export default function ProductCarouselSection({
 
               {/* Category Description */}
               <motion.div
-                className="mt-8 text-white/80"
+                className="mt-8 text-white/80 w-full flex justify-center "
                 variants={fadeInUpVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
               >
-                <p className={`${poppins.className} text-lg leading-relaxed`}>
+                <p className={`${poppins.className} text-xl w-[300px] text-center  `}>
                   {currentProduct?.description ||
                     'Produk berkualitas dengan berbagai varian rasa.'}
                 </p>
@@ -301,7 +301,7 @@ export default function ProductCarouselSection({
             </div>
 
             {/* Center - Product Image & Mockup */}
-            <div className="col-span-6 flex justify-center items-center space-x-8">
+            <div className="col-span-4 flex justify-center items-center space-x-8">
               <AnimatePresence mode="wait">
                 {/* Product Image */}
                 <motion.div
@@ -310,9 +310,9 @@ export default function ProductCarouselSection({
                   initial={{ opacity: 1, scale: 0, x: 120, y: 0, rotate: -10 }}
                   animate={{
                     opacity: 1,
-                    scale: defaultCategory === 'nuggets' ? activeCategory === 'nuggets' ? 1.2 : 0.7 : 1,
-                    rotate: -10,
-                    x: 120,
+                    scale: defaultCategory === 'nugget' ? activeCategory === 'nugget' ? 1.4 : 1.2 : 1,
+                    rotate: defaultCategory === 'nugget' ? -10 : -10,
+                    x: defaultCategory === 'nugget' ?  120 : 60,
                     y: 0,
                     zIndex: 50,
                   }}
@@ -322,7 +322,7 @@ export default function ProductCarouselSection({
                   <Image
                     src={currentProduct.image}
                     alt={`${currentProduct.name} Product`}
-                    width={defaultCategory === 'nuggets' ? 700 : 500}
+                    width={defaultCategory === 'nugget' ? 700 : 500}
                     height={800}
                     className="object-contain drop-shadow-2xl"
                     priority
@@ -342,10 +342,10 @@ export default function ProductCarouselSection({
                   }}
                   animate={{
                     opacity: 1,
-                    scale: 0.4,
-                    rotate: 10,
-                    x: -120,
-                    y: 80,
+                    scale: defaultCategory === 'nugget' ? activeCategory === 'nugget' ? 1.4 : 1.2 : 0.4 ,
+                    rotate: defaultCategory === 'nugget' ? 5 : 10,
+                    x: defaultCategory === 'nugget' ? -50 : -120,
+                    y: defaultCategory === 'nugget' ? 0 : 80,
                   }}
                   exit={{ opacity: 1, scale: 0, x: -120, y: 80 }}
                   transition={{ ...SMOOTH_BOUNCY, duration: 0.8 }}
@@ -353,7 +353,7 @@ export default function ProductCarouselSection({
                   <Image
                     src={currentProduct.mockup}
                     alt={`${currentProduct.name} Package`}
-                    width={defaultCategory == 'nuggets' ? 700 : 500}
+                    width={defaultCategory == 'nugget' ? 700 : 500}
                     height={800}
                     className="object-contain drop-shadow-2xl"
                     priority
@@ -362,7 +362,7 @@ export default function ProductCarouselSection({
               </AnimatePresence>
             </div>
             {/* Right Side - Product Info */}
-            <div className="col-span-3 flex flex-col justify-center items-center text-center">
+            <div className="col-span-4 flex flex-col justify-center items-center text-center">
               {/* Navigation Arrows with Product Name in between */}
               <div className="flex items-center justify-center space-x-8 mb-8">
                 <motion.button
@@ -399,7 +399,7 @@ export default function ProductCarouselSection({
                   >
                     <h3
                       className={`${
-                        defaultCategory != 'nuggets'
+                        defaultCategory != 'nugget'
                           ? paytoneOne.className
                           : dmSerif.className
                       } text-4xl font-bold text-[#1C2653] mb-2`}
@@ -444,7 +444,7 @@ export default function ProductCarouselSection({
                 >
                   {/* Product Description */}
                   <motion.p
-                    className={`leading-relaxed text-xl text-[#1C2653] mb-12 ${poppins.className}`}
+                    className={`leading-relaxed text-xl text-[#1C2653] mb-12 text-center ${poppins.className}`}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.3 }}

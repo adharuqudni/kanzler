@@ -182,7 +182,7 @@ export function CategoryGrid({
                       </div>
                       <CardContent className="p-6 text-center">
                         <h3 className="text-xl font-medium mb-1">{category.name}</h3>
-                        <p className="text-muted-foreground text-sm">
+                        <p className="text-muted-foreground text-sm text-center">
                           {category.description}
                         </p>
                       </CardContent>

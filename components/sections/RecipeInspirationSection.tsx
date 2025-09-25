@@ -135,7 +135,7 @@ export default function RecipeInspirationSection() {
   };
 
   return (
-    <section className="relative bg-white overflow-visible">
+    <section className="relative bg-white overflow-visible mt-36">
       <div className="relative z-10 flex flex-col">
         <div className="container mx-auto px-8 py-16">
           <AnimatePresence mode="wait">

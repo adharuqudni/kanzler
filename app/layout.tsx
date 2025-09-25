@@ -7,6 +7,7 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import ConditionalNavbar from "@/components/ConditionalNavbar"
 import Footer from "@/components/footer"
+import SinglesSidebar from "@/components/navigation/SinglesSidebar"
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -44,6 +45,7 @@ export default function RootLayout({
         >
           <div className="min-h-screen flex flex-col">
             <ConditionalNavbar />
+           
             <main className="flex-1">
               {children}
             </main>
