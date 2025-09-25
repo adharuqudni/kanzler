@@ -33,6 +33,19 @@ const SplitLeft = memo(function SplitLeft({
       transition={BOUNCY_TRANSITION}
     >
       <div className="relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
+        
+        {/* 🔰 Logo Crown di kiri atas */}
+        <div className="absolute top-8 left-8 z-20">
+          <Image
+            src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
+            alt="Kanzler Crown Top Left"
+            width={20}
+            height={20}
+            className="object-contain w-8 h-8 sm:w-12 sm:h-12 md:w-[40px] md:h-[40px]"
+            priority
+          />
+        </div>
+
         {isHoveringLeft && (
           <>
             {/* Split Logo Animation - Crown and Text */}
@@ -110,9 +123,7 @@ const SplitLeft = memo(function SplitLeft({
           animation="slideFromLeft"
         />
 
-       
-
-        {/* Nugget image from remote version */}
+        {/* Nugget image */}
         <ProductImage
           src="/assets/ASSET - HOME/2 ASSET - HOME/2 ASSET - HOME NUGGET.png"
           alt="Kanzler nugget"

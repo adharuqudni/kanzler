@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { memo } from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { BOUNCY_TRANSITION } from '@/lib/motion';
-import MotionWrapper from '@/components/animations/MotionWrapper';
-import Link from 'next/link';
-import { SideProps } from './Hero';
+import { memo } from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { BOUNCY_TRANSITION } from "@/lib/motion";
+import MotionWrapper from "@/components/animations/MotionWrapper";
+import Link from "next/link";
+import { SideProps } from "./Hero";
 
 const SplitRight = memo(function SplitRight({
   isHoveringRight,
@@ -20,14 +20,14 @@ const SplitRight = memo(function SplitRight({
       className={`absolute top-0 bottom-0 right-0 flex items-center justify-center ${
         isHoveringRight
           ? "bg-[url('/assets/ASSET%20-%20HOME/3%20ASSET%20-%20HOME/3%20ASSET%20-%20HOME%20SPACE%20SPLIT%202.png')] bg-inherit bg-right"
-          : ''
+          : ""
       }`}
-      initial={{ width: '50%' }}
+      initial={{ width: "50%" }}
       animate={{
         width: `${(isHoveringLeft ? 115 : 100) - leftSideWidth}%`,
         clipPath: isHoveringRight
-          ? 'ellipse(100% 100% at 100% 50%)'
-          : 'ellipse(100% 80% at 100% 50%)',
+          ? "ellipse(100% 100% at 100% 50%)"
+          : "ellipse(100% 80% at 100% 50%)",
         zIndex: 10 - leftSideIndex,
       }}
       transition={BOUNCY_TRANSITION}
@@ -38,7 +38,7 @@ const SplitRight = memo(function SplitRight({
             {/* Split Logo Animation - Crown and Text */}
             <div className="flex flex-col items-center z-10">
               {/* Crown - animates first */}
-              <MotionWrapper variant="scaleInBig" delay={0.1} className="mb-2 sm:mb-4">
+              <MotionWrapper variant="scaleInBig" delay={0.1}>
                 <Image
                   src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
                   alt="Kanzler Crown"
@@ -50,7 +50,7 @@ const SplitRight = memo(function SplitRight({
               </MotionWrapper>
 
               {/* Kanzler Text - animates second */}
-              <MotionWrapper variant="fadeInUp" delay={0.3} className="mb-3 sm:mb-6">
+              <MotionWrapper variant="fadeInUp" delay={0.3}>
                 <Image
                   src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler.svg"
                   alt="Kanzler"
@@ -63,13 +63,17 @@ const SplitRight = memo(function SplitRight({
             </div>
 
             {/* Singles Product Line */}
-            <MotionWrapper variant="fadeInUp" delay={0.5} className="mb-3 sm:mb-6 z-10">
+            <MotionWrapper
+              variant="fadeInUp"
+              delay={0.5}
+              className="z-10" // 🔹 hapus mb-3 sm:mb-6
+            >
               <Image
                 src="/assets/ASSET - HOME/1 ASSET - HOME/Singles.png"
                 alt="Singles"
-                width={500}
+                width={600}
                 height={80}
-                className="object-contain "
+                className="object-contain"
                 loading="lazy"
               />
             </MotionWrapper>
@@ -80,18 +84,20 @@ const SplitRight = memo(function SplitRight({
               delay={0.7}
               className="text-white text-center z-10"
             >
-              <p className="mb-4 sm:mb-6 max-w-xs sm:max-w-md text-xs sm:text-sm md:text-base leading-relaxed">
-                Produk sosis dan bakso berkualitas yang terbuat dari daging sapi
-                dan ayam pilihan. Sudah matang, siap untuk langsung dimakan,
-                atau diolah menjadi berbagai menu harian.
+              <p className="max-w-md sm:max-w-xl md:max-w-2xl text-xs sm:text-sm md:text-base leading-relaxed">
+                Produk sosis dan bakso berkualitas yang terbuat dari daging{" "}
+                <br />
+                sapi dan ayam pilihan. Sudah matang, siap untuk langsung <br />
+                dimakan, atau diolah menjadi berbagai menu harian.
               </p>
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="mt-8" // 🔹 tambahan jarak setara 2x enter
               >
                 <Link href="/singles">
-                  <Button className="bg-white text-kanzler-navy font-bold hover:bg-gray-100 rounded-full px-4 sm:px-6  py-0 text-xs sm:text-sm md:text-base">
+                  <Button className="bg-white text-kanzler-navy font-bold hover:bg-gray-100 rounded-full px-4 sm:px-6 py-0 text-xs sm:text-sm md:text-base">
                     Lihat semua produk ›
                   </Button>
                 </Link>
@@ -102,12 +108,13 @@ const SplitRight = memo(function SplitRight({
 
         {/* Right side floating products */}
         <motion.div
-          className="absolute -bottom-56 -rotate-45 -left-12 z-30"
-          initial={{ opacity: 1, rotate: 15, x: -30 }}
+          className="absolute -bottom-80 rotate-45 -left-28 z-30"
+          initial={{ opacity: 1, rotate: 40, x: -30 }}
           animate={{
             y: isHoveringRight ? -420 : 0,
             x: isHoveringRight ? -30 : 0,
-            display: isHoveringRight ? 'block' : ' none',
+            rotate: 40, // 🔹 selalu 40°, tidak berubah
+            display: isHoveringRight ? "block" : " none",
           }}
           transition={BOUNCY_TRANSITION}
         >
@@ -122,13 +129,13 @@ const SplitRight = memo(function SplitRight({
         </motion.div>
 
         <motion.div
-          className="absolute -bottom-60 -rotate-45 right-96  z-30"
-          initial={{ opacity: 1, rotate: 35, y: 0 }}
+          className="absolute bottom-16 right-80 z-30"
+          initial={{ opacity: 1, rotate: -25, y: 0 }}
           animate={{
             y: 0,
             x: isHoveringRight ? 500 : 0,
-            rotate: isHoveringRight ? -15 : 35,
-            display: isHoveringRight ? 'block' : ' none',
+            rotate: isHoveringRight ? -25 : -25, // selalu miring kiri 25°
+            display: isHoveringRight ? "block" : " none",
           }}
           transition={BOUNCY_TRANSITION}
         >
