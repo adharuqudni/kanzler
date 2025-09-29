@@ -83,22 +83,16 @@ export default function SinglesSidebar() {
             <Link href="/">
               <div className="mb-4">
                 <Image
-                  src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
+                  src="/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK MAHKOTA.png"
                   alt="Kanzler Crown"
                   width={40}
                   height={40}
                   className="object-contain drop-shadow-lg"
-                  style={{
-                    filter:
-                      activeSection != ''
-                        ? 'brightness(0) saturate(100%) invert(51%) sepia(87%) saturate(558%) hue-rotate(15deg) brightness(96%) contrast(92%)'
-                        : 'brightness(0) saturate(100%) invert(100%)',
-                  }}
                 />
               </div>
             </Link>
           </div>
-
+          
           {/* Menu Buttons - Only visible when scrolled */}
           <AnimatePresence>
             {activeSection != '' && (
@@ -131,7 +125,7 @@ export default function SinglesSidebar() {
                           className={`text-sm font-semibold transition-colors ${
                             item.isActive
                               ? 'text-white'
-                              : 'text-yellow-400 group-hover:text-yellow-300'
+                              : 'text-yellow-AA7B32 group-hover:text-yellow-300'
                           }`}
                         >
                           {item.label}

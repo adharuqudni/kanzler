@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import Image from 'next/image';
-import { SMOOTH_BOUNCY } from '@/lib/motion';
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { SMOOTH_BOUNCY } from "@/lib/motion";
 
 export default function FixedAnimatedProducts({
   currentSection,
@@ -18,18 +18,15 @@ export default function FixedAnimatedProducts({
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      // Check if we're at the very top of the page (within 50px threshold)
       const isAtTop = scrollY <= 50;
-      
+
       if (isAtTop && hasAnimated && currentSection === 0) {
-        // We're back at the top after having scrolled away - trigger replay
         setShouldReplay(true);
         setAnimationState('initial');
-        // Reset replay flag after animation completes
         setTimeout(() => {
           setShouldReplay(false);
           setAnimationState('animated');
-        }, 1500); // Duration + delay
+        }, 1500);
       }
     };
 
@@ -47,10 +44,9 @@ export default function FixedAnimatedProducts({
     }
   }, [currentSection, lastSection, hasAnimated]);
 
-  // Animation variants that change based on section
   const getAnimationVariants = (section: number) => {
+    // Define your animation variants based on sections
     if (section === 0) {
-      // First section - original animation
       return {
         slideUpVariants: {
           hidden: {
@@ -93,7 +89,6 @@ export default function FixedAnimatedProducts({
         },
       };
     } else if (section === 1) {
-      // Second section - different animation
       return {
         slideUpVariants: {
           hidden: {
@@ -128,52 +123,6 @@ export default function FixedAnimatedProducts({
             x: 25,
             opacity: 1,
             scale: 3.2,
-            rotate: -30,
-            transition: {
-              ...SMOOTH_BOUNCY,
-              duration: 1.2,
-              delay: 0.3,
-            },
-          },
-        },
-      };
-    } else if (section === 2) {
-      return {
-        slideUpVariants: {
-          hidden: {
-            y: 0,
-            x: -50,
-            opacity: 1,
-            scale: 3.2,
-            rotate: 35,
-          },
-          visible: {
-            y: 300,
-            x: -500,
-            opacity: 0,
-            scale: 0,
-            display: 'none',
-            rotate: 35,
-            transition: {
-              ...SMOOTH_BOUNCY,
-              duration: 1.2,
-            },
-          },
-        },
-        slideUpDelayedVariants: {
-          hidden: {
-            y: 0,
-            x: 25,
-            opacity: 1,
-            scale: 3.5,
-            rotate: -20,
-          },
-          visible: {
-            y: 0,
-            x: 500,
-            opacity: 0,
-            scale: 0,
-            display: 'none',
             rotate: -30,
             transition: {
               ...SMOOTH_BOUNCY,
@@ -236,18 +185,11 @@ export default function FixedAnimatedProducts({
 
   const variants = getAnimationVariants(currentSection);
 
-  // Calculate final animation values based on current section
-  const getFinalAnimationValues = (section: number, isDelayed: boolean = false) => {
-    const vars = getAnimationVariants(section);
-    const targetVariant = isDelayed ? vars.slideUpDelayedVariants : vars.slideUpVariants;
-    return targetVariant.visible;
-  };
-
-  const sausageAnimation = getFinalAnimationValues(currentSection, false);
-  const meatballAnimation = getFinalAnimationValues(currentSection, true);
+  const sausageAnimation = variants.slideUpVariants.visible;
+  const meatballAnimation = variants.slideUpDelayedVariants.visible;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-30">
+    <div className="fixed inset-0 pointer-events-none z-50"> {/* Set z-index to 50 */}
       {/* Left Side - Sausage */}
       <motion.div
         className="absolute left-16 lg:left-32 top-1/2 transform -translate-y-1/2"
@@ -259,9 +201,9 @@ export default function FixedAnimatedProducts({
           <Image
             src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES SOSIS GOCHU.png"
             alt="Kanzler Sosis Gochu"
-            width={200}
-            height={280}
-            className="object-contain drop-shadow-2xl"
+            width={180}
+            height={150}
+            className="object-contain drop-shadow-2xl mb-20"
             priority
           />
         </div>

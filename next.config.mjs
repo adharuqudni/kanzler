@@ -43,6 +43,7 @@ const nextConfig = {
     minimumCacheTTL: 60,
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    domains: ['kznlr.qup.my.id', 'example.com'], // Add external domains for images
   },
   
   // Development optimizations

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import SinglesHero from '@/components/sections/SinglesHero';
 import SinglesSecondSection from '@/components/sections/SinglesSecondSection';
-import ProductCarouselSection from '@/components/sections/ProductCarouselSection';
+import ProductCarouselSectionSingles from '@/components/sections/ProductCarouselSectionSingles';
 import RecipeInspirationSection from '@/components/sections/RecipeInspirationSection';
 import FixedAnimatedProducts from '@/components/animations/FixedAnimatedProducts';
 import { useScroll } from 'framer-motion';
@@ -33,7 +33,7 @@ export default function SinglesPage() {
       <SinglesHero />
       <SinglesSecondSection />
       <section id="produk">
-        <ProductCarouselSection />
+        <ProductCarouselSectionSingles />
       </section>
       <section id="resep">
         <RecipeInspirationSection />
