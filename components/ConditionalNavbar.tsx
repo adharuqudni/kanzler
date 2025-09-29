@@ -5,8 +5,8 @@ import Navbar from "@/components/navigation/Navbar"
 import SinglesSidebar from './navigation/SinglesSidebar'
 
 export default function ConditionalNavbar() {
-  const pathname = usePathname()
-  const showNavbar = pathname === '/'
+  // const pathname = usePathname()
+  // const showNavbar = pathname === '/'
 
-  return showNavbar ? <Navbar /> : <SinglesSidebar />
+  // return showNavbar ? <Navbar /> : <SinglesSidebar />
 }

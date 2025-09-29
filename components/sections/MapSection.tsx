@@ -8,7 +8,7 @@ import { BOUNCY_TRANSITION } from "@/lib/motion";
 
 const MapSection = React.memo(function MapSection() {
   return (
-    <section className="min-h-screen bg-gradient-to-b from-[#34437A] to-[#1C2653] relative overflow-hidden">
+    <section className="min-h-screen bg-[#1C2653] relative overflow-hidden">
       {/* Top curved transition from white to navy */}
       <div className="absolute top-0 left-0 w-full">
         <svg
