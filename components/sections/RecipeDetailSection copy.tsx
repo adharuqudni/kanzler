@@ -31,7 +31,7 @@ export default function RecipeDetailSection({
     >
       {/* Kartu konten */}
       <div
-        className="relative mx-auto max-w-5xl h-[650px] rounded-[32px] bg-white shadow-[0_24px_70px_rgba(0,0,0,0.08)] overflow-visible"
+        className="relative mx-auto max-w-4xl h-[650px] rounded-[32px] bg-white shadow-[0_24px_70px_rgba(0,0,0,0.08)] overflow-visible"
         style={{
           borderColor: GOLD,
           borderWidth: 1.5,
@@ -45,15 +45,16 @@ export default function RecipeDetailSection({
               className="rounded-[26px] overflow-hidden border bg-black/5"
               style={{ borderColor: `${NAVY}1A` }}
             >
-              {/* Video container */}
-              <div className="relative w-full h-[600px]">
+              <div className="relative aspect-[9/12] w-[800] max-w-[460]">
+                {" "}
+                {/* Increased video width */}
                 <video
-                  src={videoUrl}  // Ensure this path is correct
+                  src="assets/vid.mp4"
                   controls
                   autoPlay
                   muted
                   playsInline
-                  className="w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               </div>
             </div>
@@ -61,6 +62,8 @@ export default function RecipeDetailSection({
 
           {/* Right: Teks */}
           <div className="col-span-12 md:col-span-8 md:pl-4 lg:pl-8 self-center text-left">
+            {" "}
+            {/* Left-aligned text */}
             <div className="max-w-2xl mt-12">
               <h1
                 className={`text-4xl md:text-5xl leading-[1.1] ${dmSerif.className}`}
@@ -75,13 +78,20 @@ export default function RecipeDetailSection({
                 Spaghetti
               </h2>
 
-              <p className="text-base md:text-lg mb-6 leading-relaxed" style={{ color: NAVY }}>
+              <p
+                className="text-base md:text-lg mb-6 leading-relaxed"
+                style={{ color: NAVY }}
+              >
                 Kombinasi pasta dan nugget yang praktis <br />
                 untuk lunch
               </p>
-              <div style={{ color: NAVY }}>
+              <div className="" style={{ color: NAVY }}>
+                {" "}
+                {/* Reduced space between the sections */}
                 <p className="font-bold text-lg">Bahan:</p>
-                <div className="text-[15px] md:text-base">
+                <div className=" text-[15px] md:text-base">
+                  {" "}
+                  {/* Reduced space between list items */}
                   <p>Kanzler Crispy Chicken Nugget</p>
                   <p>1 genggam pasta</p>
                   <p>½ buah bawang Bombay</p>
