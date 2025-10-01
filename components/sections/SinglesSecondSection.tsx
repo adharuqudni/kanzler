@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { Poppins } from 'next/font/google';
-import { motionVariants, BOUNCY_TRANSITION, SMOOTH_BOUNCY } from '@/lib/motion';
+import React from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { Poppins } from "next/font/google";
+import { motionVariants, BOUNCY_TRANSITION, SMOOTH_BOUNCY } from "@/lib/motion";
 
-const poppins = Poppins({ subsets: ['latin'], weight: ['400'] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400"] });
 
 export default function SinglesSecondSection() {
   const fadeInUpVariants = {
@@ -35,12 +35,17 @@ export default function SinglesSecondSection() {
           className="object-cover"
           priority
         />
-        <div className="absolute  bottom-1/2 left 1/2" >
+        <div className="absolute inset-0 z-10">
           <Image
             src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES GRADIENT BLENDING SCREEN.png"
             alt="Gradient Overlay"
-            fill
             className="object-cover mix-blend-screen opacity-80"
+            style={{
+              transform: "scale(1.5)",
+              objectFit: "cover",
+              objectPosition: "top",
+            }}
+            fill
           />
         </div>
       </div>
@@ -60,7 +65,7 @@ export default function SinglesSecondSection() {
             <Image
               src="/assets/ASSET - SINGLES/2 ASSET - SINGLES/2 ASSET - SINGLES LOGO.png"
               alt="Singles"
-              width={1000}
+              width={800}
               height={200}
               className="object-contain filter brightness-110 mx-auto"
             />
@@ -74,27 +79,28 @@ export default function SinglesSecondSection() {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <p className={`${poppins.className} text-white text-lg lg:text-xl leading-relaxed text-center`}>
-              Produk sosis dan bakso sudah matang tinggal makan
-              <br />
-              pertama di Indonesia. Praktis dimakan kapan pun dan di mana pun.
+            <p
+              className={`${poppins.className} text-white text-lg lg:text-xl leading-relaxed text-center`}
+            >
+              Produk sosis dan bakso sudah matang tinggal makan<br />
+             pertama di Indonesia. Praktis dimakan kapan pun dan di mana pun.
             </p>
           </motion.div>
         </div>
       </div>
 
       {/* Curved Bottom Transition - Similar to MapSection */}
-      <div className="absolute bottom-0 left-0 w-full h-[20vw] overflow-hidden scale-y-[-1] border-0">
-        <div 
+      <div className="absolute bottom-0 left-0 w-full h-[20vw] overflow-hidden scale-y-[-1] border-0 z-20">
+        <div
           className="absolute bottom-0 left-0 w-full h-full border-0"
           style={{
-            background: '#fff',
-            clipPath: 'ellipse(150% 100% at 50% 0%)',
-            transform: 'translateY(-80%)'
+            background: "#fff",
+            clipPath: "ellipse(85% 100% at 50% 0%)",
+            transform: "translateY(-80%)",
+            zIndex: 20, // Ensure this is above the gradient screen
           }}
         />
       </div>
-
     </section>
   );
 }

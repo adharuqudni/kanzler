@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { motionVariants, BOUNCY_TRANSITION, SMOOTH_BOUNCY } from '@/lib/motion';
+import React from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
+import { motionVariants, BOUNCY_TRANSITION, SMOOTH_BOUNCY } from "@/lib/motion";
 
 export default function SinglesHero() {
   // Custom animation variants for coming up from below
@@ -91,20 +91,23 @@ export default function SinglesHero() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-10">
           <Image
             src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES GRADIENT BLENDING SCREEN.png"
             alt="Gradient Overlay"
-            fill
             className="object-cover mix-blend-screen opacity-80"
+            style={{
+              transform: "scale(1.5)",
+              objectFit: "cover",
+              objectPosition: "top",
+            }}
+            fill
           />
         </div>
       </div>
 
       {/* Content Container */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
-       
-
         {/* Main Content Area */}
         <div className="flex flex-col items-center justify-center w-full max-w-6xl mx-auto relative z-40">
           {/* Crown */}
@@ -131,7 +134,7 @@ export default function SinglesHero() {
             animate="visible"
           >
             <Image
-              src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler.svg"
+              src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES LOGO TANPA R.png"
               alt="Kanzler"
               width={500}
               height={100}
@@ -154,11 +157,7 @@ export default function SinglesHero() {
             />
           </motion.div>
         </div>
-
-       
       </div>
-
-
     </section>
   );
 }

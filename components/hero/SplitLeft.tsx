@@ -26,8 +26,8 @@ const SplitLeft = memo(function SplitLeft({
       animate={{
         width: `${(isHoveringRight ? 15 : 0) + leftSideWidth}%`,
         clipPath: isHoveringLeft
-          ? 'ellipse(100% 100% at 0% 50%)'
-          : 'ellipse(100% 80% at 0% 50%)',
+          ? 'ellipse(100% 150% at 0% 50%)'
+          : 'ellipse(00% 80% at 0% 50%)',
         zIndex: leftSideIndex,
       }}
       transition={BOUNCY_TRANSITION}
@@ -65,7 +65,7 @@ const SplitLeft = memo(function SplitLeft({
               {/* Kanzler Text - animates second */}
               <MotionWrapper variant="fadeInUp" delay={0.3} className="-mt-8 mb-3 sm:mb-6">
                 <Image
-                  src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler.svg"
+                  src="/assets/KNZLR R.png"
                   alt="Kanzler"
                   width={400}
                   height={80}
@@ -95,8 +95,10 @@ const SplitLeft = memo(function SplitLeft({
             >
               <p className="mb-4 sm:mb-6 max-w-xs sm:max-w-md text-xs sm:text-sm md:text-base leading-relaxed">
                 Produk sosis dan nugget dari daging sapi dan ayam pilihan.
+                <br />
                 <span className="italic">Extra Meaty, Extra Juicy</span>, dan
-                mudah diolah menjadi menu lezat setiap hari.
+                mudah diolah menjadi menu <br />
+                 lezat setiap hari.
               </p>
               <motion.div
                 whileHover={{ scale: 1.05 }}

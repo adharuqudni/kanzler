@@ -26,7 +26,7 @@ const SplitRight = memo(function SplitRight({
       animate={{
         width: `${(isHoveringLeft ? 115 : 100) - leftSideWidth}%`,
         clipPath: isHoveringRight
-          ? "ellipse(100% 100% at 100% 50%)"
+          ? "ellipse(100% 150% at 100% 50%)"
           : "ellipse(100% 80% at 100% 50%)",
         zIndex: 10 - leftSideIndex,
       }}
@@ -52,7 +52,7 @@ const SplitRight = memo(function SplitRight({
               {/* Kanzler Text - animates second */}
               <MotionWrapper variant="fadeInUp" delay={0.3}>
                 <Image
-                  src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler.svg"
+                  src="/assets/KNZLR R.png"
                   alt="Kanzler"
                   width={400}
                   height={80}

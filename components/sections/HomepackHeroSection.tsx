@@ -133,7 +133,7 @@ export default function HomepackHeroSection() {
             transition={{ delay: 0.3 }}
           >
             <Image
-              src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler.svg"
+              src="/assets/KNZLR R.png"
               alt="Kanzler"
               width={700}
               height={150}

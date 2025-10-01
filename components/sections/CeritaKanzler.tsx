@@ -26,7 +26,7 @@ const CeritaKanzler = React.memo(function CeritaKanzler() {
         <MotionWrapper
           variant="fadeInUp"
           delay={0.35}
-          className="text-center mb-8 sm:mb-10 md:mb-12"
+          className="text-center mb-8 sm:mb-10 md:mb-4"
         >
           <h2
             className={`${dmSerif.className} leading-[0.9] tracking-[0.03em] text-[clamp(78px,16vw,190px)] text-[#1C2652]`}

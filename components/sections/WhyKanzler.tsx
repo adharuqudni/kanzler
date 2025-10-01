@@ -89,7 +89,7 @@ export default function WhyKanzler() {
                 </h3>
                 {/* Row 2: span kedua kolom → tepat di bawah ikon */}
                 <p className="col-span-2 mt-2 text-gray-600 text-[18px] leading-tight max-w-[260px]">
-                  Setiap gigitan menghadirkan sensasi <em>juicy</em> di dalam dan garing di luar.
+                  Setiap gigitan <br />menghadirkan sensasi <br /><em>juicy</em> di dalam dan <br /> garing di luar.
                 </p>
               </div>
             </OutlineBox>
@@ -138,7 +138,7 @@ export default function WhyKanzler() {
                 />
                 {/* Row 2: span kedua kolom, RATA KANAN */}
                 <p className="col-span-2 mt-3 text-gray-600 text-[18px] leading-tight text-right">
-                  Memiliki kandungan daging yang lebih banyak dibandingkan produk sejenis.
+                  Memiliki kandungan <br />daging yang lebih <br /> banyak dibandingkan <br /> produk sejenis.
                 </p>
               </div>
             </OutlineBox>

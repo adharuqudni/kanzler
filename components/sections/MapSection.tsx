@@ -8,7 +8,7 @@ import { BOUNCY_TRANSITION } from "@/lib/motion";
 
 const MapSection = React.memo(function MapSection() {
   return (
-    <section className="min-h-screen bg-gradient-to-b from-[#34437A] to-[#1C2653] relative overflow-hidden">
+    <section className="min-h-screen bg-[#1C2653] relative overflow-hidden">
       {/* Top curved transition from white to navy */}
       <div className="absolute top-0 left-0 w-full">
         <svg
@@ -61,7 +61,7 @@ const MapSection = React.memo(function MapSection() {
 
         {/* Statistics Section (below map, left aligned) */}
         <motion.div
-          className="flex items-baseline justify-start mt-6 sm:mt-8 md:mt-10 gap-2 sm:gap-4 px-4 sm:px-6 md:px-8"
+          className="flex items-baseline justify-start mt-6 sm:mt-8 md:mt-10 gap-2 sm:gap-4 px-4 sm:px-6 md:px-8 ml-8"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -72,9 +72,14 @@ const MapSection = React.memo(function MapSection() {
           <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#AA7B32]">
             498+
           </span>
-          <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-[#AA7B32]">
+          <motion.span
+            className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-[#AA7B32]"
+            initial={{ y: 0 }}
+            animate={{ y: -15 , x: -10}} // Adjust the vertical movement for this text
+            transition={{ duration: 0.4 }}
+          >
             kota & kabupaten di Indonesia
-          </span>
+          </motion.span>
         </motion.div>
 
         {/* Contact Information Box */}
