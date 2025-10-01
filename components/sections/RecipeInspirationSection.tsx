@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronDown, Search } from "lucide-react";
@@ -17,94 +17,107 @@ import RecipeDetailSection from "./RecipeDetailSection";
 
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 
+// TypeScript interfaces for API data
+interface ImageFormat {
+  name: string;
+  hash: string;
+  ext: string;
+  mime: string;
+  width: number;
+  height: number;
+  size: number;
+  url: string;
+}
+
+interface RecipeImage {
+  id: number;
+  documentId: string;
+  name: string;
+  alternativeText: string | null;
+  width: number;
+  height: number;
+  formats: {
+    thumbnail?: ImageFormat;
+    small?: ImageFormat;
+    medium?: ImageFormat;
+    large?: ImageFormat;
+  };
+  url: string;
+}
+
+interface VideoFile {
+  id: number;
+  documentId: string;
+  name: string;
+  alternativeText: string | null;
+  caption: string | null;
+  width: number | null;
+  height: number | null;
+  formats: any;
+  hash: string;
+  ext: string;
+  mime: string;
+  size: number;
+  url: string;
+  previewUrl: string | null;
+  provider: string;
+  provider_metadata: any;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
+interface Recipe {
+  id: number;
+  documentId: string;
+  Name: string;
+  Category: string;
+  Product: string;
+  Ingredient: string;
+  Description: string;
+  Image: RecipeImage;
+  Video?: VideoFile[];
+}
+
+interface ApiResponse {
+  data: Recipe[];
+}
+
 // Brand palette
 const NAVY = "#1C2653";
 const GOLD = "#AA7B32";
 const DUMMY_VIDEO_URL =
   "https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_63f1d1186d.mp4";
 
+// Category mapping from API to display names
+const categoryMapping: Record<string, string> = {
+  "singles-bakso": "Kanzler Singles - Bakso",
+  "singles-sosis": "Kanzler Singles - Sosis", 
+  "kanzler-sosis": "Kanzler Singles - Sosis",
+  "homepack": "Produk Kanzler",
+};
+
 // Dropdown categories
 const productCategories = [
-  "Produk Kanzler",
-  "Kanzler Singles - Bakso",
+  "Semua Produk",
+  "Kanzler Singles - Bakso", 
   "Kanzler Singles - Sosis",
+  "Produk Kanzler",
 ];
 
-// Data asli
-const videoData = [
-  {
-    id: "video-1",
-    title: "Creamy Pasta with Chicken Nuggets",
-    thumbnail:
-      "/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/HOMEPACK/bockwurst/Bockwurst.png",
-    category: "Kanzler Singles - Bakso",
-    videoUrl: DUMMY_VIDEO_URL,
-  },
-  {
-    id: "video-2",
-    title: "Crispy Nugget Sambal Tempong",
-    thumbnail:
-      "/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/HOMEPACK/bockwurst/Bockwurst.png",
-    category: "Kanzler Singles - Bakso",
-    videoUrl: DUMMY_VIDEO_URL,
-  },
-  {
-    id: "video-3",
-    title: "Chicken Nugget Wrap",
-    thumbnail:
-      "/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/HOMEPACK/bockwurst/Bockwurst.png",
-    category: "Kanzler Singles - Bakso",
-    videoUrl: DUMMY_VIDEO_URL,
-  },
-  {
-    id: "video-4",
-    title: "Sosis Bakar Bumbu Kecap",
-    thumbnail:
-      "/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/HOMEPACK/bockwurst/Bockwurst.png",
-    category: "Kanzler Singles - Sosis",
-    videoUrl: DUMMY_VIDEO_URL,
-  },
-  {
-    id: "video-5",
-    title: "Kari Sosis Santan",
-    thumbnail:
-      "/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/HOMEPACK/bockwurst/Bockwurst.png",
-    category: "Kanzler Singles - Sosis",
-    videoUrl: DUMMY_VIDEO_URL,
-  },
-  {
-    id: "video-6",
-    title: "Sosis Roll Keju",
-    thumbnail:
-      "/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/HOMEPACK/bockwurst/Bockwurst.png",
-    category: "Kanzler Singles - Sosis",
-    videoUrl: DUMMY_VIDEO_URL,
-  },
-  {
-    id: "video-7",
-    title: "Tumis Sayur Campur",
-    thumbnail:
-      "/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/HOMEPACK/bockwurst/Bockwurst.png",
-    category: "Produk Kanzler",
-    videoUrl: DUMMY_VIDEO_URL,
-  },
-  {
-    id: "video-8",
-    title: "Sandwich Spesial",
-    thumbnail:
-      "/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/HOMEPACK/bockwurst/Bockwurst.png",
-    category: "Produk Kanzler",
-    videoUrl: DUMMY_VIDEO_URL,
-  },
-  {
-    id: "video-9",
-    title: "Pizza Mini Homemade",
-    thumbnail:
-      "/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK PRODUCTS/HOMEPACK/bockwurst/Bockwurst.png",
-    category: "Produk Kanzler",
-    videoUrl: DUMMY_VIDEO_URL,
-  },
-];
+// API base URL
+const API_BASE_URL = "https://kznlr.qup.my.id";
+
+// Transform API recipe to video format
+const transformRecipeToVideo = (recipe: Recipe) => ({
+  id: recipe.documentId,
+  title: recipe.Name,
+  thumbnail: `${API_BASE_URL}${recipe.Image.formats.medium?.url || recipe.Image.url}`,
+  category: categoryMapping[recipe.Category] || "Produk Kanzler",
+  videoUrl: DUMMY_VIDEO_URL, // Keep using dummy video for now
+  description: recipe.Description,
+  ingredient: recipe.Ingredient,
+});
 
 export default function RecipeInspirationSection() {
   const [selectedCategory, setSelectedCategory] = useState(
@@ -112,14 +125,82 @@ export default function RecipeInspirationSection() {
   );
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const [recipes, setRecipes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedRecipeDetail, setSelectedRecipeDetail] = useState<Recipe | null>(null);
+  const [loadingDetail, setLoadingDetail] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const currentVideos =
-    selectedCategory === "Produk Kanzler"
-      ? videoData
-      : videoData.filter((v) => v.category === selectedCategory);
+  // Fetch recipes from API with Image and Video data
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        setLoading(true);
+        
+        // First fetch with Image
+        const imageResponse = await fetch(`${API_BASE_URL}/api/recipes?populate=Image`);
+        const imageData: ApiResponse = await imageResponse.json();
+        
+        // Then fetch with Video
+        const videoResponse = await fetch(`${API_BASE_URL}/api/recipes?populate=Video`);
+        const videoData: ApiResponse = await videoResponse.json();
+        
+        // Merge the data - combine Image and Video data for each recipe
+        const mergedRecipes = imageData.data.map(imageRecipe => {
+          const videoRecipe = videoData.data.find(vr => vr.documentId === imageRecipe.documentId);
+          return {
+            ...imageRecipe,
+            Video: videoRecipe?.Video || null
+          };
+        });
+        
+        setRecipes(mergedRecipes);
+      } catch (error) {
+        console.error("Error fetching recipes:", error);
+        setRecipes([]); // Fallback to empty array
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const handleCardClick = (id: string) => setSelectedVideo(id);
-  const handleBack = () => setSelectedVideo(null);
+    fetchRecipes();
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const currentVideos = 
+    selectedCategory === "Semua Produk"
+      ? recipes
+      : recipes.filter((recipe) => {
+          const mappedCategory = categoryMapping[recipe.Category] || "Produk Kanzler";
+          return mappedCategory === selectedCategory;
+        });
+
+  const handleCardClick = (id: string) => {
+    setSelectedVideo(id);
+    // Find the recipe from existing data
+    const recipe = recipes.find((r) => r.documentId === id);
+    if (recipe) {
+      setSelectedRecipeDetail(recipe);
+    }
+  };
+
+  const handleBack = () => {
+    setSelectedVideo(null);
+    setSelectedRecipeDetail(null);
+  };
 
   const selectedVideoData = selectedVideo
     ? currentVideos.find((v) => v.id === selectedVideo)
@@ -134,15 +215,48 @@ export default function RecipeInspirationSection() {
     },
   };
 
+  // Animation variants for carousel items entering from right
+  const carouselItemVariants = {
+    hidden: { 
+      opacity: 0, 
+      x: 600, // Large off-screen distance
+      scale: 0.9
+    },
+    visible: (index: number) => ({
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        ...SMOOTH_BOUNCY,
+        duration: 1.0,
+        delay: index * 0.15, // Staggered delay for each item
+      },
+    }),
+  };
+
+  // Container animation for the carousel
+  const carouselContainerVariants = {
+    hidden: { 
+      opacity: 1 // Keep container visible so children can be detected
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
   return (
     <section className="relative bg-white overflow-visible mt-36">
       <div className="relative z-10 flex flex-col">
         <div className="container mx-auto px-8 py-16">
           <AnimatePresence mode="wait">
-            {selectedVideo && selectedVideoData ? (
+            {selectedVideo ? (
               <RecipeDetailSection
-                videoUrl={selectedVideoData.videoUrl}
-                thumbnail={selectedVideoData.thumbnail}
+                recipe={selectedRecipeDetail}
+                loading={loadingDetail}
                 onBack={handleBack}
               />
             ) : (
@@ -194,10 +308,10 @@ export default function RecipeInspirationSection() {
                         Kategori
                       </p>
 
-                      <div className="relative w-full max-w-[300px]">
+                      <div ref={dropdownRef} className="relative w-full max-w-[280px] min-w-[280px]">
                         <motion.button
                           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                          className="w-full bg-white rounded-xl px-4 py-1.5 text-left flex items-center justify-between font-semibold transition-all duration-300 border-2 text-base"
+                          className="w-full bg-white rounded-xl px-4 py-1.5 text-left flex items-center justify-between font-semibold transition-all duration-300 border-2 text-base min-w-[280px]"
                           style={{ color: NAVY, borderColor: GOLD }}
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}
@@ -210,6 +324,49 @@ export default function RecipeInspirationSection() {
                             <ChevronDown size={18} color={GOLD} />
                           </motion.div>
                         </motion.button>
+
+                        {/* Dropdown Menu */}
+                        <AnimatePresence>
+                          {isDropdownOpen && (
+                            <motion.div
+                              initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                              animate={{ opacity: 1, y: 0, scale: 1 }}
+                              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                              transition={{ duration: 0.2, ease: "easeOut" }}
+                              className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border-2 shadow-lg z-50 overflow-hidden"
+                              style={{ borderColor: GOLD }}
+                            >
+                              {productCategories.map((category, index) => (
+                                <motion.button
+                                  key={category}
+                                  onClick={() => {
+                                    setSelectedCategory(category);
+                                    setIsDropdownOpen(false);
+                                  }}
+                                  className={`w-full px-4 py-2.5 text-left text-base font-semibold transition-all duration-200 hover:bg-opacity-10 ${
+                                    selectedCategory === category
+                                      ? "bg-opacity-15"
+                                      : "bg-transparent"
+                                  }`}
+                                  style={{
+                                    color: NAVY,
+                                    backgroundColor:
+                                      selectedCategory === category
+                                        ? GOLD
+                                        : "transparent",
+                                  }}
+                                  whileHover={{
+                                    backgroundColor: `${GOLD}20`,
+                                    transition: { duration: 0.2 },
+                                  }}
+                                  whileTap={{ scale: 0.98 }}
+                                >
+                                  {category}
+                                </motion.button>
+                              ))}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
 
                       {/* Search circle */}
@@ -226,42 +383,67 @@ export default function RecipeInspirationSection() {
 
                 {/* Right: Carousel FOTO 9:16 */}
                 <div className="col-span-8 pl-6">
-                  <motion.div
-                    variants={fadeInUpVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                  >
-                    <Carousel className="w-full">
-                      <CarouselContent className="-ml-4">
-                        {currentVideos.map((item) => (
+                  {loading ? (
+                    // Loading skeleton
+                    <div className="flex gap-4">
+                      {[1, 2, 3].map((i) => (
+                        <div
+                          key={i}
+                          className="aspect-[9/16] w-1/3 rounded-[28px] bg-gray-200 animate-pulse"
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <motion.div
+                      key={selectedCategory} // Force re-animation when category changes
+                      variants={carouselContainerVariants}
+                      initial="hidden"
+                      animate="visible"
+                      viewport={{ margin: "0px 0px -200px 0px" }}
+                    >
+                      <Carousel className="w-full">
+                        <CarouselContent className="-ml-4">
+                          {currentVideos.map((recipe, index) => (
                           <CarouselItem
-                            key={item.id}
+                            key={`${selectedCategory}-${recipe.documentId}`} // Unique key per category
                             className="pl-4 basis-1/3"
                           >
-                            <button
+                            <motion.button
                               className="relative aspect-[9/16] w-full rounded-[28px] overflow-hidden bg-gray-200 group"
-                              onClick={() => handleCardClick(item.id)}
-                              aria-label={item.title}
+                              onClick={() => handleCardClick(recipe.documentId)}
+                              aria-label={recipe.Name}
+                              variants={carouselItemVariants}
+                              initial="hidden"
+                              animate="visible"
+                              custom={index}
+                              whileHover={{ 
+                                scale: 1.05,
+                                transition: { duration: 0.3, ease: "easeOut" }
+                              }}
+                              whileTap={{ 
+                                scale: 0.95,
+                                transition: { duration: 0.1 }
+                              }}
                             >
                               <Image
-                                src={item.thumbnail}
-                                alt={item.title}
+                                src={`${API_BASE_URL}${recipe.Image.formats?.medium?.url || recipe.Image.url}`}
+                                alt={recipe.Name}
                                 fill
                                 sizes="(min-width: 1024px) 30vw, 90vw"
                                 className="object-cover"
                                 priority={false}
                               />
                               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />
-                            </button>
+                            </motion.button>
                           </CarouselItem>
                         ))}
                       </CarouselContent>
-                      <CarouselPrevious className="left-4" />
-                      <CarouselNext className="right-4" />
-                    </Carousel>
-                  </motion.div>
-                </div>
+                          <CarouselPrevious className="left-4" />
+                          <CarouselNext className="right-4" />
+                        </Carousel>
+                      </motion.div>
+                    )}
+                  </div>
               </motion.div>
             )}
           </AnimatePresence>

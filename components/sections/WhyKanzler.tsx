@@ -66,10 +66,10 @@ export default function WhyKanzler() {
           {/* LEFT CARD — icon kiri, heading kanan, deskripsi DI BAWAH IKON (span kolom) */}
           <motion.div
             className="order-2 lg:order-1"
-            initial={{ opacity: 0, x: -60 }}
+            initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ ...BOUNCY_TRANSITION, duration: 0.8 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: false, amount: 0.3 }}
           >
             <OutlineBox side="left">
               <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start text-left">
@@ -101,7 +101,7 @@ export default function WhyKanzler() {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ ...BOUNCY_TRANSITION, duration: 0.8 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: false, amount: 0.3 }}
           >
             <h2
               className={`${dmSerif.className} text-[#1E2756] leading-[0.85] tracking-tight text-6xl lg:text-8xl font-normal whitespace-nowrap`}
@@ -115,10 +115,10 @@ export default function WhyKanzler() {
           {/* RIGHT CARD — icon kanan, heading kiri, deskripsi RATa KANAN (span kolom) */}
           <motion.div
             className="order-3"
-            initial={{ opacity: 0, x: 60 }}
+            initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ ...BOUNCY_TRANSITION, duration: 0.8 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: false, amount: 0.3 }}
           >
             <OutlineBox side="right">
               <div className="grid grid-cols-[1fr_auto] gap-x-4 items-start w-full max-w-[280px]">

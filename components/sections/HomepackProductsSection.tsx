@@ -99,10 +99,10 @@ export default function HomepackProductsSection() {
             }}
           >
             <motion.div
-              initial={{ opacity: 0, x: -60, y: 20, rotate: -8 }}
+              initial={{ opacity: 1, x: 120, y: 150, rotate: -8 }}
               whileInView={{ opacity: 1, x: 0, y: 0, rotate: -8 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.6, delay: 0.1,  ease: "easeOut" }}
               style={{ willChange: "transform" }}
             >
               <Image
@@ -125,9 +125,9 @@ export default function HomepackProductsSection() {
             }}
           >
             <motion.div
-              initial={{ opacity: 0, x: 60, y: 20, rotate: 10 }}
+              initial={{ opacity: 1, x: -120, y: 150, rotate: 10 }}
               whileInView={{ opacity: 1, x: 0, y: 0, rotate: 10 }}
-              viewport={{ once: true, amount: 0.35 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
               style={{ willChange: "transform" }}
             >
@@ -152,10 +152,10 @@ export default function HomepackProductsSection() {
             }}
           >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 150 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
-              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.6,  ease: "easeOut" }}
               style={{ willChange: "transform" }}
             >
               <Image

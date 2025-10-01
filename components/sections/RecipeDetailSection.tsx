@@ -6,8 +6,21 @@ import Image from "next/image";
 import { DM_Serif_Display } from "next/font/google";
 
 interface RecipeDetailProps {
-  videoUrl: string;
-  thumbnail: string;
+  recipe: {
+    Name: string;
+    Description: string;
+    Ingredient: string;
+    Image: {
+      url: string;
+      formats?: {
+        medium?: { url: string };
+      };
+    };
+    Video?: Array<{
+      url: string;
+    }>;
+  } | null;
+  loading: boolean;
   onBack: () => void;
 }
 
@@ -16,10 +29,37 @@ const GOLD = "#AA7B32";
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 
 export default function RecipeDetailSection({
-  videoUrl,
-  thumbnail,
+  recipe,
+  loading,
   onBack,
 }: RecipeDetailProps) {
+  const API_BASE_URL = "https://kznlr.qup.my.id";
+  
+  if (loading) {
+    return (
+      <motion.div
+        key="loading-recipe"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="flex items-center justify-center h-[650px]"
+      >
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2" style={{ borderColor: GOLD }}></div>
+      </motion.div>
+    );
+  }
+
+  if (!recipe) {
+    return null;
+  }
+
+  const videoUrl = recipe.Video?.[0]?.url ? `${API_BASE_URL}${recipe.Video[0].url}` : null;
+  const thumbnailUrl = `${API_BASE_URL}${recipe.Image.formats?.medium?.url || recipe.Image.url}`;
+  
+  // Parse ingredients - split by numbers or line breaks
+  const ingredientsList = recipe.Ingredient
+    .split(/\n\d+\n|\n/)
+    .filter(item => item.trim() && !item.match(/^\d+$/))
+    .map(item => item.trim());
   return (
     <motion.div
       key="selected-recipe"
@@ -31,7 +71,7 @@ export default function RecipeDetailSection({
     >
       {/* Kartu konten */}
       <div
-        className="relative mx-auto max-w-5xl h-[650px] rounded-[32px] bg-white shadow-[0_24px_70px_rgba(0,0,0,0.08)] overflow-visible"
+        className="relative mx-auto max-w-5xl min-h-[650px] rounded-[32px] bg-white shadow-[0_24px_70px_rgba(0,0,0,0.08)] overflow-visible"
         style={{
           borderColor: GOLD,
           borderWidth: 1.5,
@@ -47,14 +87,20 @@ export default function RecipeDetailSection({
             >
               {/* Video container */}
               <div className="relative w-full h-[600px]">
-                <video
-                  src={videoUrl}  // Ensure this path is correct
-                  controls
-                  autoPlay
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
+                {videoUrl ? (
+                  <video
+                    src={videoUrl}
+                    controls
+                    autoPlay
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gray-100">
+                    <p className="text-gray-500">No video available</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -66,30 +112,26 @@ export default function RecipeDetailSection({
                 className={`text-4xl md:text-5xl leading-[1.1] ${dmSerif.className}`}
                 style={{ color: GOLD }}
               >
-                Nugget
+                {recipe.Name.split(' ')[0]}
               </h1>
               <h2
                 className={`text-5xl md:text-6xl leading-[1.1] mb-4 md:mb-6 ${dmSerif.className}`}
                 style={{ color: NAVY }}
               >
-                Spaghetti
+                {recipe.Name.split(' ').slice(1).join(' ')}
               </h2>
 
               <p className="text-base md:text-lg mb-6 leading-relaxed" style={{ color: NAVY }}>
-                Kombinasi pasta dan nugget yang praktis <br />
-                untuk lunch
+                {recipe.Description}
               </p>
               <div style={{ color: NAVY }}>
-                <p className="font-bold text-lg">Bahan:</p>
-                <div className="text-[15px] md:text-base">
-                  <p>Kanzler Crispy Chicken Nugget</p>
-                  <p>1 genggam pasta</p>
-                  <p>½ buah bawang Bombay</p>
-                  <p>1 genggam jamur kancing</p>
-                  <p>Lada dan garam secukupnya</p>
-                  <p>1 sdt bawang putih bubuk</p>
-                  <p>1 sdt Italian seasoning</p>
-                  <p>½ sdt kaldu jamur</p>
+                <p className="font-bold text-lg">Bahan & Cara Memasak:</p>
+                <div className="text-[15px] md:text-base space-y-2 ">
+                  {ingredientsList.map((ingredient, index) => (
+                    <p key={index} className="leading-relaxed">
+                      {ingredient}
+                    </p>
+                  ))}
                 </div>
               </div>
             </div>
@@ -105,8 +147,8 @@ export default function RecipeDetailSection({
             transition={{ duration: 0.5 }}
           >
             <Image
-              src={thumbnail}
-              alt="Kanzler Product"
+              src={thumbnailUrl}
+              alt={recipe.Name}
               fill
               className="object-contain"
               priority={false}

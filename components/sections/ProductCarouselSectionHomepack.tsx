@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
-import { SMOOTH_BOUNCY } from "@/lib/motion";
-import { DM_Serif_Display, Poppins, Paytone_One } from "next/font/google";
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
+import { SMOOTH_BOUNCY } from '@/lib/motion';
+import { DM_Serif_Display, Poppins, Paytone_One } from 'next/font/google';
 
-const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
+const dmSerif = DM_Serif_Display({ subsets: ['latin'], weight: '400' });
 const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
 });
 const paytoneOne = Paytone_One({
-  subsets: ["latin"],
-  weight: "400",
+  subsets: ['latin'],
+  weight: '400',
 });
 
 // API Product data type
@@ -92,14 +92,14 @@ interface ProductCarouselSectionProps {
   backgroundImage?: string;
   title?: string;
   defaultCategory?: string;
-  productType?: "singles" | "homepack"; // Add product type prop
+  productType?: 'singles' | 'homepack'; // Add product type prop
 }
 
 export default function ProductCarouselSection({
-  backgroundImage = "/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES SPLIT BACKGROUND.png",
-  title = "Products",
+  backgroundImage = '/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES SPLIT BACKGROUND.png',
+  title = 'Products',
   defaultCategory,
-  productType = "homepack", // Default to homepack
+  productType = 'homepack', // Default to homepack
 }: ProductCarouselSectionProps) {
   const [productData, setProductData] = useState<ProductData>({});
   const [loading, setLoading] = useState(true);
@@ -111,8 +111,8 @@ export default function ProductCarouselSection({
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animationDirection, setAnimationDirection] = useState<
-    "left" | "right"
-  >("right");
+    'left' | 'right'
+  >('right');
 
   // Fetch products from API
   useEffect(() => {
@@ -122,12 +122,12 @@ export default function ProductCarouselSection({
 
         // Fetch products and images separately
         const [productsResponse, imagesResponse] = await Promise.all([
-          fetch("https://kznlr.qup.my.id/api/products"),
-          fetch("https://kznlr.qup.my.id/api/products?populate=Image"),
+          fetch('https://kznlr.qup.my.id/api/products'),
+          fetch('https://kznlr.qup.my.id/api/products?populate=Image'),
         ]);
 
         if (!productsResponse.ok || !imagesResponse.ok) {
-          throw new Error("Failed to fetch products");
+          throw new Error('Failed to fetch products');
         }
 
         const productsData: ApiResponse = await productsResponse.json();
@@ -149,7 +149,7 @@ export default function ProductCarouselSection({
 
         filteredProducts.forEach((apiProduct) => {
           // Extract category name (e.g., "homepack-nugget" -> "nugget")
-          const categoryName = apiProduct.Category.split("-")[1];
+          const categoryName = apiProduct.Category.split('-')[1];
 
           if (!groupedProducts[categoryName]) {
             groupedProducts[categoryName] = [];
@@ -161,8 +161,8 @@ export default function ProductCarouselSection({
           // Find the product image (not mockup) - usually the .png file
           const productImage = productImages.find(
             (img) =>
-              img.name.includes(".png") ||
-              (!img.name.includes("mockup") && !img.name.includes("thermopack"))
+              img.name.includes('.png') ||
+              (!img.name.includes('mockup') && !img.name.includes('thermopack'))
           );
 
           // Construct image URL - use the API base URL
@@ -170,7 +170,7 @@ export default function ProductCarouselSection({
             ? `https://kznlr.qup.my.id${productImage.url}`
             : `/assets/ASSET - ${productType.toUpperCase()}/3 ASSET - ${productType.toUpperCase()}/3 ASSET - ${productType.toUpperCase()} PRODUCTS/${productType.toUpperCase()} - ${categoryName.toUpperCase()}/${apiProduct.Name.toLowerCase().replace(
                 /\s+/g,
-                "-"
+                '-'
               )}.png`;
 
           // Transform API product to component product format
@@ -193,7 +193,7 @@ export default function ProductCarouselSection({
           setActiveCategory(Object.keys(groupedProducts)[0]);
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : "An error occurred");
+        setError(err instanceof Error ? err.message : 'An error occurred');
       } finally {
         setLoading(false);
       }
@@ -218,12 +218,12 @@ export default function ProductCarouselSection({
   };
 
   const handleNext = () => {
-    setAnimationDirection("right");
+    setAnimationDirection('right');
     setCurrentIndex((prev) => (prev + 1) % currentProducts.length);
   };
 
   const handlePrev = () => {
-    setAnimationDirection("left");
+    setAnimationDirection('left');
     setCurrentIndex(
       (prev) => (prev - 1 + currentProducts.length) % currentProducts.length
     );
@@ -240,8 +240,8 @@ export default function ProductCarouselSection({
 
   // Get category description based on product type and category
   const getCategoryDescription = (category: string) => {
-    if (productType === "homepack") {
-      if (category === "nugget") {
+    if (productType === 'homepack') {
+      if (category === 'nugget') {
         return (
           <p className="text-center w-full max-w-xl text-xl">
             Nugget kualitas premium yang <br />
@@ -249,7 +249,7 @@ export default function ProductCarouselSection({
             dan Extra Juicy
           </p>
         );
-      } else if (category === "sosis") {
+      } else if (category === 'sosis') {
         return (
           <p className="text-center w-full max-w-xl text-xl">
             Sosis dengan cita rasa otentik yang <br />
@@ -316,8 +316,8 @@ export default function ProductCarouselSection({
                     onClick={() => handleCategoryChange(category)}
                     className={`flex items-center gap-4 text-left w-[500px] transition-all duration-300 justify-center mx-auto ${
                       activeCategory === category
-                        ? "text-white"
-                        : "text-white/60 hover:text-white/80"
+                        ? 'text-white'
+                        : 'text-white/60 hover:text-white/80'
                     }`}
                     variants={{
                       hidden: { opacity: 0, y: 30 },
@@ -350,7 +350,7 @@ export default function ProductCarouselSection({
                     <div className="flex items-center ml-4 mr-16">
                       <h2
                         className={`${
-                          defaultCategory === "nugget"
+                          defaultCategory === 'nugget'
                             ? dmSerif.className
                             : paytoneOne.className
                         } text-6xl font-bold`}
@@ -363,7 +363,7 @@ export default function ProductCarouselSection({
                           alt="Arrow Circle"
                           style={{
                             transform: `rotate(${
-                              activeCategory === category ? "0" : "270"
+                              activeCategory === category ? '0' : '270'
                             }deg)`,
                           }}
                           width={48}
@@ -391,69 +391,152 @@ export default function ProductCarouselSection({
 
             {/* Center - Product Image Only (No Mockup) */}
             <div className="col-span-4 flex justify-center items-center relative mb-60">
+              {/* Back Image (Most Background) */}
               <AnimatePresence mode="wait">
-                {/* Product Images */}
                 <motion.div
-                  key={`${activeCategory}-${currentIndex}-product`}
-                  className="relative"
-                  initial={{ opacity: 0, scale: 0.8, x: 0, y: 0 }}
+                  key={`${activeCategory}-${currentIndex}-back`}
+                  className="absolute flex justify-center items-center"
+                  style={{
+                    zIndex: 30,
+                    width: '400px',
+                    height: '400px',
+                    left: '55%',
+                    marginLeft: '-200px',
+                    top: '-50px',
+                  }}
+                  initial={{
+                    opacity: 1,
+                    scale: 0.85,
+                    rotate: 10,
+                  }}
+                  animate={{
+                    opacity:1,
+                    scale: 0.95,
+                    rotate: 10,
+                  }}
+                  exit={{
+                    opacity: 1,
+                    scale: 0.85,
+                    rotate: 10,
+                  }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <Image
+                    src={
+                      animationDirection === 'right'
+                        ? currentProducts[currentIndex + 2]?.image ||
+                          currentProducts[0]?.image ||
+                          ''
+                        : currentProducts[currentIndex - 2]?.image ||
+                          currentProducts[currentProducts.length - 1]?.image ||
+                          ''
+                    }
+                    alt="Back Product"
+                    width={300}
+                    height={300}
+                    className="object-contain drop-shadow-lg"
+                    priority
+                    unoptimized
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Middle Image (Transitioning to Foreground) */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${activeCategory}-${currentIndex}-middle`}
+                  className="absolute flex justify-center items-center"
+                  style={{
+                    zIndex: 40,
+                    width: '400px',
+                    height: '400px',
+                    left: '47%',
+                    marginLeft: '-200px',
+                    top: '-52px',
+                  }}
+                  initial={{
+                    opacity: 0,
+                    x: 0,
+                    scale: 0.8,
+                    rotate: 15,
+                  }}
+                  animate={{
+                    opacity: 0,
+                    x: 0,
+                    scale: 0.85,
+                    rotate: 15,
+                    zIndex:60,
+                  }}
+                  exit={{
+                    opacity: 1,
+                    x: -50,
+                    y: 8,
+                    scale: 1,
+                    rotate: -5,
+                    zIndex: 60,
+                  }}
+                  transition={{ ...SMOOTH_BOUNCY, duration: 0.8 }}
+                >
+                  <Image
+                    src={
+                      animationDirection === 'right'
+                        ? currentProducts[currentIndex + 1]?.image ||
+                          currentProducts[0]?.image ||
+                          ''
+                        : currentProducts[currentIndex - 1]?.image ||
+                          currentProducts[currentProducts.length - 1]?.image ||
+                          ''
+                    }
+                    alt="Middle Product"
+                    width={300}
+                    height={300}
+                    className="object-contain drop-shadow-xl ml-8"
+                    priority
+                    unoptimized
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Foreground Image (Current Product) */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${activeCategory}-${currentIndex}-foreground`}
+                  className="absolute flex justify-center items-center"
+                  style={{
+                    zIndex: 50,
+                    width: '400px',
+                    height: '400px',
+                    left: '50%',
+                    marginLeft: '-200px',
+                    top: '-50px',
+                  }}
+                  initial={{
+                    opacity: 1,
+                    scale: 1,
+                    rotate: -5,
+                  }}
                   animate={{
                     opacity: 1,
                     scale: 1,
-                    x: 0,
-                    y: 0,
-                    zIndex: 50,
+                    rotate: -5,
                   }}
-                  exit={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                  exit={{
+                    opacity: 0,
+                    scale: 0.9,
+                    rotate: -20,
+                    zIndex: 30,
+                  }}
                   transition={{ ...SMOOTH_BOUNCY, duration: 0.8 }}
                 >
-                  {/* Background Image (Rotated in the correct direction) */}
-                  <motion.div
-                    className="absolute flex justify-center items-center"
-                    style={{
-                      transform: "rotate(10deg)", // Adjusted to rotate in the opposite direction
-                      zIndex: 40,
-                      width: "400px", // Ensure a fixed width
-                      height: "400px", // Ensure a fixed height
-                      left: "50%", // Position horizontally centered
-                      transformOrigin: "center", // Ensure rotation around the center
-                      marginLeft: "-200px", // Offset to center the image correctly
-                      top: "-50px", // Move image upwards
-                    }}
-                  >
-                    <Image
-                      src={currentProduct?.image || ""}
-                      alt={`${currentProduct?.name || "Product"} Product`}
-                      width={300}
-                      height={300}
-                      className="object-contain drop-shadow-2xl ml-8"
-                      priority
-                    />
-                  </motion.div>
-
-                  {/* Foreground Image (Rotated in the opposite direction) */}
-                  <motion.div
-                    className="absolute flex justify-center items-center"
-                    style={{
-                      transform: "rotate(-5deg)", // Adjusted to rotate in the opposite direction
-                      zIndex: 50,
-                      width: "400px", // Ensure a fixed width
-                      height: "400px", // Ensure a fixed height
-                      left: "50%", // Position horizontally centered
-                      transformOrigin: "center", // Ensure rotation around the center
-                      marginLeft: "-200px", // Offset to center the image correctly
-                      top: "-50px", // Move image upwards
-                    }}
-                  >
-                    <Image
-                      src={currentProduct?.image || ""}
-                      alt={`${currentProduct?.name || "Product"} Product`}
-                      width={300}
-                      height={300}
-                      className="object-contain drop-shadow-2xl mr-24 mt-"
-                      priority
-                    />
-                  </motion.div>
+                  <Image
+                    src={currentProduct?.image || ''}
+                    alt={`${currentProduct?.name || 'Product'} Foreground`}
+                    width={300}
+                    height={300}
+                    className="object-contain drop-shadow-2xl mr-24"
+                    priority
+                    unoptimized
+                  />
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -462,7 +545,7 @@ export default function ProductCarouselSection({
             <div className="col-span-4 flex flex-col justify-center items-center text-center">
               {/* Navigation Arrows with Product Name in between */}
               <div className="flex items-center justify-center mt-12 mb-8">
-                {" "}
+                {' '}
                 {/* Reduced space-x-8 to space-x-4 */}
                 <motion.button
                   onClick={handlePrev}
@@ -484,24 +567,24 @@ export default function ProductCarouselSection({
                     key={`${activeCategory}-${currentIndex}-title`}
                     initial={{
                       opacity: 0,
-                      x: animationDirection === "right" ? 50 : -50,
+                      x: animationDirection === 'right' ? 50 : -50,
                     }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{
                       opacity: 0,
-                      x: animationDirection === "right" ? -50 : 50,
+                      x: animationDirection === 'right' ? -50 : 50,
                     }}
                     transition={{ ...SMOOTH_BOUNCY, duration: 0.5 }}
                     className="text-center min-w-[200px] w-full"
                   >
                     <h3
                       className={`${
-                        defaultCategory !== "nugget"
+                        defaultCategory !== 'nugget'
                           ? paytoneOne.className
                           : dmSerif.className
                       } text-4xl font-bold text-[#1C2653] mb-2`}
                     >
-                      {currentProduct?.name || "Product Name"}
+                      {currentProduct?.name || 'Product Name'}
                     </h3>
                   </motion.div>
                 </AnimatePresence>
@@ -525,26 +608,17 @@ export default function ProductCarouselSection({
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeCategory}-${currentIndex}-info`}
-                  initial={{
-                    opacity: 0,
-                    x: animationDirection === "right" ? 50 : -50,
-                  }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{
-                    opacity: 0,
-                    x: animationDirection === "right" ? -50 : 50,
-                  }}
-                  transition={{ ...SMOOTH_BOUNCY, duration: 0.4, delay: 0.1 }}
+                 
                   className="space-y-6 max-w-sm"
                 >
                   {/* Product Description */}
                   <motion.p
-                    className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[400px] ml-[-10px]`}
-                    initial={{ opacity: 0, y: 20 }}
+                    className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[400px] ml-[-10px] h-[25vh]`}
+                    initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.3 }}
                   >
-                    {currentProduct?.details || "Product details"}
+                    {currentProduct?.details || 'Product details'}
                   </motion.p>
 
                   {/* Recipe Button */}
@@ -553,7 +627,7 @@ export default function ProductCarouselSection({
              font-medium ring-1 ring-white/40
              shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_2px_6px_rgba(0,0,0,0.12)]
              transition-all duration-200 hover:scale-[1.01] active:scale-[0.98] focus:outline-none"
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.3 }}
                     whileHover={{}}
@@ -573,9 +647,9 @@ export default function ProductCarouselSection({
         <div
           className="absolute top-0 left-0 w-full h-full border-0"
           style={{
-            background: "#fff",
-            clipPath: "ellipse(150% 100% at 50% 0%)",
-            transform: "translateY(-80%)",
+            background: '#fff',
+            clipPath: 'ellipse(150% 100% at 50% 0%)',
+            transform: 'translateY(-80%)',
           }}
         />
       </div>

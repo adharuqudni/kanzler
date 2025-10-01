@@ -80,6 +80,7 @@ export interface Product {
   name: string;
   description: string;
   image: string;
+  secondImage?: string | null;
   details: string;
   type?: string;
 }
@@ -165,13 +166,24 @@ export default function ProductCarouselSection({
               (!img.name.includes("mockup") && !img.name.includes("thermopack"))
           );
 
-          // Construct image URL - use the API base URL
+          // Find the mockup/thermopack image
+          const mockupImage = productImages.find(
+            (img) =>
+              img.name.includes("mockup") || img.name.includes("thermopack")
+          );
+
+          // Construct primary image URL - use the API base URL
           const imageUrl = productImage
             ? `https://kznlr.qup.my.id${productImage.url}`
             : `/assets/ASSET - ${productType.toUpperCase()}/3 ASSET - ${productType.toUpperCase()}/3 ASSET - ${productType.toUpperCase()} PRODUCTS/${productType.toUpperCase()} - ${categoryName.toUpperCase()}/${apiProduct.Name.toLowerCase().replace(
                 /\s+/g,
                 "-"
               )}.png`;
+
+          // Construct secondary image URL (mockup/thermopack)
+          const secondImageUrl = mockupImage
+            ? `https://kznlr.qup.my.id${mockupImage.url}`
+            : null;
 
           // Transform API product to component product format
           const transformedProduct: Product = {
@@ -180,6 +192,7 @@ export default function ProductCarouselSection({
             description: apiProduct.Description,
             details: apiProduct.Description, // Using description as details
             image: imageUrl,
+            secondImage: secondImageUrl,
             type: categoryName,
           };
 
@@ -410,70 +423,81 @@ export default function ProductCarouselSection({
 
             {/* Center - Product Image Only (No Mockup) */}
             <div className="col-span-4 flex justify-center items-center relative mb-60">
+              {/* Back Image (Most Background) */}
               <AnimatePresence mode="wait">
-                {/* Product Images */}
                 <motion.div
-                  key={`${activeCategory}-${currentIndex}-product`}
-                  className="relative"
-                  initial={{ opacity: 0, scale: 0.8, x: 0, y: 0 }}
+                  key={`${activeCategory}-${currentIndex}-back`}
+                  className="absolute flex justify-center items-center"
+                  style={{
+                    zIndex: 30,
+                    width: '125px',
+                    height: '400px',
+                    left: '45%',
+                    marginLeft: '-50px',
+                    top: '0px',
+                    transformOrigin: 'left bottom', // Rotation center at left bottom
+                  }}
+                  initial={{
+                    opacity: 1,
+                    scale: 0.85,
+                    rotate: 5,
+                  }}
                   animate={{
                     opacity: 1,
-                    scale: 1,
-                    x: 0,
-                    y: 0,
-                    zIndex: 50,
+                    scale: 0.95,
+                    rotate: 15,
                   }}
-                  exit={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                  exit={{
+                    opacity: 0,
+                    scale: 0.85,
+                    rotate: 20,
+                  }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                >
+                  <Image
+                    src={
+                      currentProduct?.secondImage || ''
+                    }
+                    alt="Back Product"
+                    width={300}
+                    height={300}
+                    className="object-contain drop-shadow-lg"
+                    priority
+                  />
+                </motion.div>
+              </AnimatePresence>
+
+
+              {/* Foreground Image (Current Product) */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={`${activeCategory}-${currentIndex}-foreground`}
+                  className="absolute flex justify-center items-center"
+                  style={{
+                    zIndex: 50,
+                    width: '400px',
+                    height: '400px',
+                    left: '50%',
+                    marginLeft: '-200px',
+                    top: '-50px',
+                  }}
+                  initial={{
+                    opacity: 1,
+                    scale: 1,
+                    rotate: -5,
+                    
+                  }}
+                
                   transition={{ ...SMOOTH_BOUNCY, duration: 0.8 }}
                 >
-                  {/* Background Image (Rotated in the correct direction) */}
-                  <motion.div
-                    className="absolute flex justify-center items-center"
-                    style={{
-                      transform: "rotate(10deg)", // Adjusted to rotate in the opposite direction
-                      zIndex: 40,
-                      width: "400px", // Ensure a fixed width
-                      height: "400px", // Ensure a fixed height
-                      left: "50%", // Position horizontally centered
-                      transformOrigin: "center", // Ensure rotation around the center
-                      marginLeft: "-200px", // Offset to center the image correctly
-                      top: "-50px", // Move image upwards
-                    }}
-                  >
-                    <Image
-                      src={currentProduct?.image || ""}
-                      alt={`${currentProduct?.name || "Product"} Product`}
-                      width={300}
-                      height={300}
-                      className="object-contain drop-shadow-2xl ml-28"
-                      priority
-                    />
-                    {/* belakang */}
-                  </motion.div>
-
-                  {/* Foreground Image (Rotated in the opposite direction) */}
-                  <motion.div
-                    className="absolute flex justify-center items-center"
-                    style={{
-                      transform: "rotate(-10deg)", // Adjusted to rotate in the opposite direction
-                      zIndex: 50,
-                      width: "400px", // Ensure a fixed width
-                      height: "400px", // Ensure a fixed height
-                      left: "50%", // Position horizontally centered
-                      transformOrigin: "center", // Ensure rotation around the center
-                      marginLeft: "-200px", // Offset to center the image correctly
-                      top: "-50px", // Move image upwards
-                    }}
-                  >
-                    <Image
-                      src={currentProduct?.image || ""}
-                      alt={`${currentProduct?.name || "Product"} Product`}
-                      width={350}
-                      height={350}
-                      className="object-contain drop-shadow-2xl mr-28 mb-20"
-                      priority
-                    />
-                  </motion.div>
+                  <Image
+                    src={currentProduct?.image || ''}
+                    alt={`${currentProduct?.name || 'Product'} Foreground`}
+                    width={300}
+                    height={300}
+                    className="object-contain drop-shadow-2xl mr-24"
+                    priority
+                  />
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -481,7 +505,9 @@ export default function ProductCarouselSection({
             {/* Right Side - Product Info */}
             <div className="col-span-4 flex flex-col justify-center items-center text-center">
               {/* Navigation Arrows with Product Name in between */}
-              <div className="flex items-center justify-center space-x-8 mt-12 mb-12">
+              <div className="flex items-center justify-center mt-12 mb-8">
+                {' '}
+                {/* Reduced space-x-8 to space-x-4 */}
                 <motion.button
                   onClick={handlePrev}
                   className="w-16 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-110"
@@ -496,7 +522,6 @@ export default function ProductCarouselSection({
                     className="object-contain rotate-180"
                   />
                 </motion.button>
-
                 {/* Product Name between arrows */}
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -512,7 +537,6 @@ export default function ProductCarouselSection({
                     }}
                     transition={{ ...SMOOTH_BOUNCY, duration: 0.5 }}
                     className="text-center min-w-[200px] w-full"
-                    style={{ marginLeft: 0 }}
                   >
                     <h3
                       className={`${
@@ -525,13 +549,11 @@ export default function ProductCarouselSection({
                     </h3>
                   </motion.div>
                 </AnimatePresence>
-
                 <motion.button
                   onClick={handleNext}
                   className="w-16 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-110"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  style={{ marginLeft: 0 }}
                 >
                   <Image
                     src="/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES ARROW NEXT.png"
@@ -547,22 +569,13 @@ export default function ProductCarouselSection({
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeCategory}-${currentIndex}-info`}
-                  initial={{
-                    opacity: 0,
-                    x: animationDirection === "right" ? 50 : -50,
-                  }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{
-                    opacity: 0,
-                    x: animationDirection === "right" ? -50 : 50,
-                  }}
-                  transition={{ ...SMOOTH_BOUNCY, duration: 0.4, delay: 0.1 }}
+                 
                   className="space-y-6 max-w-sm"
                 >
                   {/* Product Description */}
                   <motion.p
-                    className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[400px] ml-[-20px]`}
-                    initial={{ opacity: 0, y: 20 }}
+                    className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[400px] ml-[-10px] h-[25vh]`}
+                    initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.3 }}
                   >
@@ -575,7 +588,7 @@ export default function ProductCarouselSection({
              font-medium ring-1 ring-white/40
              shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_2px_6px_rgba(0,0,0,0.12)]
              transition-all duration-200 hover:scale-[1.01] active:scale-[0.98] focus:outline-none"
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.3 }}
                     whileHover={{}}

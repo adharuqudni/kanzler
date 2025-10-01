@@ -48,34 +48,64 @@ export default function SinglesHero() {
     },
   };
 
-  const textFadeInVariants = {
+  // Dramatic zoom bounce entry for Crown
+  const crownBounceVariants = {
     hidden: {
       opacity: 0,
-      y: 30,
+      scale: 0.2,
     },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1, // Towewew zoom effect
       transition: {
-        ...BOUNCY_TRANSITION,
-        duration: 0.8,
-        delay: 0.6,
+        duration: 1.5,
+        delay: 0.2,
+        scale: {
+          duration: 1.5,
+          ease: [0.25, 0.46, 0.45, 0.94], // Custom bounce easing
+        },
       },
     },
   };
 
-  const logoFadeInVariants = {
+  // Dramatic zoom bounce entry for Kanzler Logo
+  const kanzlerBounceVariants = {
     hidden: {
       opacity: 0,
-      scale: 0.9,
+      scale: 0.1,
     },
     visible: {
       opacity: 1,
-      scale: 1,
+      scale: 1, // More dramatic towewew
       transition: {
-        ...BOUNCY_TRANSITION,
-        duration: 1,
-        delay: 0.2,
+        duration: 1.8,
+        delay: 0.6,
+        scale: {
+          duration: 1.8,
+          ease: [0.25, 0.46, 0.45, 0.94],
+        },
+      },
+    },
+  };
+
+  // Dramatic zoom bounce entry for Singles Text
+  const singlesBounceVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.05,
+    },
+    visible: {
+      opacity: 1,
+      scale: [0.05, 1.5, 0.7, 1.3, 0.9, 1.1, 1], // Most dramatic towewew
+      rotate: 0,
+      transition: {
+        duration: 2.2,
+        delay: 1.0,
+        scale: {
+          duration: 2.2,
+          ease: [0.25, 0.46, 0.45, 0.94],
+        },
       },
     },
   };
@@ -113,7 +143,7 @@ export default function SinglesHero() {
           {/* Crown */}
           <motion.div
             className="mb-6"
-            variants={logoFadeInVariants}
+            variants={crownBounceVariants}
             initial="hidden"
             animate="visible"
           >
@@ -129,7 +159,7 @@ export default function SinglesHero() {
           {/* Kanzler Logo */}
           <motion.div
             className="mb-4"
-            variants={textFadeInVariants}
+            variants={kanzlerBounceVariants}
             initial="hidden"
             animate="visible"
           >
@@ -144,7 +174,7 @@ export default function SinglesHero() {
 
           {/* Singles Text */}
           <motion.div
-            variants={textFadeInVariants}
+            variants={singlesBounceVariants}
             initial="hidden"
             animate="visible"
           >
