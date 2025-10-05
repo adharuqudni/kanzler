@@ -19,6 +19,12 @@ interface RecipeDetailProps {
     Video?: Array<{
       url: string;
     }>;
+    Product_IMG?: {
+      url: string;
+      formats?: {
+        medium?: { url: string };
+      };
+    }; // <-- Perbaiki tipe jadi objek, bukan string
   } | null;
   loading: boolean;
   onBack: () => void;
@@ -53,7 +59,7 @@ export default function RecipeDetailSection({
   }
 
   const videoUrl = recipe.Video?.[0]?.url ? `${API_BASE_URL}${recipe.Video[0].url}` : null;
-  const thumbnailUrl = `${API_BASE_URL}${recipe.Image.formats?.medium?.url || recipe.Image.url}`;
+  const thumbnailUrl = `${API_BASE_URL}${recipe.Product_IMG?.formats?.medium?.url || recipe.Product_IMG?.url}`;
   
   // Parse ingredients - split by numbers or line breaks
   const ingredientsList = recipe.Ingredient

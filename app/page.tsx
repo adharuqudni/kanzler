@@ -8,9 +8,17 @@ import MapSection from '@/components/sections/MapSection'
 export default function Home() {
   return (
     <>
-      <Hero />
-      <CeritaKanzler />
-      <MapSection />
+      <section id="HeroSection">
+        <Hero />
+      </section>
+
+      <section id="CeritaKanzler">
+        <CeritaKanzler />
+      </section>
+
+      <section id="MapSection">
+        <MapSection />
+      </section>
     </>
   )
 }

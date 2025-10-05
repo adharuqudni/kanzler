@@ -45,7 +45,7 @@ export default function HomepackProductsSection() {
         >
           Produk nugget dan sosis dari daging sapi dan ayam pilihan.
           <br />
-          Extra Meaty, Extra Juicy, dan mudah diolah menjadi menu lezat setiap hari.
+          <span className="italic">Extra Meaty, Extra Juicy</span>, dan mudah diolah menjadi menu lezat setiap hari.
         </motion.p>
 
         {/* MOBILE: Stack layout */}
