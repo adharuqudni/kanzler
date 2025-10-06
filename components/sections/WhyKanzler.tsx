@@ -4,6 +4,7 @@ import type React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { DM_Serif_Display } from "next/font/google";
+import { useResponsive } from "@/hooks/use-responsive";
 import { BOUNCY_TRANSITION } from "@/lib/motion";
 
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
@@ -59,9 +60,20 @@ function OutlineBox({
 }
 
 export default function WhyKanzler() {
+  // Add responsive hook
+  const { 
+    getResponsiveDimensions, 
+    getResponsiveSpacing,
+    getScale,
+    screenSize 
+  } = useResponsive();
+
+  // Get responsive dimensions
+  const scale = getScale();
+  const imageSize = getResponsiveDimensions(300);
   return (
-    <section className="bg-white py-12 flex items-center justify-center">
-      <div className="container mx-auto px-4 my-20">
+    <section className="bg-white py-responsive-12 flex items-center justify-center">
+      <div className="responsive-container my-responsive-20">
         <div className="flex flex-col lg:flex-row items-center justify-center max-w-7xl mx-auto ">
           {/* LEFT CARD — icon kiri, heading kanan, deskripsi DI BAWAH IKON (span kolom) */}
           <motion.div

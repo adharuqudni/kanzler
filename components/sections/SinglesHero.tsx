@@ -4,8 +4,21 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { motionVariants, BOUNCY_TRANSITION, SMOOTH_BOUNCY } from "@/lib/motion";
+import { useResponsive } from "@/hooks/use-responsive";
 
 export default function SinglesHero() {
+  const { 
+    getResponsiveDimensions, 
+    getResponsiveFontSize, 
+    getResponsiveSpacing,
+    getScale,
+    screenSize 
+  } = useResponsive();
+
+  // Get responsive dimensions for images
+  const crownSize = getResponsiveDimensions(100);
+  const kanzlerSize = getResponsiveDimensions(500, 100);
+  const singlesSize = getResponsiveDimensions(700, 150);
   // Custom animation variants for coming up from below
   const slideUpVariants = {
     hidden: {
@@ -137,12 +150,12 @@ export default function SinglesHero() {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen responsive-container">
         {/* Main Content Area */}
         <div className="flex flex-col items-center justify-center w-full max-w-6xl mx-auto relative z-40">
           {/* Crown */}
           <motion.div
-            className="mb-6"
+            className="mb-responsive-6"
             variants={crownBounceVariants}
             initial="hidden"
             animate="visible"
@@ -150,15 +163,15 @@ export default function SinglesHero() {
             <Image
               src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
               alt="Crown"
-              width={100}
-              height={100}
+              width={parseInt(crownSize.width)}
+              height={parseInt(crownSize.height)}
               className="object-contain filter brightness-110"
             />
           </motion.div>
 
           {/* Kanzler Logo */}
           <motion.div
-            className="mb-4"
+            className="mb-responsive-4"
             variants={kanzlerBounceVariants}
             initial="hidden"
             animate="visible"
@@ -166,8 +179,8 @@ export default function SinglesHero() {
             <Image
               src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES LOGO TANPA R.png"
               alt="Kanzler"
-              width={500}
-              height={100}
+              width={parseInt(kanzlerSize.width)}
+              height={parseInt(kanzlerSize.height)}
               className="object-contain filter brightness-110"
             />
           </motion.div>
@@ -181,8 +194,8 @@ export default function SinglesHero() {
             <Image
               src="/assets/ASSET - HOME/1 ASSET - HOME/Singles.png"
               alt="Singles"
-              width={700}
-              height={150}
+              width={parseInt(singlesSize.width)}
+              height={parseInt(singlesSize.height)}
               className="object-contain filter brightness-110"
             />
           </motion.div>

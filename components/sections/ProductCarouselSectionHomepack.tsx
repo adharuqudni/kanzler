@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { SMOOTH_BOUNCY } from '@/lib/motion';
+import { useResponsive } from '@/hooks/use-responsive';
 import { DM_Serif_Display, Poppins, Paytone_One } from 'next/font/google';
 
 const dmSerif = DM_Serif_Display({ subsets: ['latin'], weight: '400' });
@@ -104,6 +105,19 @@ export default function ProductCarouselSection({
   const [productData, setProductData] = useState<ProductData>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Add responsive hook
+  const { 
+    getResponsiveDimensions, 
+    getResponsiveSpacing,
+    getScale,
+    screenSize 
+  } = useResponsive();
+
+  // Get responsive dimensions for images and components
+  const arrowSize = getResponsiveDimensions(64);
+  const productImageSize = getResponsiveDimensions(300);
+  const categoryTitleScale = getScale();
 
   const categories = Object.keys(productData);
   const initialCategory = defaultCategory || categories[0];

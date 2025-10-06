@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Responsive Design System for Multiple Resolutions */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -33,6 +34,43 @@
     --ring: 0 0% 10%;
 
     --radius: 0.5rem;
+
+    /* Responsive Variables */
+    /* Laptop (1024px - 1440px) */
+    --container-padding: 2rem;
+    --text-scale: 1;
+    --spacing-scale: 1;
+    --component-scale: 1;
+  }
+
+  /* Laptop L (1440px - 1920px) */
+  @media (min-width: 1440px) {
+    :root {
+      --container-padding: 3rem;
+      --text-scale: 1.1;
+      --spacing-scale: 1.2;
+      --component-scale: 1.1;
+    }
+  }
+
+  /* 2K (1920px - 2560px) */
+  @media (min-width: 1920px) {
+    :root {
+      --container-padding: 4rem;
+      --text-scale: 1.3;
+      --spacing-scale: 1.4;
+      --component-scale: 1.3;
+    }
+  }
+
+  /* 4K (2560px+) */
+  @media (min-width: 2560px) {
+    :root {
+      --container-padding: 6rem;
+      --text-scale: 1.6;
+      --spacing-scale: 1.8;
+      --component-scale: 1.6;
+    }
   }
 
   .dark {
@@ -81,6 +119,611 @@
   h6 {
     @apply font-heading;
   }
+}
+
+/* Responsive Container Classes */
+@layer components {
+  .responsive-container {
+    @apply mx-auto;
+    padding-left: var(--container-padding);
+    padding-right: var(--container-padding);
+    max-width: 1200px;
+  }
+
+  @media (min-width: 1440px) {
+    .responsive-container {
+      max-width: 1400px;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .responsive-container {
+      max-width: 1800px;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .responsive-container {
+      max-width: 2400px;
+    }
+  }
+
+  /* Responsive Text Classes */
+  .text-responsive-xs {
+    font-size: calc(0.75rem * var(--text-scale));
+  }
+
+  .text-responsive-sm {
+    font-size: calc(0.875rem * var(--text-scale));
+  }
+
+  .text-responsive-base {
+    font-size: calc(1rem * var(--text-scale));
+  }
+
+  .text-responsive-lg {
+    font-size: calc(1.125rem * var(--text-scale));
+  }
+
+  .text-responsive-xl {
+    font-size: calc(1.25rem * var(--text-scale));
+  }
+
+  .text-responsive-2xl {
+    font-size: calc(1.5rem * var(--text-scale));
+  }
+
+  .text-responsive-3xl {
+    font-size: calc(1.875rem * var(--text-scale));
+  }
+
+  .text-responsive-4xl {
+    font-size: calc(2.25rem * var(--text-scale));
+  }
+
+  .text-responsive-5xl {
+    font-size: calc(3rem * var(--text-scale));
+  }
+
+  .text-responsive-6xl {
+    font-size: calc(3.75rem * var(--text-scale));
+  }
+
+  .text-responsive-7xl {
+    font-size: calc(4.5rem * var(--text-scale));
+  }
+
+  .text-responsive-8xl {
+    font-size: calc(6rem * var(--text-scale));
+  }
+
+  .text-responsive-9xl {
+    font-size: calc(8rem * var(--text-scale));
+  }
+
+  /* Responsive Spacing Classes */
+  .space-responsive-1 {
+    gap: calc(0.25rem * var(--spacing-scale));
+  }
+
+  .space-responsive-2 {
+    gap: calc(0.5rem * var(--spacing-scale));
+  }
+
+  .space-responsive-4 {
+    gap: calc(1rem * var(--spacing-scale));
+  }
+
+  .space-responsive-6 {
+    gap: calc(1.5rem * var(--spacing-scale));
+  }
+
+  .space-responsive-8 {
+    gap: calc(2rem * var(--spacing-scale));
+  }
+
+  .space-responsive-12 {
+    gap: calc(3rem * var(--spacing-scale));
+  }
+
+  .space-responsive-16 {
+    gap: calc(4rem * var(--spacing-scale));
+  }
+
+  .space-responsive-20 {
+    gap: calc(5rem * var(--spacing-scale));
+  }
+
+  .space-responsive-24 {
+    gap: calc(6rem * var(--spacing-scale));
+  }
+
+  /* Responsive Margin Classes */
+  .m-responsive-4 {
+    margin: calc(1rem * var(--spacing-scale));
+  }
+
+  .m-responsive-8 {
+    margin: calc(2rem * var(--spacing-scale));
+  }
+
+  .m-responsive-12 {
+    margin: calc(3rem * var(--spacing-scale));
+  }
+
+  .m-responsive-16 {
+    margin: calc(4rem * var(--spacing-scale));
+  }
+
+  .mt-responsive-4 {
+    margin-top: calc(1rem * var(--spacing-scale));
+  }
+
+  .mt-responsive-8 {
+    margin-top: calc(2rem * var(--spacing-scale));
+  }
+
+  .mt-responsive-12 {
+    margin-top: calc(3rem * var(--spacing-scale));
+  }
+
+  .mt-responsive-16 {
+    margin-top: calc(4rem * var(--spacing-scale));
+  }
+
+  .mb-responsive-4 {
+    margin-bottom: calc(1rem * var(--spacing-scale));
+  }
+
+  .mb-responsive-8 {
+    margin-bottom: calc(2rem * var(--spacing-scale));
+  }
+
+  .mb-responsive-12 {
+    margin-bottom: calc(3rem * var(--spacing-scale));
+  }
+
+  .mb-responsive-16 {
+    margin-bottom: calc(4rem * var(--spacing-scale));
+  }
+
+  /* Responsive Padding Classes */
+  .p-responsive-4 {
+    padding: calc(1rem * var(--spacing-scale));
+  }
+
+  .p-responsive-8 {
+    padding: calc(2rem * var(--spacing-scale));
+  }
+
+  .p-responsive-12 {
+    padding: calc(3rem * var(--spacing-scale));
+  }
+
+  .p-responsive-16 {
+    padding: calc(4rem * var(--spacing-scale));
+  }
+
+  .px-responsive-4 {
+    padding-left: calc(1rem * var(--spacing-scale));
+    padding-right: calc(1rem * var(--spacing-scale));
+  }
+
+  .px-responsive-8 {
+    padding-left: calc(2rem * var(--spacing-scale));
+    padding-right: calc(2rem * var(--spacing-scale));
+  }
+
+  .py-responsive-4 {
+    padding-top: calc(1rem * var(--spacing-scale));
+    padding-bottom: calc(1rem * var(--spacing-scale));
+  }
+
+  .py-responsive-8 {
+    padding-top: calc(2rem * var(--spacing-scale));
+    padding-bottom: calc(2rem * var(--spacing-scale));
+  }
+
+  .py-responsive-16 {
+    padding-top: calc(4rem * var(--spacing-scale));
+    padding-bottom: calc(4rem * var(--spacing-scale));
+  }
+
+  /* Responsive Component Scale Classes */
+  .scale-responsive {
+    transform: scale(var(--component-scale));
+  }
+
+  .w-responsive-full {
+    width: calc(100% * var(--component-scale));
+  }
+
+  .h-responsive-full {
+    height: calc(100% * var(--component-scale));
+  }
+
+  /* Image Responsive Classes */
+  .img-responsive-sm {
+    width: calc(100px * var(--component-scale));
+    height: calc(100px * var(--component-scale));
+  }
+
+  .img-responsive-md {
+    width: calc(200px * var(--component-scale));
+    height: calc(200px * var(--component-scale));
+  }
+
+  .img-responsive-lg {
+    width: calc(300px * var(--component-scale));
+    height: calc(300px * var(--component-scale));
+  }
+
+  .img-responsive-xl {
+    width: calc(400px * var(--component-scale));
+    height: calc(400px * var(--component-scale));
+  }
+
+  .img-responsive-2xl {
+    width: calc(500px * var(--component-scale));
+    height: calc(500px * var(--component-scale));
+  }
+
+  .img-responsive-3xl {
+    width: calc(600px * var(--component-scale));
+    height: calc(600px * var(--component-scale));
+  }
+
+  .img-responsive-4xl {
+    width: calc(700px * var(--component-scale));
+    height: calc(700px * var(--component-scale));
+  }
+
+  /* Snap Scroll System - Enhanced for True Stickiness */
+  .snap-scroll-container {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: auto; /* Instant snapping, no smooth scroll */
+    overflow-y: scroll;
+    height: 100vh;
+    scroll-padding-top: 0px;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .snap-scroll-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    height: 100vh; /* Exact viewport height */
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden; /* Prevent content overflow */
+  }
+
+  .snap-scroll-section-center {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    height: 100vh; /* Exact viewport height */
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden; /* Prevent content overflow */
+  }
+
+  .snap-scroll-section-end {
+    scroll-snap-align: end;
+    scroll-snap-stop: always;
+    height: 100vh; /* Exact viewport height */
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden; /* Prevent content overflow */
+  }
+
+  /* Smooth spring-like transitions */
+  .spring-transition {
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .spring-transition-slow {
+    transition: all 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .spring-bounce {
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* Enhanced scroll behavior for different devices */
+  @media (max-width: 768px) {
+    .snap-scroll-container {
+      scroll-snap-type: y mandatory; /* Keep mandatory on mobile too */
+      scroll-behavior: auto;
+    }
+    
+    .snap-scroll-section,
+    .snap-scroll-section-center,
+    .snap-scroll-section-end {
+      height: 100vh;
+      min-height: 100vh;
+    }
+  }
+
+  /* Disable snap scroll for reduced motion users */
+  @media (prefers-reduced-motion: reduce) {
+    .snap-scroll-container {
+      scroll-snap-type: none;
+      scroll-behavior: auto;
+    }
+    
+    .snap-scroll-section,
+    .snap-scroll-section-center,
+    .snap-scroll-section-end {
+      scroll-snap-align: none;
+      scroll-snap-stop: normal;
+    }
+  }
+
+  /* Custom scrollbar for snap scroll */
+  .snap-scroll-container::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  .snap-scroll-container::-webkit-scrollbar-track {
+    background: hsl(var(--secondary));
+    border-radius: 6px;
+  }
+
+  .snap-scroll-container::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #AA7B32, #8A6B2A);
+    border-radius: 6px;
+    border: 2px solid hsl(var(--secondary));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+
+  .snap-scroll-container::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #CA8B3A, #AA7B32);
+  }
+
+  /* Section indicator animations */
+  .section-indicator-dot {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .section-indicator-dot:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px rgba(170, 123, 50, 0.5);
+  }
+
+  .section-indicator-dot.active {
+    transform: scale(1.3);
+    box-shadow: 0 0 20px rgba(170, 123, 50, 0.7);
+  }
+
+  /* Responsive snap scroll adjustments */
+  @media (min-width: 1440px) {
+    .snap-scroll-container::-webkit-scrollbar {
+      width: 14px;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .snap-scroll-container::-webkit-scrollbar {
+      width: 16px;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .snap-scroll-container::-webkit-scrollbar {
+      width: 20px;
+    }
+  }
+
+  /* Scroll progress indicator */
+  .scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #AA7B32, #CA8B3A);
+    transform-origin: left;
+    z-index: 9999;
+    transition: transform 0.3s ease-out;
+  }
+
+  /* Page transition animations */
+  .page-enter {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  .page-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .page-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .page-exit-active {
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: opacity 0.4s ease-in, transform 0.4s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+}
+
+/* Utility classes for scroll animations */
+.mt-screen {
+  margin-top: 100vh;
+}
+
+/* Gold gradient */
+.bg-gold-gradient {
+  background: linear-gradient(90deg, #8a6b2a, #aa7b32, #ca8b3a);
+  background-size: 200% auto;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(90deg, #8a6b2a, #aa7b32, #ca8b3a);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.animate-shine {
+  animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes shine {
+  from {
+    background-position: -200% center;
+  }
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Custom animations */
+.animate-fade-in {
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--secondary));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary) / 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary) / 0.8);
+}
+
+/* Utility classes for text overflow */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Smooth transitions for reduced motion users */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Loading skeleton animation */
+@keyframes skeleton {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200px 100%;
+  animation: skeleton 1.5s infinite linear;
 }
 
 /* Utility classes for scroll animations */

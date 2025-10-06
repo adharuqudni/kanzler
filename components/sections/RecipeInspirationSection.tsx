@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/carousel";
 import { DM_Serif_Display } from "next/font/google";
 import RecipeDetailSection from "./RecipeDetailSection";
+import { useResponsive } from "@/hooks/use-responsive";
 
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 
@@ -130,6 +131,18 @@ export default function RecipeInspirationSection() {
   const [selectedRecipeDetail, setSelectedRecipeDetail] = useState<Recipe | null>(null);
   const [loadingDetail, setLoadingDetail] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Add responsive hook
+  const { 
+    getResponsiveDimensions, 
+    getResponsiveSpacing,
+    getScale,
+    screenSize 
+  } = useResponsive();
+
+  // Get responsive dimensions
+  const buttonScale = getScale();
+  const carouselItemSize = getResponsiveDimensions(400, 300);
 
   // Fetch recipes from API with Image and Video data
   useEffect(() => {
@@ -253,9 +266,9 @@ export default function RecipeInspirationSection() {
   };
 
   return (
-    <section className="relative bg-white overflow-visible mt-36">
+    <section className="relative bg-white overflow-visible mt-responsive-16">
       <div className="relative z-10 flex flex-col">
-        <div className="container mx-auto px-8 py-16">
+        <div className="responsive-container py-responsive-16">
           <AnimatePresence mode="wait">
             {selectedVideo ? (
               <RecipeDetailSection
@@ -267,11 +280,11 @@ export default function RecipeInspirationSection() {
               // ============ HALAMAN DEPAN ============
               <motion.div
                 key="carousel"
-                initial={{ opacity: 0, x: -50 }}
+                initial={{ opacity: 0, x: -50 * buttonScale }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 50 }}
+                exit={{ opacity: 0, x: 50 * buttonScale }}
                 transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="grid grid-cols-12 gap-6 items-start"
+                className="grid grid-cols-12 gap-responsive-6 items-start"
               >
                 {/* Left: Title + Filter */}
                 <div className="col-span-4 flex flex-col items-center">
