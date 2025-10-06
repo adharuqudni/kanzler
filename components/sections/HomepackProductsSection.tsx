@@ -1,23 +1,26 @@
-"use client";
+'use client';
 
-import React from "react";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import React from 'react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function HomepackProductsSection() {
   return (
     <section className="relative bg-white">
       {/* Curved transition from blue to white */}
-      <div
-        className="absolute top-0 left-0 right-0 h-16 bg-white z-0"
-        style={{
-          borderRadius: "100px 100px 0 0",
-          marginTop: "-1rem",
-          transform: "scaleX(1.5)",
-        }}
-      />
+      <svg
+        viewBox="0 0 500 120"
+        preserveAspectRatio="none"
+        className="w-full"
+      >
+        <path
+          d="M 0 120 Q 253 10 500 120 L 500 0 L 0 0 Z"
+          fill="#1c2652"
+          fillRule="evenodd"
+        />
+      </svg>
 
-      <div className="container mx-auto pb-12 relative z-10 text-center">
+      <div className="container mx-auto pb-12 relative z-10 -mt-24 text-center">
         {/* Logo */}
         <motion.div
           className="flex justify-center mb-6"
@@ -45,7 +48,8 @@ export default function HomepackProductsSection() {
         >
           Produk nugget dan sosis dari daging sapi dan ayam pilihan.
           <br />
-          <span className="italic">Extra Meaty, Extra Juicy</span>, dan mudah diolah menjadi menu lezat setiap hari.
+          <span className="italic">Extra Meaty, Extra Juicy</span>, dan mudah
+          diolah menjadi menu lezat setiap hari.
         </motion.p>
 
         {/* MOBILE: Stack layout */}
@@ -83,18 +87,18 @@ export default function HomepackProductsSection() {
         <div
           className="hidden md:block"
           style={{
-            position: "relative",
+            position: 'relative',
             height: 420, // lebih rapat
             maxWidth: 1200,
-            margin: "2rem auto 0", // lebih rapat
+            margin: '2rem auto 0', // lebih rapat
           }}
         >
           {/* Left Product */}
           <div
             style={{
-              position: "absolute",
+              position: 'absolute',
               bottom: 0,
-              left: "14%",
+              left: '14%',
               zIndex: 10,
             }}
           >
@@ -102,8 +106,8 @@ export default function HomepackProductsSection() {
               initial={{ opacity: 1, x: 120, y: 150, rotate: -8 }}
               whileInView={{ opacity: 1, x: 0, y: 0, rotate: -8 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.6, delay: 0.1,  ease: "easeOut" }}
-              style={{ willChange: "transform" }}
+              transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+              style={{ willChange: 'transform' }}
             >
               <Image
                 src="/assets/ASSET - HOMEPACK/2 ASSET - HOMEPACK/2 ASSET - HOMEPACK STICK NUGGET MOCKUP.png"
@@ -118,9 +122,9 @@ export default function HomepackProductsSection() {
           {/* Right Product (behind center) */}
           <div
             style={{
-              position: "absolute",
+              position: 'absolute',
               bottom: 0,
-              right: "14%",
+              right: '14%',
               zIndex: 8,
             }}
           >
@@ -128,8 +132,8 @@ export default function HomepackProductsSection() {
               initial={{ opacity: 1, x: -120, y: 150, rotate: 10 }}
               whileInView={{ opacity: 1, x: 0, y: 0, rotate: 10 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
-              style={{ willChange: "transform" }}
+              transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
+              style={{ willChange: 'transform' }}
             >
               <Image
                 src="/assets/ASSET - HOMEPACK/2 ASSET - HOMEPACK/2 ASSET - HOMEPACK BEEF COCKTAIL MOCKUP.png"
@@ -144,10 +148,10 @@ export default function HomepackProductsSection() {
           {/* Center Product (front) */}
           <div
             style={{
-              position: "absolute",
+              position: 'absolute',
               bottom: 0,
-              left: "50%",
-              transform: "translateX(-50%)",
+              left: '50%',
+              transform: 'translateX(-50%)',
               zIndex: 20,
             }}
           >
@@ -155,8 +159,8 @@ export default function HomepackProductsSection() {
               initial={{ opacity: 1, y: 150 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.6,  ease: "easeOut" }}
-              style={{ willChange: "transform" }}
+              transition={{ duration: 0.6, ease: 'easeOut' }}
+              style={{ willChange: 'transform' }}
             >
               <Image
                 src="/assets/ASSET - HOMEPACK/2 ASSET - HOMEPACK/2 ASSET - HOMEPACK CRISPY NUGGET MOCKUP.png"
@@ -171,15 +175,15 @@ export default function HomepackProductsSection() {
           {/* Soft shadow below */}
           <div
             style={{
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
+              position: 'absolute',
+              left: '50%',
+              transform: 'translateX(-50%)',
               bottom: -8,
-              width: "60%",
+              width: '60%',
               height: 22,
               borderRadius: 9999,
-              background: "rgba(0,0,0,0.10)",
-              filter: "blur(16px)",
+              background: 'rgba(0,0,0,0.10)',
+              filter: 'blur(16px)',
             }}
           />
         </div>

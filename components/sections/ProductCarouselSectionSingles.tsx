@@ -6,6 +6,7 @@ import Image from "next/image";
 import { SMOOTH_BOUNCY } from "@/lib/motion";
 import { DM_Serif_Display, Poppins, Paytone_One } from "next/font/google";
 import { useResponsive } from "@/hooks/use-responsive";
+import { SafeHTML } from "@/lib/sanitize-html";
 
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 const poppins = Poppins({
@@ -598,14 +599,17 @@ export default function ProductCarouselSection({
                   className="space-y-6 max-w-sm"
                 >
                   {/* Product Description */}
-                  <motion.p
+                  <motion.div
                     className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[400px] ml-[-10px] h-[25vh]`}
                     initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.3 }}
                   >
-                    {currentProduct?.details || "Product details"}
-                  </motion.p>
+                    <SafeHTML 
+                      html={currentProduct?.details || "Product details"}
+                      className="w-full h-full"
+                    />
+                  </motion.div>
 
                   {/* Recipe Button */}
                   <motion.button

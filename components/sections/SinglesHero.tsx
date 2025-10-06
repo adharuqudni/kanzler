@@ -138,7 +138,7 @@ export default function SinglesHero() {
           <Image
             src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES GRADIENT BLENDING SCREEN.png"
             alt="Gradient Overlay"
-            className="object-cover mix-blend-screen opacity-80"
+            className="object-cover opacity-80"
             style={{
               transform: "scale(1.5)",
               objectFit: "cover",

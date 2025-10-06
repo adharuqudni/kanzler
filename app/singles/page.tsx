@@ -61,23 +61,23 @@ export default function SinglesPage() {
         onSectionClick={scrollToSection}
       /> */}
 
-      {/* Hero Section */}
-      <section id="hero" className="snap-scroll-section">
+      {/* Hero Section - Can overflow */}
+      <section id="hero" className="snap-scroll-section-overflow">
         <SinglesHero />
       </section>
 
-      {/* Second Section */}
-      <section id="second-section" className="snap-scroll-section">
+      {/* Second Section - Can overflow */}
+      <section id="second-section" className="snap-scroll-section-overflow">
         <SinglesSecondSection />
       </section>
 
-      {/* Products Section */}
-      <section id="produk" className="snap-scroll-section">
+      {/* Products Section - Can overflow */}
+      <section id="produk" className="snap-scroll-section-overflow">
         <ProductCarouselSectionSingles />
       </section>
 
-      {/* Recipe Section */}
-      <section id="resep" className="snap-scroll-section">
+      {/* Recipe Section - Can overflow */}
+      <section id="resep" className="snap-scroll-section-overflow">
         <RecipeInspirationSection />
       </section>
     </div>

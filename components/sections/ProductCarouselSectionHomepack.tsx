@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { SMOOTH_BOUNCY } from '@/lib/motion';
 import { useResponsive } from '@/hooks/use-responsive';
+import { SafeHTML } from '@/lib/sanitize-html';
 import { DM_Serif_Display, Poppins, Paytone_One } from 'next/font/google';
 
 const dmSerif = DM_Serif_Display({ subsets: ['latin'], weight: '400' });
@@ -107,11 +108,11 @@ export default function ProductCarouselSection({
   const [error, setError] = useState<string | null>(null);
 
   // Add responsive hook
-  const { 
-    getResponsiveDimensions, 
+  const {
+    getResponsiveDimensions,
     getResponsiveSpacing,
     getScale,
-    screenSize 
+    screenSize,
   } = useResponsive();
 
   // Get responsive dimensions for images and components
@@ -424,7 +425,7 @@ export default function ProductCarouselSection({
                     rotate: 10,
                   }}
                   animate={{
-                    opacity:1,
+                    opacity: 1,
                     scale: 0.95,
                     rotate: 10,
                   }}
@@ -479,7 +480,7 @@ export default function ProductCarouselSection({
                     x: 0,
                     scale: 0.85,
                     rotate: 15,
-                    zIndex:60,
+                    zIndex: 60,
                   }}
                   exit={{
                     opacity: 1,
@@ -622,18 +623,20 @@ export default function ProductCarouselSection({
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeCategory}-${currentIndex}-info`}
-                 
                   className="space-y-6 max-w-sm"
                 >
                   {/* Product Description */}
-                  <motion.p
-                    className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[400px] ml-[-10px] h-[25vh]`}
+                  <motion.div
+                    className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[400px] ml-[-10px] `}
                     initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.3 }}
                   >
-                    {currentProduct?.details || 'Product details'}
-                  </motion.p>
+                    <SafeHTML 
+                      html={currentProduct?.details || 'Product details'}
+                      className="w-full"
+                    />
+                  </motion.div>
 
                   {/* Recipe Button */}
                   <motion.button
@@ -658,26 +661,20 @@ export default function ProductCarouselSection({
 
       {/* Top curved white overlay */}
       <div className="absolute top-0 left-0 w-full h-[20vw] overflow-hidden border-0">
-        <div
-          className="absolute top-0 left-0 w-full h-full border-0"
-          style={{
-            background: '#fff',
-            clipPath: 'ellipse(150% 100% at 50% 0%)',
-            transform: 'translateY(-80%)',
-          }}
-        />
+        <svg viewBox="0 0 500 45" preserveAspectRatio="none" className="w-full">
+          <path
+            d="M 0 0 Q 263 45 500 0 L 500 0 L 0 0 Z"
+            fill="white"
+            fillRule="evenodd"
+          />
+        </svg>
       </div>
 
       {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 w-full scale-y-[-1]">
-        <svg
-          height="80"
-          viewBox="0 0 500 80"
-          preserveAspectRatio="none"
-          className="w-full"
-        >
+      <div className="absolute bottom-0 left-0 w-full scale-y-[1]">
+        <svg viewBox="0 0 500 30" preserveAspectRatio="none" className="w-full">
           <path
-            d="M0,80 Q250,0 500,80 L500,0 L0,0 Z"
+            d="M 0 0 Q 263 50 500 0 L 500 30 L 0 30 Z"
             fill="white"
             fillRule="evenodd"
           />

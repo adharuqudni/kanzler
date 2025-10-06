@@ -31,42 +31,34 @@ export default function HomepackPage() {
   });
 
   return (
-    <div ref={containerRef} className="snap-scroll-container">
-      {/* Scroll Progress Indicator */}
-      {/* <ScrollProgress currentSection={snapCurrentSection} totalSections={totalSections} /> */}
-      
-      {/* Section Indicator */}
-      {/* <SectionIndicator
-        currentSection={snapCurrentSection}
-        totalSections={totalSections}
-        onSectionClick={scrollToSection}
-      /> */}
+    <div ref={containerRef} className="snap-scroll-container overflow-x-hidden">
+    
 
-      {/* Homepack Hero Section */}
-      <section id="homepack-hero" className="snap-scroll-section">
+      {/* Homepack Hero Section - Can overflow into next section */}
+      <section id="homepack-hero" className="snap-scroll-section-overflow">
         <HomepackHeroSection />
       </section>
 
-      {/* Homepack Products Section */}
-      <section id="homepack-products" className="snap-scroll-section">
+      {/* Homepack Products Section - Can overflow into next section */}
+      <section id="homepack-products" className="snap-scroll-section-overflow">
         <HomepackProductsSection />
       </section>
 
-      {/* Why Kanzler Section */}
+      {/* Why Kanzler Section - Fixed height */}
       <section id="why-kanzler" className="snap-scroll-section">
         <WhyKanzler />
       </section>
 
-      {/* Products Carousel Section */}
-      <section id="produk" className="snap-scroll-section">
+      {/* Products Carousel Section - Can overflow into next section */}
+      <section id="produk" className="snap-scroll-section-overflow">
         <ProductCarouselSectionHomepack
           title="Homepack Products"
           defaultCategory="nugget"
         />
       </section>
 
-      {/* Recipe Section */}
-      <section id="resep" className="snap-scroll-section">
+      {/* Recipe Section - Can overflow (last section) */}
+      <section id="resep" className="snap-scroll-section-overflow">
         <RecipeInspirationSection />
       </section>
     </div>

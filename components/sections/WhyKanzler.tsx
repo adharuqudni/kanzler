@@ -13,7 +13,7 @@ const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 const W = 300;
 const H = 220;
 const R = 28;
-const CUT = 110;
+const CUT = 0;
 
 function OutlineBox({
   side,
@@ -77,7 +77,7 @@ export default function WhyKanzler() {
         <div className="flex flex-col lg:flex-row items-center justify-center max-w-7xl mx-auto ">
           {/* LEFT CARD — icon kiri, heading kanan, deskripsi DI BAWAH IKON (span kolom) */}
           <motion.div
-            className="order-2 lg:order-1"
+            className="order-2 lg:order-1 -mr-8"
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ ...BOUNCY_TRANSITION, duration: 0.8 }}
@@ -126,7 +126,7 @@ export default function WhyKanzler() {
 
           {/* RIGHT CARD — icon kanan, heading kiri, deskripsi RATa KANAN (span kolom) */}
           <motion.div
-            className="order-3"
+            className="order-3 -ml-4"
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ ...BOUNCY_TRANSITION, duration: 0.8 }}

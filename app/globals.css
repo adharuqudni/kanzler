@@ -392,13 +392,39 @@
   .snap-scroll-section {
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    height: 100vh; /* Exact viewport height */
-    min-height: 100vh;
+    min-height: 100vh; /* Allow sections to be taller than viewport */
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    overflow: hidden; /* Prevent content overflow */
+    /* Remove overflow: hidden to allow content to flow into next section */
+  }
+
+  /* Special class for sections that can overflow */
+  .snap-scroll-section-overflow {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+    height: auto; /* Allow natural height */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    /* No overflow hidden - content can extend beyond viewport */
+  }
+
+  /* Seamless flow between overflow sections */
+  .snap-scroll-section-overflow + .snap-scroll-section-overflow {
+    margin-top: 0; /* Remove any gaps between sections */
+  }
+
+  /* Handle z-index for overlapping content */
+  .snap-scroll-section-overflow:nth-child(odd) {
+    z-index: 2;
+  }
+
+  .snap-scroll-section-overflow:nth-child(even) {
+    z-index: 1;
   }
 
   .snap-scroll-section-center {

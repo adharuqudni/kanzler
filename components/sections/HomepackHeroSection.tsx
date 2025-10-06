@@ -76,33 +76,23 @@ export default function HomepackHeroSection() {
       {/* Background */}
       <div className="absolute inset-0">
         <Image
-          src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME BACKGROUND.png"
+          src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES SPACE BACKGROUND.png"
           alt="Homepack Background"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 w-full h-[200vh]">
           <Image
             src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES GRADIENT BLENDING SCREEN.png"
             alt="Gradient Overlay"
             fill
-            className="object-cover mix-blend-screen opacity-80"
+            className="object-cover opacity-80"
           />
         </div>
       </div>
 
-      {/* Curved bottom transition */}
-      <div className="absolute bottom-0 left-0 w-full h-[40vw] overflow-hidden scale-y-[-1] border-0">
-        <div 
-          className="absolute bottom-0 left-0 w-full h-full border-0"
-          style={{
-            background: '#fff',
-            clipPath: 'ellipse(150% 100% at 50% 0%)',
-            transform: 'translateY(-80%)'
-          }}
-        />
-      </div>
+     
 
       {/* Content Container */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 py-24">
@@ -173,7 +163,7 @@ export default function HomepackHeroSection() {
             <Image
               src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler Quote.png"
               alt="Kanzler Quote"
-              width={800}
+              width={700}
               height={100}
               className="object-contain filter brightness-110"
             />
