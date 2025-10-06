@@ -161,6 +161,9 @@ function SplitHero({ className = "" }: SplitHeroProps) {
           isHoveringLeft={isHoveringLeft}
           isHoveringRight={isHoveringRight}
         />
+
+        {/* Crown toggle - white <-> gold based on scroll position */}
+        <CrownToggle targetIds={["CeritaKanzler", "MapSection"]} />
       </div>
     </main>
   );
@@ -178,7 +181,7 @@ const LogoOverlay = memo(function LogoOverlay() {
           alt="Kanzler Crown"
           width={300}
           height={200}
-          className="object-contain mb-20 -mt-20"
+          className="object-contain mb-8 -mt-8"
           loading="lazy"
         />
       </MotionWrapper>
@@ -222,7 +225,7 @@ export const ProductImage = memo(function ProductImage({
           animate: {
             x: isVisible ? 50 : -350,
             opacity: isVisible ? 1 : 0,
-            rotate: rotateOverride ? rotateOverride :  25,
+            rotate: rotateOverride ? rotateOverride : 25,
             scale: rotateOverride ? 0.9 : 1,
           },
         };
@@ -366,5 +369,49 @@ const FloatingProducts = memo(function FloatingProducts({
     </>
   );
 });
+
+// CrownToggle: toggle putih <-> emas berdasarkan keberadaan
+function CrownToggle({ targetIds }: { targetIds: string[] }) {
+  const WHITE_SRC = "/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg";
+  const GOLD_SRC =
+    "/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK MAHKOTA.png";
+
+  const [isGold, setIsGold] = useState(false);
+
+  useEffect(() => {
+    const elements = targetIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+    if (!elements.length) return;
+
+    const obs = new IntersectionObserver(
+      (entries) => {
+        // jika salah satu target terlihat => mahkota emas
+        const anyVisible = entries.some((e) => e.isIntersecting);
+        setIsGold(anyVisible);
+      },
+      { threshold: 0.25 }
+    );
+
+    elements.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, [targetIds]);
+
+  return (
+    <div
+      className="fixed top-4 left-4 z-50 pointer-events-none"
+      aria-hidden="true"
+    >
+      <Image
+        src={isGold ? GOLD_SRC : WHITE_SRC}
+        alt="Kanzler Crown"
+        width={44}
+        height={44}
+        className="object-contain w-11 h-11 sm:w-12 sm:h-12 ml-4"
+        priority
+      />
+    </div>
+  );
+}
 
 export default memo(SplitHero);

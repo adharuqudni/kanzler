@@ -16,7 +16,7 @@ const CeritaKanzler = React.memo(function CeritaKanzler() {
         {/* CERITA */}
         <MotionWrapper variant="fadeInUp" delay={0.2} className="text-center mb-2">
           <h1
-            className={`${dmSerif.className} uppercase leading-none tracking-[0.08em] text-[clamp(40px,7vw,90px)] text-[#AA7832]`}
+            className={`${dmSerif.className} uppercase leading-none tracking-[0.08em] text-[clamp(40px,7vw,90px)] text-[#AA7B32]`}
           >
             CERITA
           </h1>
@@ -29,7 +29,7 @@ const CeritaKanzler = React.memo(function CeritaKanzler() {
           className="text-center mb-8 sm:mb-10 md:mb-4"
         >
           <h2
-            className={`${dmSerif.className} leading-[0.9] tracking-[0.03em] text-[clamp(78px,16vw,190px)] text-[#1C2652]`}
+            className={`${dmSerif.className} leading-[0.9] tracking-[0.03em] text-[clamp(78px,16vw,190px)] text-[#1B2653]`}
           >
             KANZLER
           </h2>

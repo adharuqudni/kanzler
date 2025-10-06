@@ -76,6 +76,7 @@ interface Recipe {
   Ingredient: string;
   Description: string;
   Image: RecipeImage;
+  Product_IMG?: RecipeImage; // Tambahkan baris ini
   Video?: VideoFile[];
 }
 
@@ -86,8 +87,7 @@ interface ApiResponse {
 // Brand palette
 const NAVY = "#1C2653";
 const GOLD = "#AA7B32";
-const DUMMY_VIDEO_URL =
-  "https://kznlr.qup.my.id/uploads/Sosis_Kanzler_shorts_youtubeshorts_foryou_viralvideo_fyp_viral_63f1d1186d.mp4";
+// (tidak perlu dummy video URL — gunakan data dari API)
 
 // Category mapping from API to display names
 const categoryMapping: Record<string, string> = {
@@ -108,13 +108,13 @@ const productCategories = [
 // API base URL
 const API_BASE_URL = "https://kznlr.qup.my.id";
 
-// Transform API recipe to video format
+// Transform API recipe to video format (pakai Video[0].url dari API jika tersedia)
 const transformRecipeToVideo = (recipe: Recipe) => ({
   id: recipe.documentId,
   title: recipe.Name,
-  thumbnail: `${API_BASE_URL}${recipe.Image.formats.medium?.url || recipe.Image.url}`,
+  thumbnail: `${API_BASE_URL}${recipe.Image.formats?.medium?.url || recipe.Image.url}`,
   category: categoryMapping[recipe.Category] || "Produk Kanzler",
-  videoUrl: DUMMY_VIDEO_URL, // Keep using dummy video for now
+  videoUrl: recipe.Video?.[0]?.url ? `${API_BASE_URL}${recipe.Video[0].url}` : null,
   description: recipe.Description,
   ingredient: recipe.Ingredient,
 });
@@ -136,28 +136,32 @@ export default function RecipeInspirationSection() {
     const fetchRecipes = async () => {
       try {
         setLoading(true);
-        
-        // First fetch with Image
+
+        // Fetch Image, Product_IMG, and Video
         const imageResponse = await fetch(`${API_BASE_URL}/api/recipes?populate=Image`);
         const imageData: ApiResponse = await imageResponse.json();
-        
-        // Then fetch with Video
+
+        const floatingImageResponse = await fetch(`${API_BASE_URL}/api/recipes?populate=Product_IMG`);
+        const floatingImageData: ApiResponse = await floatingImageResponse.json();
+
         const videoResponse = await fetch(`${API_BASE_URL}/api/recipes?populate=Video`);
         const videoData: ApiResponse = await videoResponse.json();
-        
-        // Merge the data - combine Image and Video data for each recipe
+
+        // Merge Product_IMG and Video into imageData
         const mergedRecipes = imageData.data.map(imageRecipe => {
+          const floatingRecipe = floatingImageData.data.find(fr => fr.documentId === imageRecipe.documentId);
           const videoRecipe = videoData.data.find(vr => vr.documentId === imageRecipe.documentId);
           return {
             ...imageRecipe,
+            Product_IMG: floatingRecipe?.Product_IMG || null,
             Video: videoRecipe?.Video || null
           };
         });
-        
+
         setRecipes(mergedRecipes);
       } catch (error) {
         console.error("Error fetching recipes:", error);
-        setRecipes([]); // Fallback to empty array
+        setRecipes([]);
       } finally {
         setLoading(false);
       }
