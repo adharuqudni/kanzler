@@ -243,15 +243,15 @@ export default function ProductCarouselSection({
     if (productType === 'homepack') {
       if (category === 'nugget') {
         return (
-          <p className="text-center w-full max-w-xl text-xl">
+          <p className={`text-center w-full max-w-xl text-xl ${poppins.className}`}>
             Nugget kualitas premium yang <br />
-            Extra Crispy, Extra Meaty <br />
-            dan Extra Juicy
+            <em className="italic">Extra Crispy, Extra Meaty</em> <br />
+            <em className="italic">Extra Juicy</em>
           </p>
         );
       } else if (category === 'sosis') {
         return (
-          <p className="text-center w-full max-w-xl text-xl">
+          <p className={`text-center w-full max-w-xl text-xl ${poppins.className}`}>
             Sosis dengan cita rasa otentik yang <br />
             lezat. Mudah diolah menjadi menu <br />
             masakan setiap hari.
@@ -575,14 +575,15 @@ export default function ProductCarouselSection({
                       x: animationDirection === 'right' ? -50 : 50,
                     }}
                     transition={{ ...SMOOTH_BOUNCY, duration: 0.5 }}
-                    className="text-center min-w-[200px] w-full"
+                    className="text-center w-[280px] flex-shrink-0"
                   >
                     <h3
                       className={`${
                         defaultCategory !== 'nugget'
                           ? paytoneOne.className
                           : dmSerif.className
-                      } text-4xl font-bold text-[#1C2653] mb-2`}
+                      } text-4xl font-bold text-[#1C2653] mb-2 whitespace-normal break-words leading-tight`}
+                      title={currentProduct?.name}
                     >
                       {currentProduct?.name || 'Product Name'}
                     </h3>
@@ -608,7 +609,6 @@ export default function ProductCarouselSection({
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeCategory}-${currentIndex}-info`}
-                 
                   className="space-y-6 max-w-sm"
                 >
                   {/* Product Description */}
@@ -618,7 +618,7 @@ export default function ProductCarouselSection({
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.3 }}
                   >
-                    {currentProduct?.details || 'Product details'}
+                    {renderDetailsHtml(currentProduct?.details)}
                   </motion.p>
 
                   {/* Recipe Button */}
@@ -671,4 +671,24 @@ export default function ProductCarouselSection({
       </div>
     </section>
   );
+}
+
+// helper: render details with <em>...</em> -> italic React nodes
+function renderDetailsHtml(text?: string) {
+  if (!text) return 'Product details';
+  // split keeping <em>...</em> chunks
+  const parts = text.split(/(<em>.*?<\/em>)/g);
+  return parts.map((part, idx) => {
+    if (!part) return null;
+    // use [\s\S] instead of /s flag to avoid parser issues
+    const m = part.match(/^<em>([\s\S]*)<\/em>$/);
+    if (m) {
+      return (
+        <em key={idx} className="italic not-italic:normal">
+          {m[1]}
+        </em>
+      );
+    }
+    return <span key={idx}>{part}</span>;
+  });
 }

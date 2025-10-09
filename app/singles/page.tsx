@@ -27,6 +27,9 @@ export default function SinglesPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // page variable untuk diteruskan ke komponen section
+  const page = 'singles';
+
   return (
     <>
       <FixedAnimatedProducts currentSection={currentSection} />
@@ -36,7 +39,7 @@ export default function SinglesPage() {
         <ProductCarouselSectionSingles />
       </section>
       <section id="resep">
-        <RecipeInspirationSection />
+        <RecipeInspirationSection page={page} />
       </section>
     </>
   );

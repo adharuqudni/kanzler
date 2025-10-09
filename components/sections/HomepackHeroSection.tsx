@@ -173,7 +173,7 @@ export default function HomepackHeroSection() {
             <Image
               src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler Quote.png"
               alt="Kanzler Quote"
-              width={800}
+              width={700}
               height={100}
               className="object-contain filter brightness-110"
             />

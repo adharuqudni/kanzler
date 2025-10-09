@@ -111,9 +111,9 @@ const SplitRight = memo(function SplitRight({
           className="absolute -bottom-80 rotate-45 -left-28 z-30"
           initial={{ opacity: 1, rotate: 40, x: -30 }}
           animate={{
-            y: isHoveringRight ? -420 : 0,
+            y: isHoveringRight ? -400 : 0,
             x: isHoveringRight ? -30 : 0,
-            rotate: 40, // 🔹 selalu 40°, tidak berubah
+            rotate: 25, // 🔹 selalu 40°, tidak berubah
             display: isHoveringRight ? "block" : " none",
           }}
           transition={BOUNCY_TRANSITION}

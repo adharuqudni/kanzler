@@ -21,7 +21,7 @@ export default function HomepackPage() {
         />
       </section>
       <section id="resep">
-        <RecipeInspirationSection />
+        <RecipeInspirationSection page="homepack" />
       </section>
     </>
   );

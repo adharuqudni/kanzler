@@ -30,7 +30,7 @@ const MapSection = React.memo(function MapSection() {
         {/* Header Section */}
         <div className="text-center mb-8">
           <MotionWrapper variant="fadeInUp" delay={0.2}>
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">
               Tersedia di
             </h2>
           </MotionWrapper>
@@ -61,7 +61,7 @@ const MapSection = React.memo(function MapSection() {
 
         {/* Statistics Section (below map, left aligned) */}
         <motion.div
-          className="flex items-baseline justify-start mt-6 sm:mt-8 md:mt-10 gap-2 sm:gap-4 px-4 sm:px-6 md:px-8 ml-8"
+          className="flex items-baseline justify-start mt-3 sm:mt-4 md:mt-6 gap-2 sm:gap-4 px-4 sm:px-6 md:px-8 ml-8"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
@@ -75,7 +75,7 @@ const MapSection = React.memo(function MapSection() {
           <motion.span
             className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-[#AA7B32]"
             initial={{ y: 0 }}
-            animate={{ y: -15 , x: -10}} // Adjust the vertical movement for this text
+            animate={{ y: -15 , x: -10}}
             transition={{ duration: 0.4 }}
           >
             kota & kabupaten di Indonesia
@@ -86,7 +86,7 @@ const MapSection = React.memo(function MapSection() {
         <MotionWrapper
           variant="fadeInUp"
           delay={0.2}
-          className="w-full mt-8 mb-12 px-4 sm:px-6 md:px-8"
+          className="w-full mt-4 mb-8 px-4 sm:px-6 md:px-8"
         >
           <div className="w-full border-2 border-[#AA7B32] rounded-2xl sm:rounded-3xl px-6 py-6 md:px-8 md:py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             {/* Left - Contact */}

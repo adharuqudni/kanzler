@@ -68,9 +68,9 @@ const SplitLeft = memo(function SplitLeft({
               <Image
                 src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler Quote.png"
                 alt="Premium Quality Since 1999"
-                width={500}
+                width={400}
                 height={60}
-                className="object-contain w-60 h-7 sm:w-80 sm:h-9 md:w-[500px] md:h-[60px]"
+                className="object-contain w-60 h-7 sm:w-80 sm:h-9 md:w-[400px] md:h-[60px]"
                 loading="lazy"
               />
             </MotionWrapper>

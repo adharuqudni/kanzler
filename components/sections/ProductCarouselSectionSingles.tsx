@@ -258,8 +258,8 @@ export default function ProductCarouselSection({
         return (
           <p className="text-center w-full max-w-xl text-xl">
             Nugget kualitas premium yang <br />
-            Extra Crispy, Extra Meaty <br />
-            dan Extra Juicy
+            <em className="italic">Extra Crispy, Extra Meaty</em> <br />
+            <em className="italic">Extra Juicy</em>
           </p>
         );
       } else if (category === "sosis") {
@@ -536,14 +536,15 @@ export default function ProductCarouselSection({
                       x: animationDirection === "right" ? -50 : 50,
                     }}
                     transition={{ ...SMOOTH_BOUNCY, duration: 0.5 }}
-                    className="text-center min-w-[200px] w-full"
+                    className="text-center w-[300px] flex-shrink-0"
                   >
                     <h3
                       className={`${
                         defaultCategory !== "nugget"
                           ? paytoneOne.className
                           : dmSerif.className
-                      } text-4xl font-bold text-[#1C2653] mb-2`}
+                      } text-4xl font-bold text-[#1C2653] mb-2 whitespace-normal break-words leading-tight`}
+                      title={currentProduct?.name}
                     >
                       {currentProduct?.name || "Product Name"}
                     </h3>

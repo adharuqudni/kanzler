@@ -281,9 +281,9 @@ const FloatingProducts = memo(function FloatingProducts({
         animate={{
           opacity: 1,
           rotate: -15,
-          y: 200, // turun dari 150 → 250
+          y: 250, // turun dari 150 → 250
           scale: 0.9,
-          x: -140,
+          x: 50,
           zIndex: isHoveringRight ? 5 : 20,
         }}
         transition={{ duration: 1, ease: "easeIn" }}
@@ -305,9 +305,9 @@ const FloatingProducts = memo(function FloatingProducts({
         animate={{
           opacity: 1,
           rotate: -10,
-          y: 150, // sedikit dinaikkan (lebih ke atas)
+          y: 220, // turun dari 120 → 220
           scale: 0.9,
-          x: -20, // digeser ke kiri sedikit dari 120 -> 80
+          x: 120,
           zIndex: isHoveringRight ? 5 : 20,
         }}
         transition={{ duration: 1, ease: "easeIn" }}
@@ -351,8 +351,7 @@ const FloatingProducts = memo(function FloatingProducts({
         animate={{
           opacity: 1,
           rotate: 35,
-          y: 40, // turun dari 0 → 100
-          x: 40,
+          y: 100, // turun dari 0 → 100
           zIndex: isHoveringLeft ? 5 : 20,
         }}
         transition={{ duration: 1, ease: "easeIn" }}
