@@ -17,10 +17,10 @@ const SplitRight = memo(function SplitRight({
 }: SideProps) {
   return (
     <motion.div
-      className={`absolute top-0 bottom-0 right-0 flex items-center justify-center ${
+      className={`absolute top-0 bottom-0 right-0 flex items-center justify-center overflow-x-hidden ${
         isHoveringRight
-          ? "bg-[url('/assets/ASSET%20-%20HOME/3%20ASSET%20-%20HOME/3%20ASSET%20-%20HOME%20SPACE%20SPLIT%202.png')] bg-inherit bg-right"
-          : ""
+        ? "bg-[url('/assets/gradient-1x1.jpg')] bg-no-repeat bg-right bg-cover"
+        : ""
       }`}
       initial={{ width: "50%" }}
       animate={{
@@ -28,7 +28,7 @@ const SplitRight = memo(function SplitRight({
         clipPath: isHoveringRight
           ? "ellipse(100% 150% at 100% 50%)"
           : "ellipse(100% 80% at 100% 50%)",
-        zIndex: 10 - leftSideIndex,
+        zIndex: 110 - leftSideIndex,
       }}
       transition={BOUNCY_TRANSITION}
     >
@@ -36,7 +36,7 @@ const SplitRight = memo(function SplitRight({
         {isHoveringRight && (
           <>
             {/* Split Logo Animation - Crown and Text */}
-            <div className="flex flex-col items-center z-10">
+            <div className="flex flex-col items-center z-[110]">
               {/* Crown - animates first */}
               <MotionWrapper variant="scaleInBig" delay={0.1}>
                 <Image
@@ -66,7 +66,7 @@ const SplitRight = memo(function SplitRight({
             <MotionWrapper
               variant="fadeInUp"
               delay={0.5}
-              className="z-10" // 🔹 hapus mb-3 sm:mb-6
+              className="z-[110]" // 🔹 hapus mb-3 sm:mb-6
             >
               <Image
                 src="/assets/ASSET - HOME/1 ASSET - HOME/Singles.png"
@@ -78,11 +78,17 @@ const SplitRight = memo(function SplitRight({
               />
             </MotionWrapper>
 
-            {/* Description and Button */}
-            <MotionWrapper
-              variant="fadeInUp"
-              delay={0.7}
-              className="text-white text-center z-10"
+            {/* Description and Button with pop-up animation */}
+            <motion.div
+              className="text-white text-center z-[110]"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 180,
+                damping: 15,
+                delay: 0.7,
+              }}
             >
               <p className="max-w-md sm:max-w-xl md:max-w-2xl text-xs sm:text-sm md:text-base leading-relaxed">
                 Produk sosis dan bakso berkualitas yang terbuat dari daging{" "}
@@ -91,10 +97,17 @@ const SplitRight = memo(function SplitRight({
                 dimakan, atau diolah menjadi berbagai menu harian.
               </p>
               <motion.div
+                className="mt-8"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 12,
+                  delay: 0.9,
+                }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                className="mt-8" // 🔹 tambahan jarak setara 2x enter
               >
                 <Link href="/singles">
                   <Button className="bg-white text-kanzler-navy font-bold hover:bg-gray-100 rounded-full px-4 sm:px-6 py-0 text-xs sm:text-sm md:text-base">
@@ -102,18 +115,18 @@ const SplitRight = memo(function SplitRight({
                   </Button>
                 </Link>
               </motion.div>
-            </MotionWrapper>
+            </motion.div>
           </>
         )}
 
         {/* Right side floating products */}
         <motion.div
-          className="absolute -bottom-80 rotate-45 -left-28 z-30"
+          className="absolute -bottom-80 rotate-45 -left-28 z-[130]"
           initial={{ opacity: 1, rotate: 40, x: -30 }}
           animate={{
             y: isHoveringRight ? -420 : 0,
             x: isHoveringRight ? -30 : 0,
-            rotate: 40, // 🔹 selalu 40°, tidak berubah
+            rotate: 25, // 🔹 selalu 40°, tidak berubah
             display: isHoveringRight ? "block" : " none",
           }}
           transition={BOUNCY_TRANSITION}
@@ -129,7 +142,7 @@ const SplitRight = memo(function SplitRight({
         </motion.div>
 
         <motion.div
-          className="absolute bottom-16 right-80 z-30"
+          className="absolute bottom-16 right-80 z-[130]"
           initial={{ opacity: 1, rotate: -25, y: 0 }}
           animate={{
             y: 0,

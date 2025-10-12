@@ -12,6 +12,8 @@ import SplitRight from "./SplitRight";
 
 interface SplitHeroProps {
   className?: string;
+  currentSection?: number;
+  isScrolling?: boolean;
 }
 export interface SideProps {
   isHoveringLeft: boolean;
@@ -20,7 +22,7 @@ export interface SideProps {
   leftSideIndex: number;
 }
 
-function SplitHero({ className = "" }: SplitHeroProps) {
+function SplitHero({ className = "", currentSection = 0, isScrolling = false }: SplitHeroProps) {
   const mousePosition = useMousePosition(32);
   const [leftSideWidth, setLeftSideWidth] = useState(50);
   const [leftSideIndex, setLeftSideIndex] = useState(5);
@@ -38,7 +40,12 @@ function SplitHero({ className = "" }: SplitHeroProps) {
 
   const mouseCalculations = useMemo(() => {
     if (!mousePosition.x || !mousePosition.y) return null;
-    if (isMobile || hasScrolled)
+    // Only allow hover on hero section (currentSection === 0) and when not scrolling
+    if (isMobile || currentSection > 0 || isScrolling)
+      return { isLeft: false, isRight: false, reset: true };
+    
+    // Also check hasScrolled only when on hero section
+    if (currentSection === 0 && hasScrolled)
       return { isLeft: false, isRight: false, reset: true };
 
     const w = window.innerWidth;
@@ -57,7 +64,7 @@ function SplitHero({ className = "" }: SplitHeroProps) {
       width: isLeft ? 60 : 40,
       index: isLeft ? 7 : 3,
     };
-  }, [mousePosition.x, mousePosition.y, hasScrolled, isMobile]);
+  }, [mousePosition.x, mousePosition.y, hasScrolled, isMobile, currentSection, isScrolling]);
 
   useEffect(() => {
     if (!mouseCalculations || mouseCalculations.reset) {
@@ -78,6 +85,37 @@ function SplitHero({ className = "" }: SplitHeroProps) {
       const y = window.scrollY;
       if (y > 50 && !hasScrolled) setHasScrolled(true);
       if (y <= 10 && hasScrolled) setHasScrolled(false);
+      // Immediate reset on any scroll
+      setIsHoveringLeft(false);
+      setIsHoveringRight(false);
+      setLeftSideWidth(50);
+      setLeftSideIndex(5);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [hasScrolled]);
+
+  // Immediate reset when snap scrolling starts or section changes
+  useEffect(() => {
+    if (isScrolling || currentSection > 0) {
+      setIsHoveringLeft(false);
+      setIsHoveringRight(false);
+      setLeftSideWidth(50);
+      setLeftSideIndex(5);
+      setHasScrolled(true); // Also set hasScrolled to prevent immediate re-hover
+    }
+  }, [isScrolling, currentSection]);
+
+  // Reset hasScrolled when returning to hero section
+  useEffect(() => {
+    if (currentSection === 0) {
+      setHasScrolled(false);
+    }
+  }, [currentSection]);
+
+  // Add wheel event listener for immediate cancellation on scroll attempt
+  useEffect(() => {
+    const handleWheel = () => {
       if (isHoveringLeft || isHoveringRight) {
         setIsHoveringLeft(false);
         setIsHoveringRight(false);
@@ -85,13 +123,14 @@ function SplitHero({ className = "" }: SplitHeroProps) {
         setLeftSideIndex(5);
       }
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [isHoveringLeft, isHoveringRight, hasScrolled]);
+    
+    window.addEventListener("wheel", handleWheel, { passive: true });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [isHoveringLeft, isHoveringRight]);
 
   return (
     <main
-      className={`min-h-[160vh] relative flex flex-col bg-[#1C2653] ${className}`}
+      className={`min-h-[130vh] relative flex flex-col bg-[#1C2653] ${className}`}
     >
       {/* ===== Background Layers ===== */}
       <div className="absolute inset-0">
@@ -105,7 +144,7 @@ function SplitHero({ className = "" }: SplitHeroProps) {
         />
 
         {/* Gradient (di bawah curve & di bawah logo) */}
-        <div className="absolute inset-0 pointer-events-none z-[2]">
+        <div className="absolute inset-0 pointer-events-none z-[100] h-[170vh]">
           <Image
             src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME GRADIENT BLENDING SCREEN.png"
             alt="Gradient Blending Screen"
@@ -116,17 +155,7 @@ function SplitHero({ className = "" }: SplitHeroProps) {
         </div>
 
         {/* Wave putih transisi ke section berikutnya */}
-        <svg
-          className="absolute inset-x-0 bottom-[-1px] h-[140px] w-full pointer-events-none z-[3]"
-          viewBox="0 0 1920 200"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M0,0 C480,160 1440,160 1920,0 L1920,200 L0,200 Z"
-            fill="#ffffff"
-          />
-        </svg>
+      
       </div>
 
       {/* ===== Split Panels (dibatasi tinggi 100vh) ===== */}
@@ -150,10 +179,10 @@ function SplitHero({ className = "" }: SplitHeroProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: isHoveringRight || isHoveringLeft ? 0.6 : 0 }}
           transition={BOUNCY_TRANSITION}
-          style={{ zIndex: 6 }}
+          style={{ zIndex: 106 }}
         />
 
-        {/* ===== Logo di BELAKANG split (z-4) ===== */}
+        {/* ===== Logo di BELAKANG split (z-104) ===== */}
         <LogoOverlay />
 
         {/* Produk melayang (tetap paling atas konten) */}
@@ -161,9 +190,6 @@ function SplitHero({ className = "" }: SplitHeroProps) {
           isHoveringLeft={isHoveringLeft}
           isHoveringRight={isHoveringRight}
         />
-
-        {/* Crown toggle - white <-> gold based on scroll position */}
-        <CrownToggle targetIds={["CeritaKanzler", "MapSection"]} />
       </div>
     </main>
   );
@@ -172,7 +198,7 @@ function SplitHero({ className = "" }: SplitHeroProps) {
 const LogoOverlay = memo(function LogoOverlay() {
   return (
     <div
-      className="absolute inset-0 h-full flex flex-col items-center justify-center z-[4] pointer-events-none"
+      className="absolute inset-0 h-full flex flex-col items-center justify-center z-[104] pointer-events-none"
       aria-hidden="true"
     >
       <MotionWrapper variant="scaleInBig" delay={0.2}>
@@ -276,7 +302,7 @@ const FloatingProducts = memo(function FloatingProducts({
   return (
     <>
       <motion.div
-        className="absolute top-1/2 -rotate-45 left-96 z-20"
+        className="absolute top-1/2 -rotate-45 left-96 z-[120]"
         initial={{ opacity: 0, y: 350 }}
         animate={{
           opacity: 1,
@@ -284,7 +310,7 @@ const FloatingProducts = memo(function FloatingProducts({
           y: 250, // turun dari 150 → 250
           scale: 0.9,
           x: 50,
-          zIndex: isHoveringRight ? 5 : 20,
+          zIndex: isHoveringRight ? 105 : 120,
         }}
         transition={{ duration: 1, ease: "easeIn" }}
       >
@@ -300,7 +326,7 @@ const FloatingProducts = memo(function FloatingProducts({
       </motion.div>
 
       <motion.div
-        className="absolute top-1/2 -rotate-45 left-96 z-20"
+        className="absolute top-1/2 -rotate-45 left-96 z-[120]"
         initial={{ opacity: 0, y: 350 }}
         animate={{
           opacity: 1,
@@ -308,7 +334,7 @@ const FloatingProducts = memo(function FloatingProducts({
           y: 220, // turun dari 120 → 220
           scale: 0.9,
           x: 120,
-          zIndex: isHoveringRight ? 5 : 20,
+          zIndex: isHoveringRight ? 105 : 120,
         }}
         transition={{ duration: 1, ease: "easeIn" }}
       >
@@ -324,13 +350,13 @@ const FloatingProducts = memo(function FloatingProducts({
       </motion.div>
 
       <motion.div
-        className="absolute top-1/2 -rotate-45 left-[44%] z-30"
+        className="absolute top-1/2 -rotate-45 left-[44%] z-[130]"
         initial={{ opacity: 0, y: 350 }}
         animate={{
           opacity: 1,
           rotate: 20,
           y: 0, // turun dari 0 → 100
-          zIndex: isHoveringLeft ? 5 : 20,
+          zIndex: isHoveringLeft ? 105 : 120,
         }}
         transition={{ duration: 1, ease: "easeIn" }}
       >
@@ -346,13 +372,13 @@ const FloatingProducts = memo(function FloatingProducts({
       </motion.div>
 
       <motion.div
-        className="absolute top-1/2 -rotate-45 right-[30%] z-30"
+        className="absolute top-1/2 -rotate-45 right-[30%] z-[130]"
         initial={{ opacity: 0, y: 350 }}
         animate={{
           opacity: 1,
           rotate: 35,
           y: 100, // turun dari 0 → 100
-          zIndex: isHoveringLeft ? 5 : 20,
+          zIndex: isHoveringLeft ? 105 : 120,
         }}
         transition={{ duration: 1, ease: "easeIn" }}
       >
@@ -369,49 +395,5 @@ const FloatingProducts = memo(function FloatingProducts({
     </>
   );
 });
-
-// CrownToggle: toggle putih <-> emas berdasarkan keberadaan
-function CrownToggle({ targetIds }: { targetIds: string[] }) {
-  const WHITE_SRC = "/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg";
-  const GOLD_SRC =
-    "/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK MAHKOTA.png";
-
-  const [isGold, setIsGold] = useState(false);
-
-  useEffect(() => {
-    const elements = targetIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean) as HTMLElement[];
-    if (!elements.length) return;
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        // jika salah satu target terlihat => mahkota emas
-        const anyVisible = entries.some((e) => e.isIntersecting);
-        setIsGold(anyVisible);
-      },
-      { threshold: 0.25 }
-    );
-
-    elements.forEach((el) => obs.observe(el));
-    return () => obs.disconnect();
-  }, [targetIds]);
-
-  return (
-    <div
-      className="fixed top-4 left-4 z-50 pointer-events-none"
-      aria-hidden="true"
-    >
-      <Image
-        src={isGold ? GOLD_SRC : WHITE_SRC}
-        alt="Kanzler Crown"
-        width={44}
-        height={44}
-        className="object-contain w-11 h-11 sm:w-12 sm:h-12 ml-4"
-        priority
-      />
-    </div>
-  );
-}
 
 export default memo(SplitHero);

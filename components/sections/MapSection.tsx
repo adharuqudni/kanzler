@@ -1,59 +1,69 @@
-"use client";
+'use client';
 
-import React from "react";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import MotionWrapper from "@/components/animations/MotionWrapper";
-import { BOUNCY_TRANSITION } from "@/lib/motion";
+import React from 'react';
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import MotionWrapper from '@/components/animations/MotionWrapper';
+import { BOUNCY_TRANSITION } from '@/lib/motion';
 
 const MapSection = React.memo(function MapSection() {
   return (
     <section className="min-h-screen bg-[#1C2652] relative overflow-hidden">
       {/* Top curved transition from white to navy */}
-      <div className="absolute top-0 left-0 w-full">
-        <svg
-          height="80"
-          viewBox="0 0 500 80"
+      <svg
+          height="120"
+          viewBox="0 0 500 120"
           preserveAspectRatio="none"
           className="w-full"
         >
           <path
-            d="M0,80 Q250,0 500,80 L500,0 L0,0 Z"
+            d="M0,120 Q250,40 500,120 L500,0 L0,0 Z"
             fill="white"
             fillRule="evenodd"
           />
         </svg>
-      </div>
-
+      
       {/* Content Container */}
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-8 pt-12 sm:pt-16 md:pt-20">
+      <div id="map-section" className="relative z-10  mx-auto px-4 sm:px-6 md:px-8 pt-4 sm:pt-4 md:pt-4">
         {/* Header Section */}
-        <div className="text-center mb-8">
-          <MotionWrapper variant="fadeInUp" delay={0.2}>
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight">
-              Tersedia di
-            </h2>
-          </MotionWrapper>
-        </div>
+        <motion.div 
+          className="text-center mb-8"
+          initial={{ scale: 0, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{
+            type: "spring",
+            stiffness: 200,
+            damping: 15,
+            delay: 0.2,
+          }}
+        >
+          <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">
+            Tersedia di
+          </h2>
+        </motion.div>
 
         {/* Map Section */}
-        <div className="relative max-w-2xl sm:max-w-4xl md:max-w-6xl mx-auto">
+        <div className="flex flex-col items-center w-full">
           <motion.div
-            className="relative"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
+          className='w-[70%]'
+            initial={{ opacity: 0, scale: 0.5, y: 50 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{
-              ...BOUNCY_TRANSITION,
-              delay: 1.2,
-              duration: 1.2,
+              type: "spring",
+              stiffness: 150,
+              damping: 20,
+              delay: 0.3,
+              duration: 0.8,
             }}
           >
             <Image
               src="/assets/ASSET - HOME/5 ASSET - HOME/5 ASSET - HOME PETA.png"
               alt="Peta Indonesia - Kanzler Coverage"
-              width={1200}
+              width={1000}
               height={700}
-              className="w-full h-auto object-contain brightness-90 contrast-110"
+              className="w-full self-center object-contain brightness-90 contrast-110"
               loading="lazy"
             />
           </motion.div>
@@ -61,36 +71,72 @@ const MapSection = React.memo(function MapSection() {
 
         {/* Statistics Section (below map, left aligned) */}
         <motion.div
-          className="flex items-baseline justify-start mt-6 sm:mt-8 md:mt-10 gap-2 sm:gap-4 px-4 sm:px-6 md:px-8 ml-8"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          className="flex items-baseline justify-start gap-2 sm:gap-4 px-4 sm:px-6 md:px-8 ml-8"
+          initial={{ opacity: 0, scale: 0.8, x: -50 }}
+          whileInView={{ opacity: 1, scale: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{
-            ...BOUNCY_TRANSITION,
-            delay: 1.6,
+            type: "spring",
+            stiffness: 180,
+            damping: 15,
+            delay: 0.5,
           }}
         >
-          <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#AA7B32]">
+          <motion.span 
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#AA7B32]"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{
+              type: "spring",
+              stiffness: 200,
+              damping: 10,
+              delay: 0.7,
+            }}
+          >
             498+
-          </span>
+          </motion.span>
           <motion.span
             className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-[#AA7B32]"
-            initial={{ y: 0 }}
-            animate={{ y: -15 , x: -10}} // Adjust the vertical movement for this text
-            transition={{ duration: 0.4 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: -15, x: -10 }}
+            viewport={{ once: true }}
+            transition={{
+              type: "spring",
+              stiffness: 150,
+              damping: 12,
+              delay: 0.9,
+            }}
           >
             kota & kabupaten di Indonesia
           </motion.span>
         </motion.div>
 
         {/* Contact Information Box */}
-        <MotionWrapper
-          variant="fadeInUp"
-          delay={0.2}
-          className="w-full mt-8 mb-12 px-4 sm:px-6 md:px-8"
+        <motion.div
+          className="w-full mt-8 px-4 sm:px-6 md:px-8"
+          initial={{ opacity: 0, y: 80, scale: 0.9 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{
+            type: "spring",
+            stiffness: 120,
+            damping: 20,
+            delay: 0.6,
+          }}
         >
           <div className="w-full border-2 border-[#AA7B32] rounded-2xl sm:rounded-3xl px-6 py-6 md:px-8 md:py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
             {/* Left - Contact */}
-            <div className="flex-1">
+            <motion.div 
+              className="flex-1"
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                delay: 0.8,
+                duration: 0.6,
+              }}
+            >
               <h3 className="text-2xl md:text-[28px] font-bold text-white mb-3">
                 Hubungi Kami
               </h3>
@@ -104,33 +150,50 @@ const MapSection = React.memo(function MapSection() {
                   Jakarta 11620 | (021) 587 4630
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Right - Social */}
-            <div className="flex flex-col items-center md:items-end">
+            <motion.div 
+              className="flex flex-col items-center md:items-end"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                delay: 1,
+                duration: 0.6,
+              }}
+            >
               <h4 className="text-xl md:text-[22px] font-semibold text-white mb-4">
                 Ikuti Kami
               </h4>
               <div className="flex gap-6">
                 {[
                   {
-                    src: "/assets/ASSET - HOME/5 ASSET - HOME/5 ASSET - HOME IG.png",
-                    alt: "Instagram",
-                    href: "#",
+                    src: '/assets/ASSET - HOME/5 ASSET - HOME/5 ASSET - HOME IG.png',
+                    alt: 'Instagram',
+                    href: '#',
                   },
                   {
-                    src: "/assets/ASSET - HOME/5 ASSET - HOME/5 ASSET - HOME TIKTOK.png",
-                    alt: "TikTok",
-                    href: "#",
+                    src: '/assets/ASSET - HOME/5 ASSET - HOME/5 ASSET - HOME TIKTOK.png',
+                    alt: 'TikTok',
+                    href: '#',
                   },
                 ].map((item, idx) => (
                   <motion.a
                     key={idx}
                     href={item.href}
                     className="group"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={BOUNCY_TRANSITION}
+                    initial={{ scale: 0, rotate: -180 }}
+                    whileInView={{ scale: 1, rotate: 0 }}
+                    viewport={{ once: true }}
+                    whileHover={{ scale: 1.2, rotate: 5 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 15,
+                      delay: 1.2 + idx * 0.15,
+                    }}
                   >
                     <Image
                       src={item.src}
@@ -142,9 +205,9 @@ const MapSection = React.memo(function MapSection() {
                   </motion.a>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
-        </MotionWrapper>
+        </motion.div>
       </div>
     </section>
   );

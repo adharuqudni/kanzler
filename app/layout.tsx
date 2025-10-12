@@ -44,7 +44,6 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="min-h-screen flex flex-col">
-            {/* <ConditionalNavbar /> */}
            
             <main className="flex-1">
               {children}

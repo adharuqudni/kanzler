@@ -19,7 +19,7 @@ const SplitLeft = memo(function SplitLeft({
     <motion.div
       className={`absolute top-0 bottom-0 left-0 flex items-center justify-center ${
         isHoveringLeft
-          ? "bg-[url('/assets/ASSET%20-%20HOME%2F2%20ASSET%20-%20HOME%2F2%20ASSET%20-%20HOME%20SPACE%20SPLIT%201.png')] bg-inherit bg-left"
+          ? "bg-[url('/assets/gradient-1x1.jpg')] bg-no-repeat bg-left bg-cover"
           : ''
       }`}
       initial={{ width: '50%' }}
@@ -28,7 +28,7 @@ const SplitLeft = memo(function SplitLeft({
         clipPath: isHoveringLeft
           ? 'ellipse(100% 150% at 0% 50%)'
           : 'ellipse(00% 80% at 0% 50%)',
-        zIndex: leftSideIndex,
+        zIndex: leftSideIndex + 100,
       }}
       transition={BOUNCY_TRANSITION}
     >
@@ -37,7 +37,7 @@ const SplitLeft = memo(function SplitLeft({
         {isHoveringLeft && (
           <>
             {/* Split Logo Animation - Crown and Text */}
-            <div className="flex flex-col items-center z-10">
+            <div className="flex flex-col items-center z-[110]">
               {/* Crown - animates first */}
               <MotionWrapper variant="scaleInBig" delay={0.1} className="mb-2 sm:mb-4">
                 <Image
@@ -57,29 +57,35 @@ const SplitLeft = memo(function SplitLeft({
                   alt="Kanzler"
                   width={400}
                   height={80}
-                  className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px]"
+                  className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[500px] md:h-[80px]"
                   loading="lazy"
                 />
               </MotionWrapper>
             </div>
 
             {/* Tagline Image */}
-            <MotionWrapper variant="fadeInUp" delay={0.5} className=" -mt-8 mb-3 sm:mb-6 z-10">
+            <MotionWrapper variant="fadeInUp" delay={0.5} className=" -mt-8 mb-3 sm:mb-6 z-[110]">
               <Image
                 src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler Quote.png"
                 alt="Premium Quality Since 1999"
-                width={500}
+                width={400}
                 height={60}
-                className="object-contain w-60 h-7 sm:w-80 sm:h-9 md:w-[500px] md:h-[60px]"
+                className="object-contain w-48 h-7 sm:w-80 sm:h-9 md:w-[500px] md:h-[60px]"
                 loading="lazy"
               />
             </MotionWrapper>
 
-            {/* Description and Button */}
-            <MotionWrapper
-              variant="fadeInUp"
-              delay={0.7}
-              className="text-white text-center z-10"
+            {/* Description and Button with pop-up animation */}
+            <motion.div
+              className="text-white text-center z-[110]"
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{
+                type: "spring",
+                stiffness: 180,
+                damping: 15,
+                delay: 0.7,
+              }}
             >
               <p className="mb-4 sm:mb-6 max-w-xs sm:max-w-md text-xs sm:text-sm md:text-base leading-relaxed">
                 Produk sosis dan nugget dari daging sapi dan ayam pilihan.
@@ -89,9 +95,16 @@ const SplitLeft = memo(function SplitLeft({
                  lezat setiap hari.
               </p>
               <motion.div
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 12,
+                  delay: 0.9,
+                }}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
               >
                 <Link href="/homepack">
                   <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 text-xs font-extrabold sm:text-sm md:text-base ">
@@ -99,7 +112,7 @@ const SplitLeft = memo(function SplitLeft({
                   </Button>
                 </Link>
               </motion.div>
-            </MotionWrapper>
+            </motion.div>
           </>
         )}
 
@@ -107,7 +120,7 @@ const SplitLeft = memo(function SplitLeft({
         <ProductImage
           src="/assets/ASSET - HOME/2 ASSET - HOME/2 ASSET - HOME BEEF.png"
           alt="Kanzler beef 1"
-          className="absolute top-28 -rotate-45 -left-28 z-10"
+          className="absolute top-28 -rotate-45 -left-28 z-[110]"
           rotateOverride={320}
           isVisible={isHoveringLeft}
           animation="slideFromLeft"
@@ -117,14 +130,14 @@ const SplitLeft = memo(function SplitLeft({
         <ProductImage
           src="/assets/ASSET - HOME/2 ASSET - HOME/2 ASSET - HOME NUGGET.png"
           alt="Kanzler nugget"
-          className="absolute top-20 -right-20 z-10"
+          className="absolute top-20 -right-20 z-[110]"
           isVisible={isHoveringLeft}
           animation="slideFromRight"
         />
 
         {/* Floating cocktail products */}
         <motion.div
-          className="absolute -bottom-64 -rotate-45 left-96 w-[30vw] max-w-[90vw] z-20"
+          className="absolute -bottom-64 -rotate-45 left-96 w-[26vw]  z-[120]"
           initial={{ opacity: 1, rotate: -15, y: 0 }}
           animate={{
             y: isHoveringLeft ? 70 : 0,
@@ -146,7 +159,7 @@ const SplitLeft = memo(function SplitLeft({
         </motion.div>
 
         <motion.div
-          className="absolute -bottom-64 -rotate-45 left-96 w-[40vw] max-w-[90vw] z-20"
+          className="absolute -bottom-64 -rotate-45 left-[30vw] w-[36vw]  z-[120]"
           initial={{ opacity: 1, rotate: -10, y: 0, x: 0 }}
           animate={{
             y: isHoveringLeft ? 75 : -150,
