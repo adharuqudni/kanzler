@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Package, Info } from 'lucide-react';
 import Link from 'next/link';
+import { Poppins } from 'next/font/google';
+
+const poppins = Poppins({ subsets: ['latin'], weight: '400' });
 
 export default function SinglesSidebar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -122,7 +125,7 @@ export default function SinglesSidebar() {
                     >
                       <div className="flex items-center gap-2">
                         <p
-                          className={`text-sm font-semibold transition-colors ${
+                          className={`${poppins.className} text-sm font-semibold transition-colors ${
                             item.isActive
                               ? 'text-white'
                               : 'text-yellow-AA7B32 group-hover:text-yellow-300'

@@ -47,6 +47,9 @@ export default function SinglesPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // page variable untuk diteruskan ke komponen section
+  const page = 'singles';
+
   return (
     <div ref={containerRef} className="snap-scroll-container">
       <FixedAnimatedProducts currentSection={currentSection} />

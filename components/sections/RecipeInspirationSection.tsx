@@ -12,11 +12,12 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { DM_Serif_Display } from "next/font/google";
+import { DM_Serif_Display, Poppins } from "next/font/google";
 import RecipeDetailSection from "./RecipeDetailSection";
 import { useResponsive } from "@/hooks/use-responsive";
 
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
+const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
 // TypeScript interfaces for API data
 interface ImageFormat {
@@ -92,20 +93,19 @@ const GOLD = "#AA7B32";
 
 // Category mapping from API to display names
 const categoryMapping: Record<string, string> = {
-  "singles-bakso": "Kanzler Singles - Bakso",
-  "singles-sosis": "Kanzler Singles - Sosis", 
-  "kanzler-sosis": "Kanzler Singles - Sosis",
-  "homepack": "Produk Kanzler",
+  "singles-bakso": "Singles Bakso",
+  "singles-sosis": "Singles Sosis", 
+  "kanzler-sosis": "Kanzler Sosis",
+  "kanzler-nugget": "Kanzler Nugget",
 };
 
-// Dropdown categories
-const productCategories = [
-  "Semua Produk",
-  "Kanzler Singles - Bakso", 
-  "Kanzler Singles - Sosis",
-  "Produk Kanzler",
-];
-
+// Dropdown categories per page
+const PRODUCT_CATEGORIES = {
+  homepack: ["Kanzler Sosis", "Kanzler Nugget"],
+  singles: ["Singles Sosis", "Singles Bakso"],
+  default: ["Kanzler Sosis", "Kanzler Nugget", "Singles Sosis", "Singles Bakso"],
+};
+ 
 // API base URL
 const API_BASE_URL = "https://kznlr.qup.my.id";
 
@@ -120,17 +120,28 @@ const transformRecipeToVideo = (recipe: Recipe) => ({
   ingredient: recipe.Ingredient,
 });
 
-export default function RecipeInspirationSection() {
-  const [selectedCategory, setSelectedCategory] = useState(
-    productCategories[0]
-  );
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
-  const [recipes, setRecipes] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedRecipeDetail, setSelectedRecipeDetail] = useState<Recipe | null>(null);
-  const [loadingDetail, setLoadingDetail] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+interface RecipeInspirationSectionProps {
+  page?: string;
+}
+
+export default function RecipeInspirationSection({ page = "home" }: RecipeInspirationSectionProps) {
+  // choose categories based on page prop
+  const productCategories = page === "singles"
+    ? PRODUCT_CATEGORIES.singles
+    : page === "homepack"
+    ? PRODUCT_CATEGORIES.homepack
+    : PRODUCT_CATEGORIES.default;
+
+  const [selectedCategory, setSelectedCategory] = useState<string>(productCategories[0]);
+   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+   const [recipes, setRecipes] = useState<any[]>([]);
+   const [loading, setLoading] = useState(true);
+   const [selectedRecipeDetail, setSelectedRecipeDetail] = useState<Recipe | null>(null);
+   const [loadingDetail, setLoadingDetail] = useState(false);
+   const dropdownRef = useRef<HTMLDivElement>(null);
+  // page prop is available here for conditional behavior if needed
+  // e.g. use `page` to adjust filtering/fetching/UI for different pages
 
   // Add responsive hook
   const { 
@@ -202,7 +213,16 @@ export default function RecipeInspirationSection() {
       ? recipes
       : recipes.filter((recipe) => {
           const mappedCategory = categoryMapping[recipe.Category] || "Produk Kanzler";
-          return mappedCategory === selectedCategory;
+
+          // normalize helper (lowercase, remove non-alphanum) to allow fuzzy matching
+          const normalize = (s: string) =>
+            s ? s.toLowerCase().replace(/[^a-z0-9]+/g, "") : "";
+
+          const normMapped = normalize(mappedCategory);
+          const normSelected = normalize(selectedCategory);
+
+          // match if either contains the other
+          return normMapped.includes(normSelected) || normSelected.includes(normMapped);
         });
 
   const handleCardClick = (id: string) => {
@@ -321,26 +341,26 @@ export default function RecipeInspirationSection() {
                       className="flex items-center gap-3 px-3 py-1.5 rounded-full"
                       style={{ backgroundColor: GOLD }}
                     >
-                      <p className="text-white font-semibold text-base px-2">
+                      <p className={`${poppins.className} text-white font-semibold text-base px-2`}>
                         Kategori
                       </p>
 
                       <div ref={dropdownRef} className="relative w-full max-w-[280px] min-w-[280px]">
                         <motion.button
-                          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                          className="w-full bg-white rounded-xl px-4 py-1.5 text-left flex items-center justify-between font-semibold transition-all duration-300 border-2 text-base min-w-[280px]"
-                          style={{ color: NAVY, borderColor: GOLD }}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <span>{selectedCategory}</span>
-                          <motion.div
-                            animate={{ rotate: isDropdownOpen ? 180 : 0 }}
-                            transition={{ duration: 0.25 }}
-                          >
-                            <ChevronDown size={18} color={GOLD} />
-                          </motion.div>
-                        </motion.button>
+                           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                           className={`${poppins.className} w-full bg-white rounded-xl px-4 py-1.5 text-left flex items-center justify-between font-semibold transition-all duration-300 border-2 text-base min-w-[280px]`}
+                           style={{ color: NAVY, borderColor: GOLD }}
+                           whileHover={{ scale: 1.02 }}
+                           whileTap={{ scale: 0.98 }}
+                         >
+                           <span>{selectedCategory}</span>
+                           <motion.div
+                             animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+                             transition={{ duration: 0.25 }}
+                           >
+                             <ChevronDown size={18} color={GOLD} />
+                           </motion.div>
+                         </motion.button>
 
                         {/* Dropdown Menu */}
                         <AnimatePresence>
@@ -360,22 +380,12 @@ export default function RecipeInspirationSection() {
                                     setSelectedCategory(category);
                                     setIsDropdownOpen(false);
                                   }}
-                                  className={`w-full px-4 py-2.5 text-left text-base font-semibold transition-all duration-200 hover:bg-opacity-10 ${
+                                  className={`${poppins.className} w-full px-4 py-2.5 text-left text-base font-semibold transition-all duration-200 focus:outline-none ${
                                     selectedCategory === category
-                                      ? "bg-opacity-15"
-                                      : "bg-transparent"
+                                      ? "bg-[#1C2653] text-white" // selected = navy bg, white text
+                                      : "bg-white text-[#1C2653] hover:bg-[#1C2653] hover:text-white" // default = white bg navy text, hover -> navy bg white text
                                   }`}
-                                  style={{
-                                    color: NAVY,
-                                    backgroundColor:
-                                      selectedCategory === category
-                                        ? GOLD
-                                        : "transparent",
-                                  }}
-                                  whileHover={{
-                                    backgroundColor: `${GOLD}20`,
-                                    transition: { duration: 0.2 },
-                                  }}
+                                  whileHover={{ scale: 1.02 }}
                                   whileTap={{ scale: 0.98 }}
                                 >
                                   {category}
