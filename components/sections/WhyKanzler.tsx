@@ -73,8 +73,8 @@ export default function WhyKanzler() {
   const imageSize = getResponsiveDimensions(300);
   return (
     <section className="bg-white py-responsive-12 flex items-center justify-center">
-      <div className="responsive-container my-responsive-20">
-        <div className="flex flex-col lg:flex-row items-center justify-center max-w-7xl mx-auto ">
+      <div className="w-full my-responsive-20" id="why-kanzler">
+        <div className="flex flex-col lg:flex-row items-center justify-center  w-full ">
           {/* LEFT CARD — icon kiri, heading kanan, deskripsi DI BAWAH IKON (span kolom) */}
           <motion.div
             className="order-2 lg:order-1 -mr-8"

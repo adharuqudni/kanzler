@@ -114,7 +114,7 @@ const MapSection = React.memo(function MapSection() {
 
         {/* Contact Information Box */}
         <motion.div
-          className="w-full mt-8 px-4 sm:px-6 md:px-8"
+          className="w-full mt-4 px-4 sm:px-6 md:px-8"
           initial={{ opacity: 0, y: 80, scale: 0.9 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}

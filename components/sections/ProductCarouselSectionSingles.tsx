@@ -5,8 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { SMOOTH_BOUNCY } from "@/lib/motion";
 import { DM_Serif_Display, Poppins, Paytone_One } from "next/font/google";
-import { useResponsive } from "@/hooks/use-responsive";
-import { SafeHTML } from "@/lib/sanitize-html";
 
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 const poppins = Poppins({
@@ -107,19 +105,6 @@ export default function ProductCarouselSection({
   const [productData, setProductData] = useState<ProductData>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  // Add responsive hook
-  const { 
-    getResponsiveDimensions, 
-    getResponsiveSpacing,
-    getScale,
-    screenSize 
-  } = useResponsive();
-
-  // Get responsive dimensions for images and components
-  const arrowSize = getResponsiveDimensions(64);
-  const productImageSize = getResponsiveDimensions(300);
-  const categoryTitleScale = getScale();
 
   const categories = Object.keys(productData);
   const initialCategory = defaultCategory || categories[0];
@@ -352,11 +337,11 @@ export default function ProductCarouselSection({
 
       {/* Main Content */}
       <div className="relative z-10 min-h-screen flex items-center">
-        <div className="responsive-container py-responsive-16">
+        <div className="container mx-auto px-8 py-16">
           <div className="grid grid-cols-12 items-center">
             {/* Left Side - Category Toggle */}
             <div className="col-span-4">
-              <div className="space-responsive-8 items-center justify-center text-center mx-20 mb-responsive-8">
+              <div className="space-y-8 items-center justify-center text-center mx-20 mb-8">
                 {categories.map((category, index) => (
                   <motion.button
                     key={category}
@@ -373,19 +358,19 @@ export default function ProductCarouselSection({
                         y:
                           activeCategory === category
                             ? index === 0
-                              ? 90 * categoryTitleScale
+                              ? 90
                               : 0
                             : index === 0
                             ? 0
-                            : -80 * categoryTitleScale,
+                            : -80,
                         scale:
                           activeCategory === category
                             ? index === 0
-                              ? 1.4 * categoryTitleScale
-                              : 1.4 * categoryTitleScale
+                              ? 1.4
+                              : 1.4
                             : index === 0
-                            ? 0.8 * categoryTitleScale
-                            : 0.8 * categoryTitleScale,
+                            ? 0.8
+                            : 0.8,
                         transition: { ...SMOOTH_BOUNCY, duration: 0.2 },
                       },
                     }}
@@ -400,8 +385,7 @@ export default function ProductCarouselSection({
                           defaultCategory === "nugget"
                             ? dmSerif.className
                             : paytoneOne.className
-                        } text-responsive-6xl font-bold`}
-                        style={{ fontSize: `${6 * categoryTitleScale}rem` }}
+                        } text-6xl font-bold`}
                       >
                         {category.toUpperCase()}
                       </h2>
@@ -412,7 +396,7 @@ export default function ProductCarouselSection({
                           style={{
                             transform: `rotate(${
                               activeCategory === category ? "0" : "270"
-                            }deg) scale(${categoryTitleScale})`,
+                            }deg)`,
                           }}
                           width={48}
                           height={48}
@@ -426,7 +410,7 @@ export default function ProductCarouselSection({
 
               {/* Category Description */}
               <motion.div
-                className="mt-4 text-white/80 w-full flex justify-start ml-[15%]"
+                className={`mt-4 text-white/80 w-full flex justify-start ml-[15%] ${poppins.className} `}
                 variants={fadeInUpVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -438,7 +422,7 @@ export default function ProductCarouselSection({
             </div>
 
             {/* Center - Product Image Only (No Mockup) */}
-            <div className="col-span-4 flex justify-center items-center relative mb-responsive-16">
+            <div className="col-span-4 flex justify-center items-center relative mb-60">
               {/* Back Image (Most Background) */}
               <AnimatePresence mode="wait">
                 <motion.div
@@ -446,40 +430,43 @@ export default function ProductCarouselSection({
                   className="absolute flex justify-center items-center"
                   style={{
                     zIndex: 30,
-                    width: `${125 * categoryTitleScale}px`,
-                    height: `${400 * categoryTitleScale}px`,
+                    width: '125px',
+                    height: '400px',
                     left: '45%',
-                    marginLeft: `${-50 * categoryTitleScale}px`,
+                    marginLeft: '-50px',
                     top: '0px',
-                    transformOrigin: 'left bottom',
+                    transformOrigin: 'left bottom', // Rotation center at left bottom
                   }}
                   initial={{
                     opacity: 1,
-                    scale: 0.85 * categoryTitleScale,
+                    scale: 0.85,
                     rotate: 5,
                   }}
                   animate={{
                     opacity: 1,
-                    scale: 0.95 * categoryTitleScale,
+                    scale: 0.95,
                     rotate: 15,
                   }}
                   exit={{
                     opacity: 0,
-                    scale: 0.85 * categoryTitleScale,
+                    scale: 0.85,
                     rotate: 20,
                   }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
                 >
                   <Image
-                    src={currentProduct?.secondImage || ''}
+                    src={
+                      currentProduct?.secondImage || ''
+                    }
                     alt="Back Product"
-                    width={parseInt(productImageSize.width)}
-                    height={parseInt(productImageSize.height)}
+                    width={300}
+                    height={300}
                     className="object-contain drop-shadow-lg"
                     priority
                   />
                 </motion.div>
               </AnimatePresence>
+
 
               {/* Foreground Image (Current Product) */}
               <AnimatePresence mode="wait">
@@ -488,30 +475,27 @@ export default function ProductCarouselSection({
                   className="absolute flex justify-center items-center"
                   style={{
                     zIndex: 50,
-                    width: `${400 * categoryTitleScale}px`,
-                    height: `${400 * categoryTitleScale}px`,
+                    width: '400px',
+                    height: '400px',
                     left: '50%',
-                    marginLeft: `${-200 * categoryTitleScale}px`,
-                    top: `${-50 * categoryTitleScale}px`,
+                    marginLeft: '-200px',
+                    top: '-50px',
                   }}
                   initial={{
                     opacity: 1,
-                    scale: 1 * categoryTitleScale,
+                    scale: 1,
                     rotate: -5,
+                    
                   }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1 * categoryTitleScale,
-                    rotate: -5,
-                  }}
+                
                   transition={{ ...SMOOTH_BOUNCY, duration: 0.8 }}
                 >
                   <Image
                     src={currentProduct?.image || ''}
                     alt={`${currentProduct?.name || 'Product'} Foreground`}
-                    width={parseInt(productImageSize.width)}
-                    height={parseInt(productImageSize.height)}
-                    className={`object-contain drop-shadow-2xl mr-${24 * categoryTitleScale}`}
+                    width={300}
+                    height={300}
+                    className="object-contain drop-shadow-2xl mr-24"
                     priority
                   />
                 </motion.div>
@@ -521,24 +505,20 @@ export default function ProductCarouselSection({
             {/* Right Side - Product Info */}
             <div className="col-span-4 flex flex-col justify-center items-center text-center">
               {/* Navigation Arrows with Product Name in between */}
-              <div className="flex items-center justify-center mt-responsive-12 mb-responsive-8">
+              <div className="flex items-center justify-center mt-12 mb-8">
                 {' '}
                 {/* Reduced space-x-8 to space-x-4 */}
                 <motion.button
                   onClick={handlePrev}
-                  className="flex items-center justify-center transition-transform duration-300 hover:scale-110"
-                  style={{
-                    width: `${64 * categoryTitleScale}px`,
-                    height: `${64 * categoryTitleScale}px`,
-                  }}
-                  whileHover={{ scale: 1.1 * categoryTitleScale }}
-                  whileTap={{ scale: 0.95 * categoryTitleScale }}
+                  className="w-16 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-110"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <Image
                     src="/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES ARROW NEXT.png"
                     alt="Previous"
-                    width={parseInt(arrowSize.width)}
-                    height={parseInt(arrowSize.height)}
+                    width={64}
+                    height={64}
                     className="object-contain rotate-180"
                   />
                 </motion.button>
@@ -548,12 +528,12 @@ export default function ProductCarouselSection({
                     key={`${activeCategory}-${currentIndex}-title`}
                     initial={{
                       opacity: 0,
-                      x: animationDirection === "right" ? 50 * categoryTitleScale : -50 * categoryTitleScale,
+                      x: animationDirection === "right" ? 50 : -50,
                     }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{
                       opacity: 0,
-                      x: animationDirection === "right" ? -50 * categoryTitleScale : 50 * categoryTitleScale,
+                      x: animationDirection === "right" ? -50 : 50,
                     }}
                     transition={{ ...SMOOTH_BOUNCY, duration: 0.5 }}
                     className="text-center w-[300px] flex-shrink-0"
@@ -572,19 +552,15 @@ export default function ProductCarouselSection({
                 </AnimatePresence>
                 <motion.button
                   onClick={handleNext}
-                  className="flex items-center justify-center transition-transform duration-300 hover:scale-110"
-                  style={{
-                    width: `${64 * categoryTitleScale}px`,
-                    height: `${64 * categoryTitleScale}px`,
-                  }}
-                  whileHover={{ scale: 1.1 * categoryTitleScale }}
-                  whileTap={{ scale: 0.95 * categoryTitleScale }}
+                  className="w-16 h-16 flex items-center justify-center transition-transform duration-300 hover:scale-110"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <Image
                     src="/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES ARROW NEXT.png"
                     alt="Next"
-                    width={parseInt(arrowSize.width)}
-                    height={parseInt(arrowSize.height)}
+                    width={64}
+                    height={64}
                     className="object-contain"
                   />
                 </motion.button>
@@ -598,17 +574,14 @@ export default function ProductCarouselSection({
                   className="space-y-6 max-w-sm"
                 >
                   {/* Product Description */}
-                  <motion.div
+                  <motion.p
                     className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[400px] ml-[-10px] h-[25vh]`}
                     initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.3 }}
                   >
-                    <SafeHTML 
-                      html={currentProduct?.details || "Product details"}
-                      className="w-full h-full"
-                    />
-                  </motion.div>
+                    {currentProduct?.details || "Product details"}
+                  </motion.p>
 
                   {/* Recipe Button */}
                   <motion.button

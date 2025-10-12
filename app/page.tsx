@@ -7,7 +7,7 @@ import MapSection from '@/components/sections/MapSection'
 import { useSnapScroll, SectionIndicator, ScrollProgress } from '@/hooks/use-snap-scroll'
 
 // CrownToggle: toggle putih <-> emas berdasarkan keberadaan
-function CrownToggle({ targetIds }: { targetIds: string[] }) {
+export function CrownToggle({ targetIds, style }: { targetIds: string[], style?: React.CSSProperties }) {
   const [isGold, setIsGold] = useState(false);
 
   useEffect(() => {
@@ -34,6 +34,7 @@ function CrownToggle({ targetIds }: { targetIds: string[] }) {
   return (
     <div
       className="fixed top-4 left-4 z-50 pointer-events-none ml-4 z-[200]"
+      style={style}
       aria-hidden="true"
     >
       <svg

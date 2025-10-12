@@ -73,7 +73,8 @@ export default function RecipeDetailSection({
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.45, ease: "easeInOut" }}
-      className="space-y-6 mb-16"
+      className="space-y-6 mb-16" 
+      id="resep"
     >
       {/* Kartu konten */}
       <div

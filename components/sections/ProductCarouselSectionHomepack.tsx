@@ -319,7 +319,7 @@ export default function ProductCarouselSection({
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 min-h-screen flex items-center">
+      <div className="relative z-10 min-h-screen flex items-center" id="produk">
         <div className="container mx-auto px-8 py-16">
           <div className="grid grid-cols-12 items-center">
             {/* Left Side - Category Toggle */}
@@ -628,7 +628,7 @@ export default function ProductCarouselSection({
                 >
                   {/* Product Description */}
                   <motion.p
-                    className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[400px] ml-[-10px] `}
+                    className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[350px] ml-[-10px] `}
                     initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.3 }}

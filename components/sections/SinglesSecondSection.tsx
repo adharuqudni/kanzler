@@ -56,7 +56,6 @@ export default function SinglesSecondSection() {
         <div className="text-center mb-16">
           {/* Singles Logo */}
           <motion.div
-            className="mb-8"
             variants={fadeInUpVariants}
             initial="hidden"
             whileInView="visible"
@@ -73,14 +72,14 @@ export default function SinglesSecondSection() {
 
           {/* Indonesian Description */}
           <motion.div
-            className="max-w-4xl mx-auto"
+            className="max-w-4xl mx-auto  -mt-8"
             variants={fadeInUpVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
             <p
-              className={`${poppins.className} text-white text-lg lg:text-xl leading-relaxed text-center`}
+              className={`${poppins.className} text-white text-lg lg:text-xl leading-relaxed text-center `}
             >
               Produk sosis dan bakso sudah matang tinggal makan<br />
              pertama di Indonesia. Praktis dimakan kapan pun dan di mana pun.

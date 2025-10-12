@@ -23,7 +23,6 @@ export default function HomepackLayout({
   return (
     <div className="min-h-screen relative">
       <main className="w-full">
-      <SinglesSidebar />
 
         {children}
       </main>

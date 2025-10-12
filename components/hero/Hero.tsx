@@ -24,7 +24,7 @@ export interface SideProps {
 
 function SplitHero({ className = "", currentSection = 0, isScrolling = false }: SplitHeroProps) {
   const mousePosition = useMousePosition(32);
-  const [leftSideWidth, setLeftSideWidth] = useState(50);
+  const [leftSideWidth, setLeftSideWidth] = useState(250);
   const [leftSideIndex, setLeftSideIndex] = useState(5);
   const [isHoveringLeft, setIsHoveringLeft] = useState(false);
   const [isHoveringRight, setIsHoveringRight] = useState(false);
@@ -70,7 +70,7 @@ function SplitHero({ className = "", currentSection = 0, isScrolling = false }: 
     if (!mouseCalculations || mouseCalculations.reset) {
       setIsHoveringLeft(false);
       setIsHoveringRight(false);
-      setLeftSideWidth(50);
+      setLeftSideWidth(100);
       setLeftSideIndex(5);
       return;
     }
@@ -310,7 +310,7 @@ const FloatingProducts = memo(function FloatingProducts({
           y: 200, // turun dari 150 → 250
           scale: 0.9,
           x: -140,
-          zIndex: isHoveringRight ? 5 : 20,
+          zIndex: isHoveringRight ? 105 : 120,
         }}
         transition={{ duration: 1, ease: "easeIn" }}
       >
@@ -334,7 +334,7 @@ const FloatingProducts = memo(function FloatingProducts({
           y: 150, // sedikit dinaikkan (lebih ke atas)
           scale: 0.9,
           x: -20, // digeser ke kiri sedikit dari 120 -> 80
-          zIndex: isHoveringRight ? 5 : 20,
+          zIndex: isHoveringRight ? 105 : 120,
         }}
         transition={{ duration: 1, ease: "easeIn" }}
       >
@@ -379,7 +379,7 @@ const FloatingProducts = memo(function FloatingProducts({
           rotate: 35,
           y: 40, // turun dari 0 → 100
           x: 40,
-          zIndex: isHoveringLeft ? 5 : 20,
+          zIndex: isHoveringLeft ? 105 : 120,
         }}
         transition={{ duration: 1, ease: "easeIn" }}
       >
