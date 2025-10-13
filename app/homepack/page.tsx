@@ -80,7 +80,7 @@ export default function HomepackPage() {
 
         {/* Recipe Section - Can overflow (last section) */}
         <section id="resep" className="snap-scroll-section-overflow">
-          <RecipeInspirationSection />
+          <RecipeInspirationSection page="homepack" />
         </section>
       </div>
     </>

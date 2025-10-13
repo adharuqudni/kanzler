@@ -70,7 +70,7 @@ export default function SinglesPage() {
 
       {/* Recipe Section - Can overflow */}
       <section id="resep" className="snap-scroll-section-overflow">
-        <RecipeInspirationSection />
+        <RecipeInspirationSection page="singles" />
       </section>
       </div>
     </>

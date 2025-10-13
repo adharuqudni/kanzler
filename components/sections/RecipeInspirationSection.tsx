@@ -92,9 +92,9 @@ const GOLD = "#AA7B32";
 // (tidak perlu dummy video URL — gunakan data dari API)
 
 // Category mapping from API to display names
-const categoryMapping: Record<string, string> = {
+const categoryMappingAll: Record<string, string> = {
   "singles-bakso": "Singles Bakso",
-  "singles-sosis": "Singles Sosis", 
+  "singles-sosis": "Singles Sosis",
   "kanzler-sosis": "Kanzler Sosis",
   "kanzler-nugget": "Kanzler Nugget",
 };
@@ -114,7 +114,7 @@ const transformRecipeToVideo = (recipe: Recipe) => ({
   id: recipe.documentId,
   title: recipe.Name,
   thumbnail: `${API_BASE_URL}${recipe.Image.formats?.medium?.url || recipe.Image.url}`,
-  category: categoryMapping[recipe.Category] || "Produk Kanzler",
+  category: categoryMappingAll[recipe.Category] || "Produk Kanzler",
   videoUrl: recipe.Video?.[0]?.url ? `${API_BASE_URL}${recipe.Video[0].url}` : null,
   description: recipe.Description,
   ingredient: recipe.Ingredient,
@@ -131,6 +131,20 @@ export default function RecipeInspirationSection({ page = "home" }: RecipeInspir
     : page === "homepack"
     ? PRODUCT_CATEGORIES.homepack
     : PRODUCT_CATEGORIES.default;
+
+  // Active category mapping depending on page
+  const categoryMapping: Record<string, string> =
+    page === "homepack"
+      ? {
+          "kanzler-sosis": "Kanzler Sosis",
+          "kanzler-nugget": "Kanzler Nugget",
+        }
+      : page === "singles"
+      ? {
+          "singles-bakso": "Singles Bakso",
+          "singles-sosis": "Singles Sosis",
+        }
+      : categoryMappingAll;
 
   const [selectedCategory, setSelectedCategory] = useState<string>(productCategories[0]);
    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
