@@ -7,6 +7,10 @@ import { Button } from '@/components/ui/button';
 import { BOUNCY_TRANSITION, SMOOTH_BOUNCY } from '@/lib/motion';
 import Link from 'next/link';
 import { SideProps, ProductImage } from './Hero';
+import { Poppins } from 'next/font/google';
+
+// include bold weight so we can use poppins bold
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] });
 
 const SplitLeft = memo(function SplitLeft({
   isHoveringLeft,
@@ -107,7 +111,7 @@ const SplitLeft = memo(function SplitLeft({
                 delay: 0.7,
               }}
             >
-              <p className="mb-4 sm:mb-6 max-w-xs sm:max-w-md text-xs sm:text-sm md:text-base leading-relaxed">
+              <p className={`${poppins.className} mb-4 sm:mb-6 max-w-xs sm:max-w-md text-[10px] sm:text-xs md:text-sm leading-relaxed`}>
                 Produk sosis dan nugget dari daging sapi dan ayam pilihan.
                 <br />
                 <span className="italic">Extra Meaty, Extra Juicy</span>, dan
@@ -127,7 +131,9 @@ const SplitLeft = memo(function SplitLeft({
                 whileTap={{ scale: 0.95 }}
               >
                 <Link href="/homepack">
-                  <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 text-xs font-extrabold sm:text-sm md:text-base mt-4 ">
+                  <Button
+                    className={`${poppins.className} bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 text-xs sm:text-sm md:text-base mt-4 font-bold`}
+                  >
                     Lihat semua produk ›
                   </Button>
                 </Link>

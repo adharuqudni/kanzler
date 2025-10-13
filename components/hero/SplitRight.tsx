@@ -8,6 +8,10 @@ import { BOUNCY_TRANSITION } from "@/lib/motion";
 import MotionWrapper from "@/components/animations/MotionWrapper";
 import Link from "next/link";
 import { SideProps } from "./Hero";
+import { Poppins } from 'next/font/google';
+
+// include bold weight
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] });
 
 const SplitRight = memo(function SplitRight({
   isHoveringRight,
@@ -90,7 +94,7 @@ const SplitRight = memo(function SplitRight({
                 delay: 0.7,
               }}
             >
-              <p className="max-w-md sm:max-w-xl md:max-w-2xl text-xs sm:text-sm md:text-base leading-relaxed">
+              <p className={`${poppins.className} max-w-md sm:max-w-xl md:max-w-2xl text-[10px] sm:text-xs md:text-sm leading-relaxed`}>
                 Produk sosis dan bakso berkualitas yang terbuat dari daging{" "}
                 <br />
                 sapi dan ayam pilihan. Sudah matang, siap untuk langsung <br />
@@ -110,7 +114,7 @@ const SplitRight = memo(function SplitRight({
                 whileTap={{ scale: 0.95 }}
               >
                 <Link href="/singles">
-                  <Button className="bg-white text-kanzler-navy font-bold hover:bg-gray-100 rounded-full px-4 sm:px-6 py-0 text-xs sm:text-sm md:text-base">
+                  <Button className={`${poppins.className} bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 py-0 text-xs sm:text-sm md:text-base font-bold`}>
                     Lihat semua produk ›
                   </Button>
                 </Link>

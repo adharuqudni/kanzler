@@ -91,4 +91,7 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  html, body, #__next {
+    overflow-x: hidden;
+  }
 }

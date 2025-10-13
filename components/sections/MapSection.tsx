@@ -1,6 +1,9 @@
 'use client';
 
 import React from 'react';
+import { Poppins } from 'next/font/google';
+
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] });
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import MotionWrapper from '@/components/animations/MotionWrapper';
@@ -8,7 +11,7 @@ import { BOUNCY_TRANSITION } from '@/lib/motion';
 
 const MapSection = React.memo(function MapSection() {
   return (
-    <section className="min-h-screen bg-[#1C2652] relative overflow-hidden">
+    <section className={`min-h-screen bg-[#1C2652] relative overflow-hidden ${poppins.className}`}>
       {/* Top curved transition from white to navy */}
       <svg
           height="120"
@@ -114,7 +117,7 @@ const MapSection = React.memo(function MapSection() {
 
         {/* Contact Information Box */}
         <motion.div
-          className="w-full mt-4 px-4 sm:px-6 md:px-8"
+          className="w-full mt-4 px-4 sm:px-6 md:px-8 mb-12"
           initial={{ opacity: 0, y: 80, scale: 0.9 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}

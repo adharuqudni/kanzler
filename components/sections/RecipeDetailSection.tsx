@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { DM_Serif_Display } from "next/font/google";
+import { DM_Serif_Display, Poppins } from "next/font/google";
 
 interface RecipeDetailProps {
   recipe: {
@@ -33,6 +33,7 @@ interface RecipeDetailProps {
 const NAVY = "#1C2653";
 const GOLD = "#AA7B32";
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
 export default function RecipeDetailSection({
   recipe,
@@ -116,29 +117,29 @@ export default function RecipeDetailSection({
           <div className="col-span-12 md:col-span-8 md:pl-4 lg:pl-8 self-center text-left">
             <div className="max-w-2xl mt-12">
               <h1
-                className={`text-4xl md:text-5xl leading-[1.1] ${dmSerif.className}`}
+                className={`text-3xl md:text-4xl leading-[1.1] ${dmSerif.className}`}
                 style={{ color: GOLD }}
               >
                 {recipe.Name.split(' ')[0]}
               </h1>
               <h2
-                className={`text-5xl md:text-6xl leading-[1.1] mb-4 md:mb-6 ${dmSerif.className}`}
+                className={`text-4xl md:text-5xl leading-[1.1] mb-4 md:mb-6 ${dmSerif.className}`}
                 style={{ color: NAVY }}
               >
                 {recipe.Name.split(' ').slice(1).join(' ')}
               </h2>
 
-              <p className="text-base md:text-lg mb-6 leading-relaxed" style={{ color: NAVY }}>
+              <p className={`${poppins.className} text-sm md:text-base mb-6 leading-relaxed`} style={{ color: NAVY }}>
                 {recipe.Description}
               </p>
               <div style={{ color: NAVY }}>
-                <p className="font-bold text-lg">Bahan & Cara Memasak:</p>
-                <div className="text-[15px] md:text-base space-y-2 ">
-                  {ingredientsList.map((ingredient, index) => (
-                    <p key={index} className="leading-relaxed">
-                      {ingredient}
-                    </p>
-                  ))}
+                <p className={`${poppins.className} font-bold text-base`}>Bahan & Cara Memasak:</p>
+                <div className="text-[13px] md:text-sm space-y-2 ">
+                   {ingredientsList.map((ingredient, index) => (
+                    <p key={index} className={`${poppins.className} leading-relaxed text-sm`}>
+                       {ingredient}
+                     </p>
+                   ))}
                 </div>
               </div>
             </div>
@@ -166,7 +167,7 @@ export default function RecipeDetailSection({
         {/* Tombol Back inside the card */}
         <motion.button
           onClick={onBack}
-          className="flex items-center gap-2 text-[15px] font-semibold absolute top-6 right-6"
+          className="flex items-center gap-2 text-sm font-semibold absolute top-6 right-6"
           style={{ color: NAVY }}
           whileHover={{ x: -4 }}
           whileTap={{ scale: 0.96 }}
