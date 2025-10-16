@@ -341,68 +341,58 @@ export default function ProductCarouselSection({
           <div className="grid grid-cols-12 items-center">
             {/* Left Side - Category Toggle */}
             <div className="col-span-4">
-              <div className="space-y-8 items-center justify-center text-center mx-20 mb-8">
-                {categories.map((category, index) => (
+              <div className="flex flex-col items-center justify-center text-center mx-20 mb-8 ml-16 space-y-4">
+                {[
+                  // ✨ urutkan: kategori aktif di bawah, lainnya di atas
+                  ...categories.filter((c) => c !== activeCategory),
+                  activeCategory,
+                ].map((category) => (
                   <motion.button
                     key={category}
+                    layout // aktifkan layout-aware animation
                     onClick={() => handleCategoryChange(category)}
-                    className={`flex items-center gap-4 text-left w-[500px] transition-all duration-300 justify-center mx-auto ${
-                      activeCategory === category
-                        ? "text-white"
-                        : "text-white/60 hover:text-white/80"
-                    }`}
-                    variants={{
-                      hidden: { opacity: 0, y: 30 },
-                      visible: {
-                        opacity: 1,
-                        y:
-                          activeCategory === category
-                            ? index === 0
-                              ? 90
-                              : 0
-                            : index === 0
-                            ? 0
-                            : -80,
-                        scale:
-                          activeCategory === category
-                            ? index === 0
-                              ? 1.4
-                              : 1.4
-                            : index === 0
-                            ? 0.8
-                            : 0.8,
-                        transition: { ...SMOOTH_BOUNCY, duration: 0.2 },
-                      },
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{
+                      opacity: 1,
+                      scale: activeCategory === category ? 1.6 : 0.9,
                     }}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.2 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 200,
+                      damping: 18,
+                      duration: 0.35,
+                    }}
+                    className={`flex items-center gap-4 text-left w-[500px] justify-center mx-auto ${
+                      activeCategory === category ? "text-white" : "text-white"
+                    }`}
                   >
                     <div className="flex items-center ml-4 mr-8">
                       <h2
                         className={`${
-                          defaultCategory === "nugget"
+                          defaultCategory === "bakso"
                             ? dmSerif.className
                             : paytoneOne.className
                         } text-6xl font-bold`}
                       >
                         {category.toUpperCase()}
                       </h2>
-                      <div className="w-12 h-12 relative mt-4">
+
+                      <motion.div
+                        layout
+                        animate={{
+                          rotate: activeCategory === category ? 0 : 270,
+                        }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                        className="w-12 h-12 relative mt-4"
+                      >
                         <Image
                           src="/assets/ASSET - SINGLES/3 ASSET - SINGLES/3 ASSET - SINGLES ARROW CIRCLE.png"
                           alt="Arrow Circle"
-                          style={{
-                            transform: `rotate(${
-                              activeCategory === category ? "0" : "270"
-                            }deg)`,
-                          }}
                           width={48}
                           height={48}
                           className="object-contain"
                         />
-                      </div>
+                      </motion.div>
                     </div>
                   </motion.button>
                 ))}
@@ -430,12 +420,12 @@ export default function ProductCarouselSection({
                   className="absolute flex justify-center items-center"
                   style={{
                     zIndex: 30,
-                    width: '125px',
-                    height: '400px',
-                    left: '45%',
-                    marginLeft: '-50px',
-                    top: '0px',
-                    transformOrigin: 'left bottom', // Rotation center at left bottom
+                    width: "125px",
+                    height: "400px",
+                    left: "45%",
+                    marginLeft: "-50px",
+                    top: "0px",
+                    transformOrigin: "left bottom", // Rotation center at left bottom
                   }}
                   initial={{
                     opacity: 1,
@@ -455,9 +445,7 @@ export default function ProductCarouselSection({
                   transition={{ duration: 0.4, ease: "easeOut" }}
                 >
                   <Image
-                    src={
-                      currentProduct?.secondImage || ''
-                    }
+                    src={currentProduct?.secondImage || ""}
                     alt="Back Product"
                     width={300}
                     height={300}
@@ -467,7 +455,6 @@ export default function ProductCarouselSection({
                 </motion.div>
               </AnimatePresence>
 
-
               {/* Foreground Image (Current Product) */}
               <AnimatePresence mode="wait">
                 <motion.div
@@ -475,24 +462,22 @@ export default function ProductCarouselSection({
                   className="absolute flex justify-center items-center"
                   style={{
                     zIndex: 50,
-                    width: '400px',
-                    height: '400px',
-                    left: '50%',
-                    marginLeft: '-200px',
-                    top: '-50px',
+                    width: "400px",
+                    height: "400px",
+                    left: "50%",
+                    marginLeft: "-200px",
+                    top: "-50px",
                   }}
                   initial={{
                     opacity: 1,
                     scale: 1,
                     rotate: -5,
-                    
                   }}
-                
                   transition={{ ...SMOOTH_BOUNCY, duration: 0.8 }}
                 >
                   <Image
-                    src={currentProduct?.image || ''}
-                    alt={`${currentProduct?.name || 'Product'} Foreground`}
+                    src={currentProduct?.image || ""}
+                    alt={`${currentProduct?.name || "Product"} Foreground`}
                     width={300}
                     height={300}
                     className="object-contain drop-shadow-2xl mr-24"
@@ -506,7 +491,7 @@ export default function ProductCarouselSection({
             <div className="col-span-4 flex flex-col justify-center items-center text-center">
               {/* Navigation Arrows with Product Name in between */}
               <div className="flex items-center justify-center mt-12 mb-8">
-                {' '}
+                {" "}
                 {/* Reduced space-x-8 to space-x-4 */}
                 <motion.button
                   onClick={handlePrev}
@@ -570,12 +555,11 @@ export default function ProductCarouselSection({
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${activeCategory}-${currentIndex}-info`}
-                 
-                  className="space-y-6 max-w-sm"
+                  className="max-w-sm flex flex-col items-center" // hilangkan space-y, gunakan flex agar rapat
                 >
                   {/* Product Description */}
                   <motion.p
-                    className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[400px] ml-[-10px] h-[25vh]`}
+                    className={`leading-relaxed text-xl text-[#1C2653] text-center ${poppins.className} w-[400px] ml-[-10px] mb-6`}
                     initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.3 }}
@@ -585,15 +569,13 @@ export default function ProductCarouselSection({
 
                   {/* Recipe Button */}
                   <motion.button
-                    className="bg-[#AA7B32] hover:bg-[#8A6B2A] text-white px-10 py-3 rounded-full
-             font-medium ring-1 ring-white/40
-             shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_2px_6px_rgba(0,0,0,0.12)]
-             transition-all duration-200 hover:scale-[1.01] active:scale-[0.98] focus:outline-none"
+                    className={`${poppins.className} bg-[#AA7B32] hover:bg-[#8A6B2A] text-white px-10 py-3 rounded-full
+      font-medium ring-1 ring-white/40
+      shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_2px_6px_rgba(0,0,0,0.12)]
+      transition-all duration-200 hover:scale-[1.01] active:scale-[0.98] focus:outline-none mt-0`}
                     initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.3 }}
-                    whileHover={{}}
-                    whileTap={{}}
                   >
                     Resep
                   </motion.button>
@@ -605,27 +587,22 @@ export default function ProductCarouselSection({
       </div>
 
       {/* Top curved white overlay */}
+      {/* Top curved white overlay */}
       <div className="absolute top-0 left-0 w-full h-[20vw] overflow-hidden border-0">
-        <div
-          className="absolute top-0 left-0 w-full h-full border-0"
-          style={{
-            background: "#fff",
-            clipPath: "ellipse(150% 100% at 50% 0%)",
-            transform: "translateY(-80%)",
-          }}
-        />
+        <svg viewBox="0 0 500 45" preserveAspectRatio="none" className="w-full">
+          <path
+            d="M 0 0 Q 263 45 500 0 L 500 0 L 0 0 Z"
+            fill="white"
+            fillRule="evenodd"
+          />
+        </svg>
       </div>
 
       {/* Bottom wave */}
-      <div className="absolute bottom-0 left-0 w-full scale-y-[-1]">
-        <svg
-          height="80"
-          viewBox="0 0 500 80"
-          preserveAspectRatio="none"
-          className="w-full"
-        >
+      <div className="absolute bottom-0 left-0 w-full scale-y-[1]">
+        <svg viewBox="0 0 500 30" preserveAspectRatio="none" className="w-full">
           <path
-            d="M0,80 Q250,0 500,80 L500,0 L0,0 Z"
+            d="M 0 0 Q 263 50 500 0 L 500 30 L 0 30 Z"
             fill="white"
             fillRule="evenodd"
           />
