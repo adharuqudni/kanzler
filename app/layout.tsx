@@ -36,21 +36,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${fontSans.variable} font-sans antialiased`}>
-        <ThemeProvider 
-          attribute="class" 
-          defaultTheme="light" 
-          enableSystem 
-          disableTransitionOnChange
-        >
-          <div className="min-h-screen flex flex-col">
-           
-            <main className="flex-1">
-              {children}
-            </main>
-           
-          </div>
-        </ThemeProvider>
+      <body className="overflow-x-hidden">
+        {children}
       </body>
     </html>
   )

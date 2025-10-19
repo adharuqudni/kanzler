@@ -8,6 +8,10 @@ import { BOUNCY_TRANSITION } from "@/lib/motion";
 import MotionWrapper from "@/components/animations/MotionWrapper";
 import Link from "next/link";
 import { SideProps } from "./Hero";
+import { Poppins } from "next/font/google";
+
+// include bold weight
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
 const SplitRight = memo(function SplitRight({
   isHoveringRight,
@@ -19,8 +23,8 @@ const SplitRight = memo(function SplitRight({
     <motion.div
       className={`absolute top-0 bottom-0 right-0 flex items-center justify-center overflow-x-hidden ${
         isHoveringRight
-        ? "bg-[url('/assets/gradient-1x1.jpg')] bg-no-repeat bg-right bg-cover"
-        : ""
+          ? "bg-[url('/assets/gradient-1x1.jpg')] bg-no-repeat bg-right bg-cover"
+          : ""
       }`}
       initial={{ width: "50%" }}
       animate={{
@@ -36,27 +40,47 @@ const SplitRight = memo(function SplitRight({
         {isHoveringRight && (
           <>
             {/* Split Logo Animation - Crown and Text */}
-            <div className="flex flex-col items-center z-[110]">
+            <div className="flex flex-col items-center z-[110] space-y-0 leading-none">
               {/* Crown - animates first */}
-              <MotionWrapper variant="scaleInBig" delay={0.1}>
+              <MotionWrapper
+                variant="scaleInBig"
+                delay={0.1}
+                className="m-0 p-0 leading-none flex flex-col items-center"
+                style={{
+                  display: "contents",
+                  lineHeight: 0,
+                  margin: 0,
+                  padding: 0,
+                }}
+              >
                 <Image
                   src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
                   alt="Kanzler Crown"
                   width={120}
                   height={120}
-                  className="object-contain w-16 h-16 sm:w-20 sm:h-20 md:w-[120px] md:h-[120px]"
+                  className="object-contain block w-16 h-16 sm:w-20 sm:h-20 md:w-[120px] md:h-[120px] m-0 p-0"
                   loading="lazy"
                 />
               </MotionWrapper>
 
               {/* Kanzler Text - animates second */}
-              <MotionWrapper variant="fadeInUp" delay={0.3}>
+              <MotionWrapper
+                variant="fadeInUp"
+                delay={0.3}
+                className="m-0 p-0 leading-none flex flex-col items-center"
+                style={{
+                  display: "contents",
+                  lineHeight: 0,
+                  margin: 0,
+                  padding: 0,
+                }}
+              >
                 <Image
                   src="/assets/KNZLR R.png"
                   alt="Kanzler"
                   width={400}
                   height={80}
-                  className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px]"
+                  className="object-contain block w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px] m-0 p-0 -mt-[12px]"
                   loading="lazy"
                 />
               </MotionWrapper>
@@ -90,7 +114,9 @@ const SplitRight = memo(function SplitRight({
                 delay: 0.7,
               }}
             >
-              <p className="max-w-md sm:max-w-xl md:max-w-2xl text-xs sm:text-sm md:text-base leading-relaxed">
+              <p
+                className={`${poppins.className} max-w-md sm:max-w-xl md:max-w-2xl text-[10px] sm:text-xs md:text-sm leading-relaxed`}
+              >
                 Produk sosis dan bakso berkualitas yang terbuat dari daging{" "}
                 <br />
                 sapi dan ayam pilihan. Sudah matang, siap untuk langsung <br />
@@ -110,7 +136,9 @@ const SplitRight = memo(function SplitRight({
                 whileTap={{ scale: 0.95 }}
               >
                 <Link href="/singles">
-                  <Button className="bg-white text-kanzler-navy font-bold hover:bg-gray-100 rounded-full px-4 sm:px-6 py-0 text-xs sm:text-sm md:text-base">
+                  <Button
+                    className={`${poppins.className} bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 py-0 text-xs sm:text-sm md:text-base font-bold`}
+                  >
                     Lihat semua produk ›
                   </Button>
                 </Link>
@@ -119,12 +147,12 @@ const SplitRight = memo(function SplitRight({
           </>
         )}
 
-        {/* Right side floating products */}
+        {/* Left side floating products */}
         <motion.div
           className="absolute -bottom-80 rotate-45 -left-28 z-[130]"
           initial={{ opacity: 1, rotate: 40, x: -30 }}
           animate={{
-            y: isHoveringRight ? -420 : 0,
+            y: isHoveringRight ? -350 : 0,
             x: isHoveringRight ? -30 : 0,
             rotate: 25, // 🔹 selalu 40°, tidak berubah
             display: isHoveringRight ? "block" : " none",
@@ -140,12 +168,12 @@ const SplitRight = memo(function SplitRight({
             loading="lazy"
           />
         </motion.div>
-
+           {/* Left side floating products */}
         <motion.div
           className="absolute bottom-16 right-80 z-[130]"
           initial={{ opacity: 1, rotate: -25, y: 0 }}
           animate={{
-            y: 0,
+            y: 50,
             x: isHoveringRight ? 500 : 0,
             rotate: isHoveringRight ? -25 : -25, // selalu miring kiri 25°
             display: isHoveringRight ? "block" : " none",

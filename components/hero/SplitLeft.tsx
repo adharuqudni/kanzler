@@ -4,10 +4,13 @@ import { memo } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { BOUNCY_TRANSITION } from '@/lib/motion';
-import MotionWrapper from '@/components/animations/MotionWrapper';
+import { BOUNCY_TRANSITION, SMOOTH_BOUNCY } from '@/lib/motion';
 import Link from 'next/link';
 import { SideProps, ProductImage } from './Hero';
+import { Poppins } from 'next/font/google';
+
+// include bold weight so we can use poppins bold
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] });
 
 const SplitLeft = memo(function SplitLeft({
   isHoveringLeft,
@@ -22,7 +25,11 @@ const SplitLeft = memo(function SplitLeft({
           ? "bg-[url('/assets/gradient-1x1.jpg')] bg-no-repeat bg-left bg-cover"
           : ''
       }`}
-      initial={{ width: '50%' }}
+      initial={{ 
+        width: '50%',
+        clipPath: 'ellipse(00% 80% at 0% 50%)',
+        zIndex: 105,
+      }}
       animate={{
         width: `${(isHoveringRight ? 15 : 0) + leftSideWidth}%`,
         clipPath: isHoveringLeft
@@ -32,14 +39,24 @@ const SplitLeft = memo(function SplitLeft({
       }}
       transition={BOUNCY_TRANSITION}
     >
-      <div className="relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
 
+      <div className="relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
         {isHoveringLeft && (
           <>
             {/* Split Logo Animation - Crown and Text */}
             <div className="flex flex-col items-center z-[110]">
               {/* Crown - animates first */}
-              <MotionWrapper variant="scaleInBig" delay={0.1} className="mb-2 sm:mb-4">
+              <motion.div
+                className="mb-2 sm:mb-4 flex flex-col items-center"
+                initial={{ opacity: 1, scale: 4.5, x: 750, y: 120 }}
+                animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{
+                  ease: 'easeIn',
+                  // delay: 0.1,
+                  duration: 0.8,
+                }}
+              >
                 <Image
                   src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
                   alt="Kanzler Crown"
@@ -48,32 +65,39 @@ const SplitLeft = memo(function SplitLeft({
                   className="object-contain w-16 h-16 sm:w-20 sm:h-20 md:w-[120px] md:h-[120px]"
                   loading="lazy"
                 />
-              </MotionWrapper>
-
-              {/* Kanzler Text - animates second */}
-              <MotionWrapper variant="fadeInUp" delay={0.3} className="-mt-8 mb-3 sm:mb-6">
-                <Image
-                  src="/assets/KNZLR R.png"
-                  alt="Kanzler"
-                  width={400}
-                  height={80}
-                  className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[500px] md:h-[80px]"
-                  loading="lazy"
-                />
-              </MotionWrapper>
+                <div className="-mt-4 mb-3 sm:mb-6">
+                  <Image
+                    src="/assets/KNZLR R.png"
+                    alt="Kanzler"
+                    width={400}
+                    height={80}
+                    className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px]"
+                    loading="lazy"
+                  />
+                </div>
+              </motion.div>
             </div>
 
             {/* Tagline Image */}
-            <MotionWrapper variant="fadeInUp" delay={0.5} className=" -mt-8 mb-3 sm:mb-6 z-[110]">
+            <motion.div
+              className="-mt-12  z-[110]"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-50px' }}
+              transition={{
+                ...BOUNCY_TRANSITION,
+                delay: 0.5,
+              }}
+            >
               <Image
                 src="/assets/ASSET - HOME/1 ASSET - HOME/Kanzler Quote.png"
                 alt="Premium Quality Since 1999"
                 width={400}
                 height={60}
-                className="object-contain w-48 h-7 sm:w-80 sm:h-9 md:w-[500px] md:h-[60px]"
+                className="object-contain w-60 h-7 sm:w-80 sm:h-9 md:w-[400px] md:h-[60px]"
                 loading="lazy"
               />
-            </MotionWrapper>
+            </motion.div>
 
             {/* Description and Button with pop-up animation */}
             <motion.div
@@ -81,24 +105,24 @@ const SplitLeft = memo(function SplitLeft({
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{
-                type: "spring",
+                type: 'spring',
                 stiffness: 180,
                 damping: 15,
                 delay: 0.7,
               }}
             >
-              <p className="mb-4 sm:mb-6 max-w-xs sm:max-w-md text-xs sm:text-sm md:text-base leading-relaxed">
+              <p className={`${poppins.className} mb-4 sm:mb-6 max-w-xs sm:max-w-md text-[10px] sm:text-xs md:text-sm leading-relaxed`}>
                 Produk sosis dan nugget dari daging sapi dan ayam pilihan.
                 <br />
                 <span className="italic">Extra Meaty, Extra Juicy</span>, dan
                 mudah diolah menjadi menu <br />
-                 lezat setiap hari.
+                lezat setiap hari.
               </p>
               <motion.div
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{
-                  type: "spring",
+                  type: 'spring',
                   stiffness: 200,
                   damping: 12,
                   delay: 0.9,
@@ -107,7 +131,9 @@ const SplitLeft = memo(function SplitLeft({
                 whileTap={{ scale: 0.95 }}
               >
                 <Link href="/homepack">
-                  <Button className="bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 text-xs font-extrabold sm:text-sm md:text-base ">
+                  <Button
+                    className={`${poppins.className} bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 text-xs sm:text-sm md:text-base mt-4 font-bold`}
+                  >
                     Lihat semua produk ›
                   </Button>
                 </Link>
@@ -137,7 +163,7 @@ const SplitLeft = memo(function SplitLeft({
 
         {/* Floating cocktail products */}
         <motion.div
-          className="absolute -bottom-64 -rotate-45 left-96 w-[26vw]  z-[120]"
+          className="absolute -bottom-64 -rotate-45 left-96 w-[30vw]  z-[120]"
           initial={{ opacity: 1, rotate: -15, y: 0 }}
           animate={{
             y: isHoveringLeft ? 70 : 0,
@@ -159,7 +185,7 @@ const SplitLeft = memo(function SplitLeft({
         </motion.div>
 
         <motion.div
-          className="absolute -bottom-64 -rotate-45 left-[30vw] w-[36vw]  z-[120]"
+          className="absolute -bottom-64 -rotate-45 left-[30vw] w-[40vw]  z-[120]"
           initial={{ opacity: 1, rotate: -10, y: 0, x: 0 }}
           animate={{
             y: isHoveringLeft ? 75 : -150,

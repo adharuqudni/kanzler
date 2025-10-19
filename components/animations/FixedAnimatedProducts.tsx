@@ -192,7 +192,7 @@ export default function FixedAnimatedProducts({
     <div className="fixed inset-0 pointer-events-none z-50"> {/* Set z-index to 50 */}
       {/* Left Side - Sausage */}
       <motion.div
-        className="absolute left-16 lg:left-32 top-1/2 transform -translate-y-1/2"
+        className="absolute left-16 lg:left-28 top-1/2 transform -translate-y-1/2"
         initial={currentSection === 0 && animationState === 'initial' ? variants.slideUpVariants.hidden : sausageAnimation}
         animate={sausageAnimation}
         transition={{ ...SMOOTH_BOUNCY, duration: 1.2 }}
@@ -201,7 +201,7 @@ export default function FixedAnimatedProducts({
           <Image
             src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES SOSIS GOCHU.png"
             alt="Kanzler Sosis Gochu"
-            width={180}
+            width={150}
             height={150}
             className="object-contain drop-shadow-2xl mb-20"
             priority
@@ -220,8 +220,8 @@ export default function FixedAnimatedProducts({
           <Image
             src="/assets/ASSET - SINGLES/1 ASSET - SINGLES/1 ASSET - SINGLES BAKSO HOT.png"
             alt="Kanzler Bakso Hot"
-            width={150}
-            height={150}
+            width={120}
+            height={120}
             className="object-contain drop-shadow-2xl"
           />
         </div>

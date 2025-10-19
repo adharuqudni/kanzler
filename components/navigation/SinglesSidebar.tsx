@@ -1,59 +1,42 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
 import { Package, Info } from 'lucide-react';
 import Link from 'next/link';
+import { Poppins } from 'next/font/google';
+import { CrownToggle } from '@/app/page';
 
-export default function SinglesSidebar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState<string>('');
+const poppins = Poppins({ subsets: ['latin'], weight: '400' });
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 100); // Show menu button after 100px scroll
+interface SinglesSidebarProps {
+  currentSection: number;
+  scrollToSection: (index: number) => void;
+  sections?: string[]; // Array of section IDs to determine active states
+}
 
-      // Determine active section based on scroll position
-      const produkSection = document.querySelector('#produk');
-      const resepSection = document.querySelector('#resep');
+export default function SinglesSidebar({ 
+  currentSection,
+  scrollToSection: snapScrollToSection,
+  sections = ['hero', 'second-section', 'produk', 'resep'] // Default for Singles page
+}: SinglesSidebarProps) {
+  // Get the current section name based on the index
+  const currentSectionName = sections[currentSection] || '';
+  
+  // Determine active section for menu items
+  const getActiveSection = () => {
+    if (currentSectionName === 'produk') return 'produk';
+    if (currentSectionName === 'resep') return 'resep';
+    return ''; // Don't show menu buttons for other sections
+  };
 
-      if (produkSection && resepSection) {
-        const produkRect = produkSection.getBoundingClientRect();
-        const resepRect = resepSection.getBoundingClientRect();
+  const activeSection = getActiveSection();
 
-        // Check which section is more visible in the viewport
-        if (
-          produkRect.top <= window.innerHeight / 2 &&
-          produkRect.bottom >= window.innerHeight / 2
-        ) {
-          setActiveSection('produk');
-        } else if (
-          resepRect.top <= window.innerHeight / 2 &&
-          resepRect.bottom >= window.innerHeight / 2
-        ) {
-          setActiveSection('resep');
-        } else if (produkRect.top > window.innerHeight / 2) {
-          setActiveSection(''); // Before produk section
-        } else if (resepRect.bottom < window.innerHeight / 2) {
-          setActiveSection('resep'); // Past resep section, keep resep active
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.querySelector(`#${sectionId}`);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
+  const scrollToSection = (sectionName: string) => {
+    // Find the index of the section name in the sections array
+    const sectionIndex = sections.findIndex(s => s === sectionName);
+    if (sectionIndex !== -1) {
+      snapScrollToSection(sectionIndex);
     }
   };
 
@@ -77,19 +60,11 @@ export default function SinglesSidebar() {
       {/* Always visible sidebar - transparent with logo only */}
       <motion.div className="fixed left-0 top-0 h-full w-32 z-[99999] overflow-hidden">
         {/* Sidebar Content */}
-        <div className="relative z-10 p-4 h-full flex flex-col">
+        <div className="mt-8 z-10 p-4 h-full flex flex-col">
           {/* Logo Section - Always visible */}
           <div className="flex flex-col items-center">
-            <Link href="/">
-              <div className="mb-4">
-                <Image
-                  src="/assets/ASSET - HOMEPACK/4 ASSET - HOMEPACK/4 ASSET - HOMEPACK MAHKOTA.png"
-                  alt="Kanzler Crown"
-                  width={40}
-                  height={40}
-                  className="object-contain drop-shadow-lg"
-                />
-              </div>
+            <Link href="/" className='w-[fit-content] h-[fit-content]'>
+              <CrownToggle targetIds={[ "why-kanzler", "resep"]} style={{width: '100%', height: '100%'}} />
             </Link>
           </div>
           
@@ -122,7 +97,7 @@ export default function SinglesSidebar() {
                     >
                       <div className="flex items-center gap-2">
                         <p
-                          className={`text-sm font-semibold transition-colors ${
+                          className={`${poppins.className} text-sm font-semibold transition-colors ${
                             item.isActive
                               ? 'text-white'
                               : 'text-yellow-AA7B32 group-hover:text-yellow-300'

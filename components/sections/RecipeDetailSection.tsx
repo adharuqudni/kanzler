@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { DM_Serif_Display } from "next/font/google";
+import { DM_Serif_Display, Poppins } from "next/font/google";
 
 interface RecipeDetailProps {
   recipe: {
@@ -33,6 +33,7 @@ interface RecipeDetailProps {
 const NAVY = "#1C2653";
 const GOLD = "#AA7B32";
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
 export default function RecipeDetailSection({
   recipe,
@@ -40,7 +41,7 @@ export default function RecipeDetailSection({
   onBack,
 }: RecipeDetailProps) {
   const API_BASE_URL = "https://kznlr.qup.my.id";
-  
+
   if (loading) {
     return (
       <motion.div
@@ -49,7 +50,10 @@ export default function RecipeDetailSection({
         animate={{ opacity: 1 }}
         className="flex items-center justify-center h-[650px]"
       >
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2" style={{ borderColor: GOLD }}></div>
+        <div
+          className="animate-spin rounded-full h-32 w-32 border-b-2"
+          style={{ borderColor: GOLD }}
+        ></div>
       </motion.div>
     );
   }
@@ -58,14 +62,17 @@ export default function RecipeDetailSection({
     return null;
   }
 
-  const videoUrl = recipe.Video?.[0]?.url ? `${API_BASE_URL}${recipe.Video[0].url}` : null;
-  const thumbnailUrl = `${API_BASE_URL}${recipe.Product_IMG?.formats?.medium?.url || recipe.Product_IMG?.url}`;
-  
+  const videoUrl = recipe.Video?.[0]?.url
+    ? `${API_BASE_URL}${recipe.Video[0].url}`
+    : null;
+  const thumbnailUrl = `${API_BASE_URL}${
+    recipe.Product_IMG?.formats?.medium?.url || recipe.Product_IMG?.url
+  }`;
+
   // Parse ingredients - split by numbers or line breaks
-  const ingredientsList = recipe.Ingredient
-    .split(/\n\d+\n|\n/)
-    .filter(item => item.trim() && !item.match(/^\d+$/))
-    .map(item => item.trim());
+  const ingredientsList = recipe.Ingredient.split(/\n\d+\n|\n/)
+    .filter((item) => item.trim() && !item.match(/^\d+$/))
+    .map((item) => item.trim());
   return (
     <motion.div
       key="selected-recipe"
@@ -74,6 +81,7 @@ export default function RecipeDetailSection({
       exit={{ opacity: 0, x: -50 }}
       transition={{ duration: 0.45, ease: "easeInOut" }}
       className="space-y-6 mb-16"
+      id="resep"
     >
       {/* Kartu konten */}
       <div
@@ -115,26 +123,32 @@ export default function RecipeDetailSection({
           <div className="col-span-12 md:col-span-8 md:pl-4 lg:pl-8 self-center text-left">
             <div className="max-w-2xl mt-12">
               <h1
-                className={`text-4xl md:text-5xl leading-[1.1] ${dmSerif.className}`}
+                className={`text-3xl md:text-4xl leading-[1.1] ${dmSerif.className}`}
                 style={{ color: GOLD }}
               >
-                {recipe.Name.split(' ')[0]}
+                {recipe.Name.split(" ")[0]}
               </h1>
               <h2
-                className={`text-5xl md:text-6xl leading-[1.1] mb-4 md:mb-6 ${dmSerif.className}`}
+                className={`text-4xl md:text-5xl leading-[1.1] mb-4 md:mb-6 ${dmSerif.className}`}
                 style={{ color: NAVY }}
               >
-                {recipe.Name.split(' ').slice(1).join(' ')}
+                {recipe.Name.split(" ").slice(1).join(" ")}
               </h2>
 
-              <p className="text-base md:text-lg mb-6 leading-relaxed" style={{ color: NAVY }}>
+              <p
+                className={`${poppins.className} text-sm md:text-base mb-6 leading-relaxed`}
+                style={{ color: NAVY }}
+              >
                 {recipe.Description}
               </p>
               <div style={{ color: NAVY }}>
-                <p className="font-bold text-lg">Bahan & Cara Memasak:</p>
-                <div className="text-[15px] md:text-base space-y-2 ">
+                <p className={`${poppins.className} font text-base`}>Bahan:</p>
+                <div className="text-[13px] md:text-sm space-y-2 ">
                   {ingredientsList.map((ingredient, index) => (
-                    <p key={index} className="leading-relaxed">
+                    <p
+                      key={index}
+                      className={`${poppins.className} leading-relaxed text-sm`}
+                    >
                       {ingredient}
                     </p>
                   ))}
@@ -145,9 +159,9 @@ export default function RecipeDetailSection({
         </div>
 
         {/* Thumbnail kecil kiri-bawah */}
-        <div className="pointer-events-none absolute -left-6 -bottom-8 md:-left-8 md:-bottom-10">
+        <div className="pointer-events-none absolute -left-8 -bottom-10 md:-left-56 md:-bottom-16">
           <motion.div
-            className="relative w-[100px] h-[100px] md:w-[120px] md:h-[120px] drop-shadow-2xl"
+            className="relative w-[160px] h-[160px] md:w-[400px] md:h-[400px] drop-shadow-2xl"
             initial={{ rotate: 0 }}
             animate={{ rotate: -10 }}
             transition={{ duration: 0.5 }}
@@ -165,7 +179,7 @@ export default function RecipeDetailSection({
         {/* Tombol Back inside the card */}
         <motion.button
           onClick={onBack}
-          className="flex items-center gap-2 text-[15px] font-semibold absolute top-6 right-6"
+          className={`${poppins.className} flex items-center gap-2 text-sm font-semibold absolute top-6 right-6`}
           style={{ color: NAVY }}
           whileHover={{ x: -4 }}
           whileTap={{ scale: 0.96 }}

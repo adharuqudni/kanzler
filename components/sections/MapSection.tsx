@@ -1,32 +1,40 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import MotionWrapper from '@/components/animations/MotionWrapper';
-import { BOUNCY_TRANSITION } from '@/lib/motion';
+import React from "react";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
+import Image from "next/image";
+import { motion } from "framer-motion";
+import MotionWrapper from "@/components/animations/MotionWrapper";
+import { BOUNCY_TRANSITION } from "@/lib/motion";
 
 const MapSection = React.memo(function MapSection() {
   return (
-    <section className="min-h-screen bg-[#1C2652] relative overflow-hidden">
+    <section
+      className={`min-h-screen bg-[#1C2652] relative overflow-hidden ${poppins.className}`}
+    >
       {/* Top curved transition from white to navy */}
       <svg
-          height="120"
-          viewBox="0 0 500 120"
-          preserveAspectRatio="none"
-          className="w-full"
-        >
-          <path
-            d="M0,120 Q250,40 500,120 L500,0 L0,0 Z"
-            fill="white"
-            fillRule="evenodd"
-          />
-        </svg>
-      
+        height="120"
+        viewBox="0 0 500 120"
+        preserveAspectRatio="none"
+        className="w-full"
+      >
+        <path
+          d="M0,120 Q250,40 500,120 L500,0 L0,0 Z"
+          fill="white"
+          fillRule="evenodd"
+        />
+      </svg>
+
       {/* Content Container */}
-      <div id="map-section" className="relative z-10  mx-auto px-4 sm:px-6 md:px-8 pt-4 sm:pt-4 md:pt-4">
+      <div
+        id="map-section"
+        className="relative z-10  mx-auto px-4 sm:px-6 md:px-8 pt-4 sm:pt-4 md:pt-4"
+      >
         {/* Header Section */}
-        <motion.div 
+        <motion.div
           className="text-center mb-8"
           initial={{ scale: 0, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
@@ -46,7 +54,7 @@ const MapSection = React.memo(function MapSection() {
         {/* Map Section */}
         <div className="flex flex-col items-center w-full">
           <motion.div
-          className='w-[70%]'
+            className="w-[70%]"
             initial={{ opacity: 0, scale: 0.5, y: 50 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
@@ -82,7 +90,7 @@ const MapSection = React.memo(function MapSection() {
             delay: 0.5,
           }}
         >
-          <motion.span 
+          <motion.span
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#AA7B32]"
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
@@ -114,7 +122,7 @@ const MapSection = React.memo(function MapSection() {
 
         {/* Contact Information Box */}
         <motion.div
-          className="w-full mt-8 px-4 sm:px-6 md:px-8"
+          className="w-full mt-3 px-3 sm:px-4 md:px-6"
           initial={{ opacity: 0, y: 80, scale: 0.9 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -125,9 +133,9 @@ const MapSection = React.memo(function MapSection() {
             delay: 0.6,
           }}
         >
-          <div className="w-full border-2 border-[#AA7B32] rounded-2xl sm:rounded-3xl px-6 py-6 md:px-8 md:py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div className="w-full border-2 border-[#AA7B32] rounded-xl sm:rounded-2xl px-4 py-4 md:px-6 md:py-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             {/* Left - Contact */}
-            <motion.div 
+            <motion.div
               className="flex-1"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -137,23 +145,23 @@ const MapSection = React.memo(function MapSection() {
                 duration: 0.6,
               }}
             >
-              <h3 className="text-2xl md:text-[28px] font-bold text-white mb-3">
+              <h3 className="text-lg md:text-xl font-bold text-white mb-2">
                 Hubungi Kami
               </h3>
               <div className="text-white">
-                <p className="text-sm md:text-base leading-relaxed mb-1">
+                <p className="text-xs md:text-sm leading-relaxed mb-1">
                   Kantor Pusat Cimory, Jl. Komp. Rukan Taman Meruya No. N1-4,
                   RT.16/RW.7, Meruya Utara
                 </p>
-                <p className="text-sm md:text-base leading-relaxed">
-                  Kec. Kembangan, Kota Jakarta Barat, Daerah Khusus Ibukota
-                  Jakarta 11620 | (021) 587 4630
+                <p className="text-xs md:text-sm leading-relaxed">
+                  Kec. Kembangan, Kota Jakarta Barat, DKI Jakarta 11620 | (021)
+                  587 4630
                 </p>
               </div>
             </motion.div>
 
             {/* Right - Social */}
-            <motion.div 
+            <motion.div
               className="flex flex-col items-center md:items-end"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -163,20 +171,20 @@ const MapSection = React.memo(function MapSection() {
                 duration: 0.6,
               }}
             >
-              <h4 className="text-xl md:text-[22px] font-semibold text-white mb-4">
+              <h4 className="text-base md:text-lg font-semibold text-white mb-3">
                 Ikuti Kami
               </h4>
-              <div className="flex gap-6">
+              <div className="flex gap-4">
                 {[
                   {
-                    src: '/assets/ASSET - HOME/5 ASSET - HOME/5 ASSET - HOME IG.png',
-                    alt: 'Instagram',
-                    href: '#',
+                    src: "/assets/ASSET - HOME/5 ASSET - HOME/5 ASSET - HOME IG.png",
+                    alt: "Instagram",
+                    href: "#",
                   },
                   {
-                    src: '/assets/ASSET - HOME/5 ASSET - HOME/5 ASSET - HOME TIKTOK.png',
-                    alt: 'TikTok',
-                    href: '#',
+                    src: "/assets/ASSET - HOME/5 ASSET - HOME/5 ASSET - HOME TIKTOK.png",
+                    alt: "TikTok",
+                    href: "#",
                   },
                 ].map((item, idx) => (
                   <motion.a
@@ -198,8 +206,8 @@ const MapSection = React.memo(function MapSection() {
                     <Image
                       src={item.src}
                       alt={item.alt}
-                      width={40}
-                      height={40}
+                      width={30}
+                      height={30}
                       className="object-contain"
                     />
                   </motion.a>

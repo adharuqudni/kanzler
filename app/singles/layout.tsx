@@ -1,6 +1,4 @@
 import type { Metadata } from "next"
-import SinglesSidebar from "@/components/navigation/SinglesSidebar"
-import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
   title: "Kanzler Singles | Premium Single-Serve Products",
@@ -22,7 +20,6 @@ export default function SinglesLayout({
 }) {
   return (
     <div className="min-h-screen relative">
-      <SinglesSidebar />
       <main className="w-full">
         {children}
       </main>

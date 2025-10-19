@@ -3,10 +3,11 @@
 import type React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { DM_Serif_Display } from "next/font/google";
+import { DM_Serif_Display, Poppins } from "next/font/google";
 import { useResponsive } from "@/hooks/use-responsive";
 import { BOUNCY_TRANSITION } from "@/lib/motion";
 
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 
 // Outline dimensions (sudah pas)
@@ -73,8 +74,8 @@ export default function WhyKanzler() {
   const imageSize = getResponsiveDimensions(300);
   return (
     <section className="bg-white py-responsive-12 flex items-center justify-center">
-      <div className="responsive-container my-responsive-20">
-        <div className="flex flex-col lg:flex-row items-center justify-center max-w-7xl mx-auto ">
+      <div className="w-full my-responsive-20" id="why-kanzler">
+        <div className="flex flex-col lg:flex-row items-center justify-center  w-full ">
           {/* LEFT CARD — icon kiri, heading kanan, deskripsi DI BAWAH IKON (span kolom) */}
           <motion.div
             className="order-2 lg:order-1 -mr-8"
@@ -94,13 +95,13 @@ export default function WhyKanzler() {
                   priority
                   className="row-start-1 col-start-1"
                 />
-                <h3 className="row-start-1 col-start-2 text-2xl font-extrabold text-[#1E2756] leading-tight">
+                <h3 className={`${poppins.className} row-start-1 col-start-2 text-2xl font-extrabold text-[#1E2756] leading-tight`}>
                   Extra
                   <br />
                   Juicy
                 </h3>
                 {/* Row 2: span kedua kolom → tepat di bawah ikon */}
-                <p className="col-span-2 mt-2 text-gray-600 text-[18px] leading-tight max-w-[260px]">
+                <p className={`${poppins.className} col-span-2 mt-2 text-gray-600 text-[18px] leading-tight max-w-[260px]`}>
                   Setiap gigitan <br />menghadirkan sensasi <br /><em>juicy</em> di dalam dan <br /> garing di luar.
                 </p>
               </div>
@@ -135,7 +136,7 @@ export default function WhyKanzler() {
             <OutlineBox side="right">
               <div className="grid grid-cols-[1fr_auto] gap-x-4 items-start w-full max-w-[280px]">
                 {/* Row 1 */}
-                <h3 className="row-start-1 col-start-1 text-2xl font-extrabold text-[#1E2756] leading-tight text-right">
+                <h3 className={`${poppins.className} row-start-1 col-start-1 text-2xl font-extrabold text-[#1E2756] leading-tight text-right`}>
                   Extra
                   <br />
                   Meaty
@@ -149,7 +150,7 @@ export default function WhyKanzler() {
                   className="row-start-1 col-start-2 justify-self-end"
                 />
                 {/* Row 2: span kedua kolom, RATA KANAN */}
-                <p className="col-span-2 mt-3 text-gray-600 text-[18px] leading-tight text-right">
+                <p className={`${poppins.className} col-span-2 mt-3 text-gray-600 text-[18px] leading-tight text-right`}>
                   Memiliki kandungan <br />daging yang lebih <br /> banyak dibandingkan <br /> produk sejenis.
                 </p>
               </div>

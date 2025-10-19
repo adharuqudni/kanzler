@@ -7,33 +7,45 @@ import MapSection from '@/components/sections/MapSection'
 import { useSnapScroll, SectionIndicator, ScrollProgress } from '@/hooks/use-snap-scroll'
 
 // CrownToggle: toggle putih <-> emas berdasarkan keberadaan
-function CrownToggle({ targetIds }: { targetIds: string[] }) {
+export function CrownToggle({
+  targetIds,
+  style,
+  rootId,
+}: {
+  targetIds: string[];
+  style?: React.CSSProperties;
+  rootId?: string;
+}) {
   const [isGold, setIsGold] = useState(false);
 
   useEffect(() => {
+    // pilih root: jika dikirim rootId gunakan itu, else cari elemen snap-scroll-container
+    const rootEl =
+      (rootId && document.getElementById(rootId)) ||
+      document.querySelector('.snap-scroll-container');
+
+    const options = rootEl ? { root: rootEl as Element, threshold: 0.25 } : { threshold: 0.25 };
+
     const elements = targetIds
       .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
     if (!elements.length) return;
 
-    const obs = new IntersectionObserver(
-      (entries) => {
-        // jika salah satu target terlihat => mahkota emas
-        const anyVisible = entries.some((e) => e.isIntersecting);
-        setIsGold(anyVisible);
-      },
-      { threshold: 0.25 }
-    );
+    const obs = new IntersectionObserver((entries) => {
+      const anyVisible = entries.some((e) => e.isIntersecting);
+      setIsGold(anyVisible);
+    }, options);
 
     elements.forEach((el) => obs.observe(el));
     return () => obs.disconnect();
-  }, [targetIds]);
+  }, [targetIds, rootId]);
 
-  const crownColor = isGold ? "#AA7B32" : "#ffffff";
+  const crownColor = isGold ? '#AA7B32' : '#ffffff';
 
   return (
     <div
       className="fixed top-4 left-4 z-50 pointer-events-none ml-4 z-[200]"
+      style={style}
       aria-hidden="true"
     >
       <svg
@@ -85,7 +97,7 @@ export default function Home() {
   return (
     <div ref={containerRef} className="snap-scroll-container">
       {/* Crown toggle - white <-> gold based on scroll position */}
-      <CrownToggle targetIds={[ "map-section"]} />
+      <CrownToggle targetIds={["cerita-kanzler", "map-section"]} rootId="snap-scroll-container" />
       
       {/* Scroll Progress Indicator */}
       {/* <ScrollProgress currentSection={snapCurrentSection} totalSections={totalSections} /> */}
