@@ -95,7 +95,7 @@ export default function Home() {
   });
 
   return (
-    <div ref={containerRef} className="snap-scroll-container">
+    <div ref={containerRef} className="snap-scroll-container overflow-x-hidden">
       {/* Crown toggle - white <-> gold based on scroll position */}
       <CrownToggle targetIds={["cerita-kanzler", "map-section"]} rootId="snap-scroll-container" />
       

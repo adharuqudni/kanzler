@@ -70,7 +70,7 @@ function SplitHero({ className = "", currentSection = 0, isScrolling = false }: 
     if (!mouseCalculations || mouseCalculations.reset) {
       setIsHoveringLeft(false);
       setIsHoveringRight(false);
-      setLeftSideWidth(100);
+      setLeftSideWidth(50);
       setLeftSideIndex(5);
       return;
     }
@@ -177,8 +177,14 @@ function SplitHero({ className = "", currentSection = 0, isScrolling = false }: 
         <motion.div
           className="absolute inset-0 bg-black"
           initial={{ opacity: 0 }}
-          animate={{ opacity: isHoveringRight || isHoveringLeft ? 0.6 : 0 }}
-          transition={BOUNCY_TRANSITION}
+          animate={{ 
+            opacity: isHoveringRight || isHoveringLeft ? 0.6 : 0,
+            transition: {
+              duration: isHoveringRight || isHoveringLeft ? 1.2 : 0,  // 1.2s IN, 0s OUT
+              delay: isHoveringRight || isHoveringLeft ? 0.6 : 0
+            },
+            
+          }}
           style={{ zIndex: 106 }}
         />
 
