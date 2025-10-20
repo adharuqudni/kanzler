@@ -42,7 +42,7 @@ const SplitRight = memo(function SplitRight({
         transition: {
           display: { duration: 0, delay:  0 },  // Instant, no delay
           zIndex: { duration: 0, delay:  0 },    // Instant, no delay
-          width: { duration: isHoveringRight ? 1.2 : 0 },
+          width: { duration: 0 },
           clipPath: { duration: isHoveringRight ? 1.2 : 0 },
         }
       }}
@@ -56,7 +56,7 @@ const SplitRight = memo(function SplitRight({
                 {/* Crown - animates first */}
                 <motion.div
                   key="crown"
-                  className="mb-2 sm:mb-4"
+                  className=""
                   initial={{ 
                     opacity: 1, 
                     scale: 2.5, 

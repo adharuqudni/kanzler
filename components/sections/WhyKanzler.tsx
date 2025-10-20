@@ -85,13 +85,13 @@ export default function WhyKanzler() {
             viewport={{ once: false, amount: 0.3 }}
           >
             <OutlineBox side="left">
-              <div className="grid grid-cols-[auto_1fr] gap-x-4 items-start text-left">
+              <div className="grid grid-cols-[auto_1fr]  items-start text-left">
                 {/* Row 1 */}
                 <Image
                   src="/assets/ASSET - HOMEPACK/3 ASSET - HOMEPACK/3 ASSET - HOMEPACK EXTRA JUICY.png"
                   alt="Juicy icon"
-                  width={76}
-                  height={76}
+                  width={126}
+                  height={84}
                   priority
                   className="row-start-1 col-start-1"
                 />
@@ -144,7 +144,7 @@ export default function WhyKanzler() {
                 <Image
                   src="/assets/ASSET - HOMEPACK/3 ASSET - HOMEPACK/3 ASSET - HOMEPACK EXTRA MEATY.png"
                   alt="Meaty icon"
-                  width={90}
+                  width={126}
                   height={90}
                   priority
                   className="row-start-1 col-start-2 justify-self-end"
