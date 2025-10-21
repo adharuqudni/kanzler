@@ -43,7 +43,7 @@ export default function HomepackPage() {
 
   return (
     <>
-      <SinglesSidebar 
+      <SinglesSidebar
         currentSection={snapCurrentSection}
         scrollToSection={scrollToSection}
         sections={sections}
@@ -54,7 +54,7 @@ export default function HomepackPage() {
       >
         {/* Homepack Hero Section - Can overflow into next section */}
         <section id="homepack-hero" className="snap-scroll-section-overflow">
-          <HomepackHeroSection />
+          <HomepackHeroSection currentSection={snapCurrentSection} />
         </section>
 
         {/* Homepack Products Section - Can overflow into next section */}

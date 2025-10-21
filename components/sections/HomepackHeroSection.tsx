@@ -5,7 +5,11 @@ import { motion, useScroll } from 'framer-motion';
 import Image from 'next/image';
 import { BOUNCY_TRANSITION } from '@/lib/motion';
 
-export default function HomepackHeroSection() {
+export default function HomepackHeroSection({
+  currentSection,
+}: {
+  currentSection: number;
+}) {
   const [shouldExit, setShouldExit] = useState(false);
   const { scrollY } = useScroll();
 
@@ -70,7 +74,7 @@ export default function HomepackHeroSection() {
       },
     },
   };
-
+  console.log('asdasd', currentSection);
   return (
     <section className="relative min-h-screen overflow-visible pb-32 w-full">
       {/* Background */}
@@ -92,8 +96,6 @@ export default function HomepackHeroSection() {
         </div>
       </div>
 
-     
-
       {/* Content Container */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-8 py-24">
         {/* Top Section - Crown and Logo Split */}
@@ -103,7 +105,7 @@ export default function HomepackHeroSection() {
             className="mb-8"
             variants={logoFadeInVariants}
             initial="hidden"
-            animate={shouldExit ? "exit" : "visible"}
+            animate={shouldExit ? 'exit' : 'visible'}
           >
             <Image
               src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
@@ -119,7 +121,7 @@ export default function HomepackHeroSection() {
             className="mb-6"
             variants={fadeInUpVariants}
             initial="hidden"
-            animate={shouldExit ? "exit" : "visible"}
+            animate={shouldExit ? 'exit' : 'visible'}
             transition={{ delay: 0.3 }}
           >
             <Image
@@ -157,7 +159,7 @@ export default function HomepackHeroSection() {
               },
             }}
             initial="hidden"
-            animate={shouldExit ? "exit" : "visible"}
+            animate={shouldExit ? 'exit' : 'visible'}
             transition={{ delay: 1 }}
           >
             <Image
@@ -203,7 +205,7 @@ export default function HomepackHeroSection() {
               },
             }}
             initial="hidden"
-            animate={shouldExit ? "exit" : "visible"}
+            animate={shouldExit  ? 'exit' : 'visible'}
           >
             <Image
               src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK NUGGET PACKAGING.png"
@@ -250,15 +252,15 @@ export default function HomepackHeroSection() {
               },
             }}
             initial="hidden"
-            animate={shouldExit ? "exit" : "visible"}
+            animate={shouldExit || currentSection == 1 ? 'exit' : 'visible'}
           >
-            <Image
-              src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK BEEF COCKTAIL MOCKUP.png"
-              alt="Beef Cocktail Package"
-              width={350}
-              height={350}
-              className="object-contain drop-shadow-xl"
-            />
+             <Image
+                src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK BEEF COCKTAIL MOCKUP.png"
+                alt="Beef Cocktail Package"
+                width={350}
+                height={350}
+                className="object-contain drop-shadow-xl"
+              />
           </motion.div>
 
           {/* Bottom left Mockup */}
@@ -296,7 +298,7 @@ export default function HomepackHeroSection() {
               },
             }}
             initial="hidden"
-            animate={shouldExit ? "exit" : "visible"}
+            animate={shouldExit || currentSection == 1 ? 'exit' : 'visible'}
           >
             <Image
               src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK CRISPY NUGGET MOCKUP.png"
@@ -342,7 +344,7 @@ export default function HomepackHeroSection() {
               },
             }}
             initial="hidden"
-            animate={shouldExit ? "exit" : "visible"}
+            animate={shouldExit ? 'exit' : 'visible'}
           >
             <Image
               src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK NUGGET KANAN ATAS.png"
@@ -388,7 +390,7 @@ export default function HomepackHeroSection() {
               },
             }}
             initial="hidden"
-            animate={shouldExit ? "exit" : "visible"}
+            animate={shouldExit ? 'exit' : 'visible'}
           >
             <Image
               src="/assets/ASSET - HOMEPACK/1 ASSET - HOMEPACK/1 ASSET - HOMEPACK NUGGET KIRI ATAS.png"

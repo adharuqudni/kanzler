@@ -213,7 +213,7 @@ const LogoOverlay = memo(function LogoOverlay() {
           alt="Kanzler Crown"
           width={300}
           height={200}
-          className="object-contain mb-8 -mt-8"
+          className="object-contain -mt-8"
           loading="lazy"
         />
       </MotionWrapper>

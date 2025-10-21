@@ -27,7 +27,7 @@ const SplitLeft = memo(function SplitLeft({
       }`}
       initial={{ 
         width: '50%',
-        clipPath: 'ellipse(50% 80% at 0% 50%)',
+        clipPath: 'ellipse(80% 150% at 0% 50%)',
         zIndex: 107,
         display: "none"
       }}
@@ -36,13 +36,13 @@ const SplitLeft = memo(function SplitLeft({
         background: isHoveringLeft ? "bg-[url('/assets/gradient-1x1.jpg')] bg-no-repeat bg-left bg-cover" : "",
         clipPath: isHoveringLeft
           ? 'ellipse(100% 150% at 0% 50%)'
-          : 'ellipse(50% 150% at 0% 50%)',
+          : 'ellipse(80% 150% at 0% 50%)',
         zIndex: 107,
         display: isHoveringLeft ? "flex" : "none",
         transition: {
           display: { duration: 0, delay: isHoveringRight ? 1.2 : 0 },  // Instant, no delay
           zIndex: { duration: 0, delay: isHoveringRight ? 1.2 : 0 },    // Instant, no delay
-          width: { duration: isHoveringLeft ? 1.2 : 0 },
+          width: { duration: 0 },
           clipPath: { duration: isHoveringLeft ? 1.2 : 0 },
         }
       }}
@@ -57,7 +57,7 @@ const SplitLeft = memo(function SplitLeft({
                 {/* Crown - animates first */}
                 <motion.div
                   key="crown"
-                  className="mb-2 sm:mb-4"
+                  className=""
                   initial={{ 
                     opacity: 1, 
                     scale: 2.5, 

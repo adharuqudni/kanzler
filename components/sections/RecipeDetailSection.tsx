@@ -35,6 +35,41 @@ const GOLD = "#AA7B32";
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
+// Animated text component for word-by-word animation
+const AnimatedText = ({
+  text,
+  className,
+  style,
+  delay = 0,
+}: {
+  text: string;
+  className?: string;
+  style?: React.CSSProperties;
+  delay?: number;
+}) => {
+  const words = text.split(" ");
+  
+  return (
+    <span className={className} style={style}>
+      {words.map((word, index) => (
+        <motion.span
+          key={index}
+          initial={{ opacity: 0, y: 180 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{
+            duration: 0.8,
+            delay: delay + index * 0.5,
+            ease: "easeOut",
+          }}
+          className="inline-block mr-[0.25em]"
+        >
+          {word}
+        </motion.span>
+      ))}
+    </span>
+  );
+};
+
 export default function RecipeDetailSection({
   recipe,
   loading,
@@ -73,6 +108,24 @@ export default function RecipeDetailSection({
   const ingredientsList = recipe.Ingredient.split(/\n\d+\n|\n/)
     .filter((item) => item.trim() && !item.match(/^\d+$/))
     .map((item) => item.trim());
+  
+  // Calculate delays for sequential animation
+  const firstTitleWords = recipe.Name.split(" ")[0].split(" ").length;
+  const secondTitleWords = recipe.Name.split(" ").slice(1).join(" ").split(" ").length;
+  const descriptionWords = recipe.Description.split(" ").length;
+  
+  const firstTitleDelay = 0;
+  const firstTitleDuration = firstTitleWords * 0.05 + 0.8;
+  
+  const secondTitleDelay = firstTitleDuration;
+  const secondTitleDuration = secondTitleWords * 0.05 + 0.8;
+  
+  const descriptionDelay = secondTitleDelay + secondTitleDuration;
+  const descriptionDuration = descriptionWords * 0.05 + 0.8;
+  
+  const bahanDelay = descriptionDelay + descriptionDuration;
+  const ingredientsDelay = bahanDelay + 0.8;
+
   return (
     <motion.div
       key="selected-recipe"
@@ -122,35 +175,52 @@ export default function RecipeDetailSection({
           {/* Right: Teks */}
           <div className="col-span-12 md:col-span-8 md:pl-4 lg:pl-8 self-center text-left">
             <div className="max-w-2xl mt-12">
-              <h1
-                className={`text-3xl md:text-4xl leading-[1.1] ${dmSerif.className}`}
-                style={{ color: GOLD }}
-              >
-                {recipe.Name.split(" ")[0]}
+              <h1 className={`text-3xl md:text-4xl leading-[1.1] ${dmSerif.className}`}>
+                <AnimatedText
+                  text={recipe.Name.split(" ")[0]}
+                  style={{ color: GOLD }}
+                  delay={firstTitleDelay}
+                />
               </h1>
-              <h2
-                className={`text-4xl md:text-5xl leading-[1.1] mb-4 md:mb-6 ${dmSerif.className}`}
-                style={{ color: NAVY }}
-              >
-                {recipe.Name.split(" ").slice(1).join(" ")}
+              <h2 className={`text-4xl md:text-5xl leading-[1.1] mb-4 md:mb-6 ${dmSerif.className}`}>
+                <AnimatedText
+                  text={recipe.Name.split(" ").slice(1).join(" ")}
+                  style={{ color: NAVY }}
+                  delay={secondTitleDelay}
+                />
               </h2>
 
-              <p
-                className={`${poppins.className} text-sm md:text-base mb-6 leading-relaxed`}
-                style={{ color: NAVY }}
-              >
-                {recipe.Description}
+              <p className={`${poppins.className} text-sm md:text-base mb-6 leading-relaxed`}>
+                <AnimatedText
+                  text={recipe.Description}
+                  style={{ color: NAVY }}
+                  delay={descriptionDelay}
+                />
               </p>
               <div style={{ color: NAVY }}>
-                <p className={`${poppins.className} font text-base`}>Bahan:</p>
+                <motion.p 
+                  className={`${poppins.className} font text-base`}
+                  initial={{ opacity: 0, y: 180 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: bahanDelay }}
+                >
+                  Bahan:
+                </motion.p>
                 <div className="text-[13px] md:text-sm space-y-2 ">
                   {ingredientsList.map((ingredient, index) => (
-                    <p
+                    <motion.p
                       key={index}
                       className={`${poppins.className} leading-relaxed text-sm`}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{
+                        duration: 1,
+                        delay: ingredientsDelay + index * 0.58,
+                        ease: "easeOut",
+                      }}
                     >
                       {ingredient}
-                    </p>
+                    </motion.p>
                   ))}
                 </div>
               </div>
