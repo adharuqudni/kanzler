@@ -56,7 +56,7 @@ const SplitRight = memo(function SplitRight({
                 {/* Crown - animates first */}
                 <motion.div
                   key="crown"
-                  className=""
+                  className="mb-2 sm:mb-0"
                   initial={{ 
                     opacity: 1, 
                     scale: 2.5, 
@@ -238,7 +238,7 @@ const SplitRight = memo(function SplitRight({
             // x: isHoveringRight ? -30 : 0,
             // rotate: 25, // 🔹 selalu 40°, tidak berubah
 
-            y: isHoveringRight ? -420 : -80,
+            y: isHoveringRight ? -300 : -80,
             x: isHoveringRight ?  -30 : 200,
             scale: isHoveringRight ? 1.2 : 0.7,
             rotate: isHoveringRight ? 25 : 20, // 🔹 selalu 40°, tidak berubah
