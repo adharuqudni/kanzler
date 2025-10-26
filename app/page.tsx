@@ -2,8 +2,11 @@
 
 import React, { useState, useEffect } from 'react'
 import Hero from '@/components/hero/Hero'
+import MobileHero from '@/components/hero/MobileHero'
 import CeritaKanzler from '@/components/sections/CeritaKanzler'
+import MobileCeritaKanzler from '@/components/sections/MobileCeritaKanzler'
 import MapSection from '@/components/sections/MapSection'
+import MobileMapSection from '@/components/sections/MobileMapSection'
 import { useSnapScroll, SectionIndicator, ScrollProgress } from '@/hooks/use-snap-scroll'
 
 // CrownToggle: toggle putih <-> emas berdasarkan keberadaan
@@ -72,7 +75,59 @@ export function CrownToggle({
   );
 }
 
-export default function Home() {
+// Mobile-specific component
+function MobileHome() {
+  const [currentSection, setCurrentSection] = useState(0);
+
+  // Define section IDs for snap scrolling
+  const sections = ['hero-section', 'cerita-kanzler', 'map-section'];
+
+  // Initialize snap scroll
+  const {
+    containerRef,
+    currentSection: snapCurrentSection,
+    isScrolling,
+    scrollToSection,
+    scrollToNext,
+    scrollToPrevious,
+    totalSections
+  } = useSnapScroll({
+    sections,
+    onSectionChange: (index) => {
+      setCurrentSection(index);
+    }
+  });
+
+  return (
+    <div ref={containerRef} className="snap-scroll-container overflow-x-hidden">
+      {/* Crown toggle - white <-> gold based on scroll position */}
+      <CrownToggle targetIds={["cerita-kanzler", "map-section"]} rootId="snap-scroll-container" />
+     
+
+      {/* Hero Section */}
+      <section id="hero-section" className="snap-scroll-section">
+        <MobileHero 
+          currentSection={snapCurrentSection} 
+          isScrolling={isScrolling} 
+          onScrollToNext={scrollToNext}
+        />
+      </section>
+
+      {/* Cerita Kanzler Section */}
+      <section id="cerita-kanzler" className="snap-scroll-section h-full">
+        <MobileCeritaKanzler />
+      </section>
+
+      {/* Map Section */}
+      <section id="map-section" className="snap-scroll-section">
+        <MobileMapSection />
+      </section>
+    </div>
+  );
+}
+
+// Desktop/Tablet component (original)
+function DesktopHome() {
   const [currentSection, setCurrentSection] = useState(0);
 
   // Define section IDs for snap scrolling
@@ -124,5 +179,26 @@ export default function Home() {
         <MapSection />
       </section>
     </div>
-  )
+  );
+}
+
+export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768); // md breakpoint (768px)
+    };
+
+    // Check on mount
+    checkIsMobile();
+
+    // Add event listener for resize
+    window.addEventListener('resize', checkIsMobile);
+
+    // Cleanup
+    return () => window.removeEventListener('resize', checkIsMobile);
+  }, []);
+
+  return isMobile ? <MobileHome /> : <DesktopHome />;
 }

@@ -220,11 +220,11 @@ const LogoOverlay = memo(function LogoOverlay() {
 
       <MotionWrapper variant="fadeInUp" delay={0.5} className="text-center">
         <Image
-          src="/assets/KNZLR R.png"
+          src="/assets/kanzler-white.svg"
           alt="Kanzler"
           width={1400}
           height={160}
-          className="object-contain"
+          className="object-contain mt-6"
           loading="lazy"
         />
       </MotionWrapper>

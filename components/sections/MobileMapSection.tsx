@@ -10,7 +10,7 @@ import MotionWrapper from "@/components/animations/MotionWrapper";
 import CountUp from "@/components/animations/CountUp";
 import { BOUNCY_TRANSITION } from "@/lib/motion";
 
-const MapSection = React.memo(function MapSection() {
+const MobileMapSection = React.memo(function MobileMapSection() {
   return (
     <section
       className={`min-h-screen bg-[#1C2652] relative overflow-hidden ${poppins.className}`}
@@ -32,11 +32,11 @@ const MapSection = React.memo(function MapSection() {
       {/* Content Container */}
       <div
         id="map-section"
-        className="relative z-10  mx-auto px-4 sm:px-6 md:px-8 pt-4 sm:pt-4 md:pt-4"
+        className="relative z-10 mx-auto px-4 pt-4"
       >
         {/* Header Section */}
         <motion.div
-          className="text-center mb-8"
+          className="text-center mb-6"
           initial={{ scale: 0, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -47,7 +47,7 @@ const MapSection = React.memo(function MapSection() {
             delay: 0.2,
           }}
         >
-          <h2 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white leading-tight">
+          <h2 className="text-2xl font-bold text-white leading-tight">
             Tersedia di
           </h2>
         </motion.div>
@@ -55,7 +55,7 @@ const MapSection = React.memo(function MapSection() {
         {/* Map Section */}
         <div className="flex flex-col items-center w-full">
           <motion.div
-            className="w-[70%]"
+            className="w-[85%]"
             initial={{ opacity: 0, scale: 0.5, y: 50 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
@@ -78,11 +78,11 @@ const MapSection = React.memo(function MapSection() {
           </motion.div>
         </div>
 
-        {/* Statistics Section (below map, left aligned) */}
+        {/* Statistics Section - Mobile centered */}
         <motion.div
-          className="flex items-baseline justify-start gap-2 sm:gap-4 px-4 sm:px-6 md:px-8 ml-8"
-          initial={{ opacity: 0, scale: 0.8, x: -50 }}
-          whileInView={{ opacity: 1, scale: 1, x: 0 }}
+          className="flex flex-col items-center justify-center gap-2 px-4 mt-4"
+          initial={{ opacity: 0, scale: 0.8, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{
             type: "spring",
@@ -94,14 +94,14 @@ const MapSection = React.memo(function MapSection() {
           <CountUp
             end={498}
             duration={2.5}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#AA7B32] min-w-[120px] sm:min-w-[140px] md:min-w-[160px] lg:min-w-[180px] mr-4"
+            className="text-5xl font-extrabold text-[#AA7B32] min-w-[140px] mr-0"
             suffix="+"
             delay={0.7}
           />
           <motion.span
-            className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-[#AA7B32]"
+            className="text-lg font-bold text-[#AA7B32] text-center"
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: -15, x: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{
               type: "spring",
@@ -114,9 +114,9 @@ const MapSection = React.memo(function MapSection() {
           </motion.span>
         </motion.div>
 
-        {/* Contact Information Box */}
+        {/* Contact Information Box - Mobile optimized */}
         <motion.div
-          className="w-full mt-3 px-3 sm:px-4 md:px-6"
+          className="w-full mt-6 px-3"
           initial={{ opacity: 0, y: 80, scale: 0.9 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -127,10 +127,10 @@ const MapSection = React.memo(function MapSection() {
             delay: 0.6,
           }}
         >
-          <div className="w-full border-2 border-[#AA7B32] rounded-xl sm:rounded-2xl px-4 py-4 md:px-6 md:py-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            {/* Left - Contact */}
+          <div className="w-full border-2 border-[#AA7B32] rounded-xl px-4 py-4 flex flex-col justify-center items-center gap-4">
+            {/* Contact */}
             <motion.div
-              className="flex-1"
+              className="flex-1 text-center"
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -139,24 +139,26 @@ const MapSection = React.memo(function MapSection() {
                 duration: 0.6,
               }}
             >
-              <h3 className="text-lg md:text-xl font-bold text-white mb-2">
+              <h3 className="text-lg font-bold text-white mb-3">
                 Hubungi Kami
               </h3>
               <div className="text-white">
-                <p className="text-xs md:text-sm leading-relaxed mb-1">
+                <p className="text-sm leading-relaxed mb-2">
                   Kantor Pusat Cimory, Jl. Komp. Rukan Taman Meruya No. N1-4,
                   RT.16/RW.7, Meruya Utara
                 </p>
-                <p className="text-xs md:text-sm leading-relaxed">
-                  Kec. Kembangan, Kota Jakarta Barat, DKI Jakarta 11620 | (021)
-                  587 4630
+                <p className="text-sm leading-relaxed">
+                  Kec. Kembangan, Kota Jakarta Barat, DKI Jakarta 11620
+                </p>
+                <p className="text-sm leading-relaxed font-semibold mt-2">
+                  (021) 587 4630
                 </p>
               </div>
             </motion.div>
 
-            {/* Right - Social */}
+            {/* Social */}
             <motion.div
-              className="flex flex-col items-center md:items-end"
+              className="flex flex-col items-center"
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -165,10 +167,10 @@ const MapSection = React.memo(function MapSection() {
                 duration: 0.6,
               }}
             >
-              <h4 className="text-base md:text-lg font-semibold text-white mb-3">
+              <h4 className="text-base font-semibold text-white mb-3">
                 Ikuti Kami
               </h4>
-              <div className="flex gap-4">
+              <div className="flex gap-6">
                 {[
                   {
                     src: "/assets/ASSET - HOME/5 ASSET - HOME/5 ASSET - HOME IG.png",
@@ -200,8 +202,8 @@ const MapSection = React.memo(function MapSection() {
                     <Image
                       src={item.src}
                       alt={item.alt}
-                      width={30}
-                      height={30}
+                      width={36}
+                      height={36}
                       className="object-contain"
                     />
                   </motion.a>
@@ -215,4 +217,4 @@ const MapSection = React.memo(function MapSection() {
   );
 });
 
-export default MapSection;
+export default MobileMapSection;
