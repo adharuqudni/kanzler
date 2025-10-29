@@ -253,7 +253,8 @@ const LogoOverlay = React.memo(function LogoOverlay() {
 
       <MotionWrapper variant="fadeInUp" delay={0.5} className="text-center">
         <Image
-          src="/assets/kanzler-white.svg"
+          // src="/assets/kanzler-white.svg"
+          src="/assets/KNZLR R.png"
           alt="Kanzler"
           width={300}
           height={60}

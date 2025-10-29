@@ -9,79 +9,6 @@ import MapSection from '@/components/sections/MapSection'
 import MobileMapSection from '@/components/sections/MobileMapSection'
 import { useSnapScroll, SectionIndicator, ScrollProgress } from '@/hooks/use-snap-scroll'
 
-/** =========================
- *  Floating Lang Toggle (ID/EN)
- *  ========================= */
-function LangToggle({
-  defaultLang = 'id',
-  onChange,
-  style,
-}: {
-  defaultLang?: 'id' | 'en'
-  onChange?: (lang: 'id' | 'en') => void
-  style?: React.CSSProperties
-}) {
-  const [lang, setLang] = useState<'id' | 'en'>(defaultLang)
-
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('lang')
-      if (saved === 'id' || saved === 'en') setLang(saved)
-    } catch (_) {
-      /* ignore */
-    }
-  }, [])
-
-  const setLanguage = (l: 'id' | 'en') => {
-    setLang(l)
-    try {
-      localStorage.setItem('lang', l)
-    } catch (_) {
-      /* ignore */
-    }
-    // TODO: Integrasikan dengan i18n Anda (mis. route push ke /id atau /en, atau context)
-    // router.push(`/${l}${pathname}`)  ← contoh jika pakai route prefix
-    onChange?.(l)
-  }
-
-  const baseBtn =
-    'px-3 py-1 rounded-full text-sm font-semibold border backdrop-blur transition select-none'
-
-  return (
-    <div
-      className="fixed top-4 right-4 z-[220] flex gap-1 mr-4"
-      style={style}
-      role="group"
-      aria-label="Language"
-    >
-      <button
-        type="button"
-        aria-pressed={lang === 'id'}
-        className={
-          lang === 'id'
-            ? `${baseBtn} bg-[#AA7B32] text-white border-[#AA7B32] shadow`
-            : `${baseBtn} bg-black/30 text-white/80 border-white/20 hover:text-white`
-        }
-        onClick={() => setLanguage('id')}
-      >
-        ID
-      </button>
-      <button
-        type="button"
-        aria-pressed={lang === 'en'}
-        className={
-          lang === 'en'
-            ? `${baseBtn} bg-[#AA7B32] text-white border-[#AA7B32] shadow`
-            : `${baseBtn} bg-black/30 text-white/80 border-white/20 hover:text-white`
-        }
-        onClick={() => setLanguage('en')}
-      >
-        EN
-      </button>
-    </div>
-  )
-}
-
 // CrownToggle: toggle putih <-> emas berdasarkan keberadaan
 export function CrownToggle({
   targetIds,
@@ -173,22 +100,15 @@ function MobileHome() {
 
   return (
     <div ref={containerRef} className="snap-scroll-container overflow-x-hidden">
-      {/* Lang toggle - floating top-right */}
-      <LangToggle
-        onChange={(l) => {
-          // OPTIONAL: sinkronkan ke komponen lain jika perlu
-          window.dispatchEvent(new CustomEvent('lang-change', { detail: { lang: l } }))
-        }}
-      />
-
       {/* Crown toggle - white <-> gold based on scroll position */}
       <CrownToggle targetIds={["cerita-kanzler", "map-section"]} rootId="snap-scroll-container" />
+     
 
       {/* Hero Section */}
       <section id="hero-section" className="snap-scroll-section">
-        <MobileHero
-          currentSection={snapCurrentSection}
-          isScrolling={isScrolling}
+        <MobileHero 
+          currentSection={snapCurrentSection} 
+          isScrolling={isScrolling} 
           onScrollToNext={scrollToNext}
         />
       </section>
@@ -231,20 +151,12 @@ function DesktopHome() {
 
   return (
     <div ref={containerRef} className="snap-scroll-container overflow-x-hidden">
-      {/* Lang toggle - floating top-right */}
-      <LangToggle
-        onChange={(l) => {
-          // OPTIONAL: sinkronkan ke komponen lain jika perlu
-          window.dispatchEvent(new CustomEvent('lang-change', { detail: { lang: l } }))
-        }}
-      />
-
       {/* Crown toggle - white <-> gold based on scroll position */}
       <CrownToggle targetIds={["cerita-kanzler", "map-section"]} rootId="snap-scroll-container" />
-
+      
       {/* Scroll Progress Indicator */}
       {/* <ScrollProgress currentSection={snapCurrentSection} totalSections={totalSections} /> */}
-
+      
       {/* Section Indicator */}
       {/* <SectionIndicator
         currentSection={snapCurrentSection}
