@@ -149,7 +149,7 @@ const SplitLeft = memo(function SplitLeft({
                   alt="Kanzler"
                   width={400}
                   height={80}
-                  className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px]"
+                  className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px] mb-2"
                   loading="lazy"
                 />
               </motion.div>

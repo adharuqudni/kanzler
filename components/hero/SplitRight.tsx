@@ -144,7 +144,7 @@ const SplitRight = memo(function SplitRight({
                   exit={{}}
                 >
                 <Image
-                  src="/assets/KNZLR R.png"
+                  src="/assets/KNZLR NO R.png"
                   alt="Kanzler"
                   width={400}
                   height={80}

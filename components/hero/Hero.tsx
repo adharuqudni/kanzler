@@ -22,7 +22,11 @@ export interface SideProps {
   leftSideIndex: number;
 }
 
-function SplitHero({ className = "", currentSection = 0, isScrolling = false }: SplitHeroProps) {
+function SplitHero({
+  className = "",
+  currentSection = 0,
+  isScrolling = false,
+}: SplitHeroProps) {
   const mousePosition = useMousePosition(32);
   const [leftSideWidth, setLeftSideWidth] = useState(250);
   const [leftSideIndex, setLeftSideIndex] = useState(5);
@@ -43,7 +47,7 @@ function SplitHero({ className = "", currentSection = 0, isScrolling = false }: 
     // Only allow hover on hero section (currentSection === 0) and when not scrolling
     if (isMobile || currentSection > 0 || isScrolling)
       return { isLeft: false, isRight: false, reset: true };
-    
+
     // Also check hasScrolled only when on hero section
     if (currentSection === 0 && hasScrolled)
       return { isLeft: false, isRight: false, reset: true };
@@ -64,7 +68,14 @@ function SplitHero({ className = "", currentSection = 0, isScrolling = false }: 
       width: isLeft ? 60 : 40,
       index: isLeft ? 7 : 3,
     };
-  }, [mousePosition.x, mousePosition.y, hasScrolled, isMobile, currentSection, isScrolling]);
+  }, [
+    mousePosition.x,
+    mousePosition.y,
+    hasScrolled,
+    isMobile,
+    currentSection,
+    isScrolling,
+  ]);
 
   useEffect(() => {
     if (!mouseCalculations || mouseCalculations.reset) {
@@ -123,7 +134,7 @@ function SplitHero({ className = "", currentSection = 0, isScrolling = false }: 
         setLeftSideIndex(5);
       }
     };
-    
+
     window.addEventListener("wheel", handleWheel, { passive: true });
     return () => window.removeEventListener("wheel", handleWheel);
   }, [isHoveringLeft, isHoveringRight]);
@@ -155,7 +166,6 @@ function SplitHero({ className = "", currentSection = 0, isScrolling = false }: 
         </div>
 
         {/* Wave putih transisi ke section berikutnya */}
-      
       </div>
 
       {/* ===== Split Panels (dibatasi tinggi 100vh) ===== */}
@@ -177,13 +187,12 @@ function SplitHero({ className = "", currentSection = 0, isScrolling = false }: 
         <motion.div
           className="absolute inset-0 bg-black"
           initial={{ opacity: 0 }}
-          animate={{ 
+          animate={{
             opacity: isHoveringRight || isHoveringLeft ? 0.6 : 0,
             transition: {
-              duration: isHoveringRight || isHoveringLeft ? 1.2 : 0,  // 1.2s IN, 0s OUT
-              delay: isHoveringRight || isHoveringLeft ? 0.6 : 0
+              duration: isHoveringRight || isHoveringLeft ? 1.2 : 0, // 1.2s IN, 0s OUT
+              delay: isHoveringRight || isHoveringLeft ? 0.6 : 0,
             },
-            
           }}
           style={{ zIndex: 106 }}
         />
@@ -220,7 +229,8 @@ const LogoOverlay = memo(function LogoOverlay() {
 
       <MotionWrapper variant="fadeInUp" delay={0.5} className="text-center">
         <Image
-          src="/assets/kanzler-white.svg"
+          // src="/assets/kanzler-white.svg"
+          src="/assets/KNZLR R.png"
           alt="Kanzler"
           width={1400}
           height={160}
