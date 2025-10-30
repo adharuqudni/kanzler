@@ -27,7 +27,7 @@ export function CrownToggle({
       (rootId && document.getElementById(rootId)) ||
       document.querySelector('.snap-scroll-container');
 
-    const options = rootEl ? { root: rootEl as Element, threshold: 0.25 } : { threshold: 0.25 };
+    const options = rootEl ? { root: rootEl as Element, threshold: 0.15 } : { threshold: 0.15 };
 
     const elements = targetIds
       .map((id) => document.getElementById(id))
@@ -152,7 +152,7 @@ function DesktopHome() {
   return (
     <div ref={containerRef} className="snap-scroll-container overflow-x-hidden">
       {/* Crown toggle - white <-> gold based on scroll position */}
-      <CrownToggle targetIds={["cerita-kanzler", "map-section"]} rootId="snap-scroll-container" />
+      <CrownToggle targetIds={[ "map-section"]} rootId="snap-scroll-container" />
       
       {/* Scroll Progress Indicator */}
       {/* <ScrollProgress currentSection={snapCurrentSection} totalSections={totalSections} /> */}

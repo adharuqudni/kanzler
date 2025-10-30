@@ -55,7 +55,7 @@ const SplitLeft = memo(function SplitLeft({
               {/* Split Logo Animation - Crown and Text */}
               <div className="flex flex-col items-center z-[110]">
                 {/* Crown - animates first */}
-                <motion.div
+                {/* <motion.div
                   key="crown"
                   className=""
                   initial={{ 
@@ -102,7 +102,7 @@ const SplitLeft = memo(function SplitLeft({
                   className="object-contain w-16 h-16 sm:w-20 sm:h-20 md:w-[120px] md:h-[120px]"
                   loading="lazy"
                 />
-              </motion.div>
+              </motion.div> */}
 
                 {/* Kanzler Text - animates separately */}
                 <motion.div 
@@ -145,17 +145,17 @@ const SplitLeft = memo(function SplitLeft({
                   exit={{}}
                 >
                 <Image
-                  src="/assets/KNZLR R.png"
+                  src="/assets/all-white.svg"
                   alt="Kanzler"
-                  width={400}
+                  width={450}
                   height={80}
-                  className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px]"
+                  className="object-contain"
                   loading="lazy"
                 />
               </motion.div>
             </div>
 
-              {/* Tagline Image */}
+              {/* Tagline Image
               <motion.div
                 key="tagline"
                 className="-mt-12  z-[110]"
@@ -176,7 +176,7 @@ const SplitLeft = memo(function SplitLeft({
                 className="object-contain w-60 h-7 sm:w-80 sm:h-9 md:w-[400px] md:h-[60px]"
                 loading="lazy"
               />
-            </motion.div>
+            </motion.div> */}
 
               {/* Description and Button with pop-up animation */}
               <motion.div
