@@ -17,13 +17,13 @@ const MobileMapSection = React.memo(function MobileMapSection() {
     >
       {/* Top curved transition from white to navy */}
       <svg
-        height="120"
-        viewBox="0 0 500 120"
+        height="90"
+        viewBox="0 0 500 90"
         preserveAspectRatio="none"
         className="w-full"
       >
         <path
-          d="M0,120 Q250,40 500,120 L500,0 L0,0 Z"
+          d="M0,90 Q250,40 500,90 L500,0 L0,0 Z"
           fill="white"
           fillRule="evenodd"
         />
@@ -32,7 +32,7 @@ const MobileMapSection = React.memo(function MobileMapSection() {
       {/* Content Container */}
       <div
         id="map-section"
-        className="relative z-10 mx-auto px-4 pt-4 flex flex-col gap-12"
+        className="relative z-10 mx-auto px-4 pt-4 flex flex-col gap-0 pb-12"
       >
         {/* Header Section */}
         <motion.div
@@ -116,7 +116,7 @@ const MobileMapSection = React.memo(function MobileMapSection() {
 
         {/* Contact Information Box - Mobile optimized */}
         <motion.div
-          className="w-full mt-6 px-3"
+          className="w-full mt-6  px-3"
           initial={{ opacity: 0, y: 80, scale: 0.9 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -139,19 +139,13 @@ const MobileMapSection = React.memo(function MobileMapSection() {
                 duration: 0.6,
               }}
             >
-              <h3 className="text-lg font-bold text-white mb-3">
+              <h3 className="text-lg font-bold text-white mb-1">
                 Hubungi Kami
               </h3>
               <div className="text-white">
-                <p className="text-sm leading-relaxed mb-2">
+                <p className="text-sm leading-relaxed ">
                   Kantor Pusat Cimory, Jl. Komp. Rukan Taman Meruya No. N1-4,
-                  RT.16/RW.7, Meruya Utara
-                </p>
-                <p className="text-sm leading-relaxed">
-                  Kec. Kembangan, Kota Jakarta Barat, DKI Jakarta 11620
-                </p>
-                <p className="text-sm leading-relaxed font-semibold mt-2">
-                  (021) 587 4630
+                  RT.16/RW.7, Meruya Utara, Kec. Kembangan, Kota Jakarta Barat, DKI Jakarta 11620. (021) 587 4630
                 </p>
               </div>
             </motion.div>

@@ -53,7 +53,7 @@ const SplitDown = memo(function SplitDown({
       }}
       onClick={(e) => e.stopPropagation()}
     >
-      <div className="relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
+      <div className="relative w-full h-full flex flex-col items-center justify-start mt-28 p-4 sm:p-6 md:p-8">
         <AnimatePresence>
           {isHoveringDown && (
             <>
@@ -155,7 +155,7 @@ const SplitDown = memo(function SplitDown({
               {/* Singles Product Line */}
               <motion.div
                 key="singles"
-                className="-mt-4 mb-4 z-[110]"
+                className="-mt-4 z-[110]"
                 initial={{ opacity: 0, y: 50, scale: 0 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true, margin: '-50px' }}
@@ -170,7 +170,7 @@ const SplitDown = memo(function SplitDown({
                 <Image
                   src="/assets/ASSET - HOME/1 ASSET - HOME/Singles.png"
                   alt="Singles"
-                  width={600}
+                  width={300}
                   height={80}
                   className="object-contain"
                   loading="lazy"
@@ -216,7 +216,7 @@ const SplitDown = memo(function SplitDown({
                 >
                   <Link href="/singles">
                     <Button
-                      className={`${poppins.className} bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 py-0 text-xs sm:text-sm md:text-base font-bold`}
+                      className={`${poppins.className} bg-white text-kanzler-navy h-6 hover:bg-gray-100 rounded-full px-4 sm:px-6 py-0 text-xs sm:text-sm md:text-base font-bold`}
                     >
                       Lihat semua produk ›
                     </Button>
@@ -250,7 +250,7 @@ const SplitDown = memo(function SplitDown({
         </motion.div>
         
         <motion.div
-          className="absolute top-20 -right-40 z-[130]"
+          className="absolute -top-8 -right-36 z-[130]"
           initial={{ scale: 0.8, rotate: 20 , x: -100, y: -150}}
           animate={{ 
             scale: isHoveringDown ? 0.6 : 0.6, 

@@ -181,7 +181,7 @@ const SplitUp = memo(function SplitUp({
           className="absolute -right-20 top-12 z-[120]"
           initial={{ scale: 0.8, rotate: 0 , x: 150, y: -150}}
           animate={{ 
-            scale: isHoveringUp ? 0.6 : 0.8, 
+            scale: isHoveringUp ? 0.5 : 0.4, 
             rotate: isHoveringUp ? -5 : 0, 
             x: isHoveringUp ? 0 : 150, 
             y: isHoveringUp ? 0 : 0 
@@ -203,7 +203,7 @@ const SplitUp = memo(function SplitUp({
           className="absolute -left-4 -bottom-12 z-[120]"
           initial={{ scale: 0.8, rotate: 0, x: -150, y: -150 }}
           animate={{ 
-            scale: isHoveringUp ? 1.1 : 0.8, 
+            scale: isHoveringUp ? 0.9 : 0.8, 
             rotate: isHoveringUp ? 15 : 0,
             x: isHoveringUp ? 0 : -150, 
             y: isHoveringUp ? 0 : -350 
@@ -224,7 +224,7 @@ const SplitUp = memo(function SplitUp({
           className="absolute -right-12 -bottom-16 z-[120]"
           initial={{ scale: 0.8, rotate: 0 , x: 150, y: -150}}
           animate={{ 
-            scale: isHoveringUp ? 1.1 : 0.8, 
+            scale: isHoveringUp ? 0.9 : 0.8, 
             rotate: isHoveringUp ? -15 : 0, 
             x: isHoveringUp ? 0 : 150, 
             y: isHoveringUp ? 0 : -350 
