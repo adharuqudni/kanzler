@@ -16,6 +16,7 @@ interface MobileHeroProps {
   currentSection: number;
   isScrolling: boolean;
   onScrollToNext?: () => void;
+  onPanelStateChange?: (isActive: boolean) => void;
 }
 
 interface MobileSideProps {
@@ -25,7 +26,7 @@ interface MobileSideProps {
   topSideIndex: number;
 }
 
-const MobileHero: React.FC<MobileHeroProps> = ({ currentSection, isScrolling, onScrollToNext }) => {
+const MobileHero: React.FC<MobileHeroProps> = ({ currentSection, isScrolling, onScrollToNext, onPanelStateChange }) => {
   const [topSideHeight, setTopSideHeight] = useState(50);
   const [topSideIndex, setTopSideIndex] = useState(5);
   const [isHoveringUp, setIsHoveringUp] = useState(false);
@@ -122,6 +123,11 @@ const MobileHero: React.FC<MobileHeroProps> = ({ currentSection, isScrolling, on
     }
   }, [isHoveringUp, isHoveringDown]);
 
+  // Notify parent when panel state changes
+  useEffect(() => {
+    onPanelStateChange?.(isPanelActive);
+  }, [isPanelActive, onPanelStateChange]);
+
   return (
     <main 
       className="min-h-screen relative flex flex-col bg-[#1C2653]"
@@ -187,41 +193,7 @@ const MobileHero: React.FC<MobileHeroProps> = ({ currentSection, isScrolling, on
         <LogoOverlay />
 
         {/* Swipe hint indicator */}
-        {currentSection === 0 && !isScrolling && !isPanelActive && (
-          <motion.div
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-[103] pointer-events-none"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2, duration: 0.5 }}
-          >
-            <div className="flex flex-col items-center space-y-2">
-              <div className="flex space-x-1">
-                <motion.div
-                  className="w-1 h-1 bg-white/60 rounded-full"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}
-                />
-                <motion.div
-                  className="w-1 h-1 bg-white/60 rounded-full"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
-                />
-                <motion.div
-                  className="w-1 h-1 bg-white/60 rounded-full"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
-                />
-              </div>
-              <motion.div
-                className="text-white/60 text-xs"
-                animate={{ opacity: [0.6, 1, 0.6] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                Touch top/bottom
-              </motion.div>
-            </div>
-          </motion.div>
-        )}
+       
 
 
         {/* Produk melayang (tetap paling atas konten) */}
@@ -255,7 +227,7 @@ const LogoOverlay = React.memo(function LogoOverlay() {
         <Image
           src="/assets/kanzler-white.svg"
           alt="Kanzler"
-          width={300}
+          width={365}
           height={60}
           className="object-contain mt-4"
           loading="lazy"

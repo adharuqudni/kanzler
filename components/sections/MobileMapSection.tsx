@@ -32,7 +32,7 @@ const MobileMapSection = React.memo(function MobileMapSection() {
       {/* Content Container */}
       <div
         id="map-section"
-        className="relative z-10 mx-auto px-4 pt-4"
+        className="relative z-10 mx-auto px-4 pt-4 flex flex-col gap-12"
       >
         {/* Header Section */}
         <motion.div
@@ -55,7 +55,7 @@ const MobileMapSection = React.memo(function MobileMapSection() {
         {/* Map Section */}
         <div className="flex flex-col items-center w-full">
           <motion.div
-            className="w-[85%]"
+            className="w-[100%]"
             initial={{ opacity: 0, scale: 0.5, y: 50 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
@@ -72,7 +72,7 @@ const MobileMapSection = React.memo(function MobileMapSection() {
               alt="Peta Indonesia - Kanzler Coverage"
               width={1000}
               height={700}
-              className="w-full self-center object-contain brightness-90 contrast-110"
+              className="w-[140vw] self-center object-contain brightness-90 contrast-110"
               loading="lazy"
             />
           </motion.div>
@@ -99,7 +99,7 @@ const MobileMapSection = React.memo(function MobileMapSection() {
             delay={0.7}
           />
           <motion.span
-            className="text-lg font-bold text-[#AA7B32] text-center"
+            className="text-2xl font-bold text-[#AA7B32]  text-center"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -110,7 +110,7 @@ const MobileMapSection = React.memo(function MobileMapSection() {
               delay: 0.9,
             }}
           >
-            kota & kabupaten di Indonesia
+            kota & kabupaten <br /> di Indonesia
           </motion.span>
         </motion.div>
 

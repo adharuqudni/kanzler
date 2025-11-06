@@ -54,78 +54,220 @@ const SplitDown = memo(function SplitDown({
       onClick={(e) => e.stopPropagation()}
     >
       <div className="relative w-full h-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
-        {/* Content for bottom panel */}
-        <motion.div
-          className="text-center space-y-6"
-          initial={{ opacity: 0, y: 0 }}
-          animate={{ opacity: isHoveringDown ? 1 : 0, y: isHoveringDown ? 0 : -50 }}
-          transition={{ duration: 0.8, delay: isHoveringDown ? 0.6 : 0 }}
-        >
-          {/* Product showcase */}
-          <div className="flex flex-col items-center space-y-4">
-            <motion.div
-              className="absolute -top-12 -left-20"
-              initial={{ scale: 0.8, rotate: -20 }}
-              animate={{ 
-                scale: isHoveringUp ? 1.1 : 0.8, 
-                rotate: isHoveringUp ? 0 : 25 
-              }}
-              transition={{ duration: 0.8, delay: isHoveringUp ? 0.8 : 0 }}
-            >
-              <Image
-                src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME BAKSO HOT.png"
-                alt="Bakso Hot"
-                width={220}
-                height={180}
-                className="object-contain"
-                loading="lazy"
-              />
-            </motion.div>
-            
-            <motion.div
-              className="absolute bottom-0 -right-20"
-              initial={{ scale: 0.8, rotate: 20 }}
-              animate={{ 
-                scale: isHoveringUp ? 1.1 : 0.8, 
-                rotate: isHoveringUp ? 0 : 20 
-              }}
-              transition={{ duration: 0.8, delay: isHoveringUp ? 1.0 : 0 }}
-            >
-              <Image
-                src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME SOSIS GOCHU.png"
-                alt="Sosis Gochu"
-                width={220}
-                height={180}
-                className="object-contain"
-                loading="lazy"
-              />
-            </motion.div>
-          </div>
+        <AnimatePresence>
+          {isHoveringDown && (
+            <>
+              {/* Split Logo Animation - Crown and Text */}
+              <div className="flex flex-col items-center z-[110]">
+                {/* Crown - animates first */}
+                <motion.div
+                  key="crown"
+                  className="mb-2 sm:mb-0"
+                  initial={{ 
+                    opacity: 1, 
+                    scale: 2.5, 
+                    x: -260, 
+                    y: 70,
+                  }}
+                  animate={{ 
+                    opacity: isHoveringDown ? 1 : 1, 
+                    scale: isHoveringDown ? 1 : 2.5, 
+                    x: isHoveringDown ? 0 : -260, 
+                    y: isHoveringDown ? 0 : 70,
+                    transition: {
+                      x: { 
+                        duration: isHoveringDown ? 1.0 : 0, 
+                        delay: 0 
+                      },
+                      y: { 
+                        duration: isHoveringDown ? 1.0 : 0, 
+                        delay: 0 
+                      },
+                      scale: { 
+                        duration: isHoveringDown ? 1.0 : 0, 
+                        delay: 0 
+                      },
+                      opacity: { 
+                        duration: isHoveringDown ? 1.0 : 0, 
+                        delay: 0 
+                      },
+                    }
+                  }}
+                  exit={{}}
+                >
+                  <Image
+                    src="/assets/ASSET - HOME/1 ASSET - HOME/crown_white.svg"
+                    alt="Kanzler Crown"
+                    width={120}
+                    height={120}
+                    className="object-contain w-16 h-16 sm:w-20 sm:h-20 md:w-[120px] md:h-[120px]"
+                    loading="lazy"
+                  />
+                </motion.div>
 
-          {/* Text content */}
-          <div className="space-y-4">
-            <h2 className={`text-2xl font-bold text-white ${poppins.className}`}>
-              Produk Spesial
-            </h2>
-            <p className={`text-white/90 text-sm max-w-xs ${poppins.className}`}>
-              Temukan kelezatan istimewa dengan produk spesial Kanzler
-            </p>
-            
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: isHoveringDown ? 1 : 0, y: isHoveringDown ? 0 : -20 }}
-              transition={{ duration: 0.6, delay: isHoveringDown ? 1.2 : 0 }}
-            >
-              <Button 
-                asChild
-                className="bg-[#AA7B32] hover:bg-[#AA7B32]/90 text-white"
+                {/* Kanzler Text - animates separately */}
+                <motion.div 
+                  key="text"
+                  className="-mt-4 mb-3 sm:mb-6"
+                  initial={{ 
+                    opacity: 1, 
+                    scale: 3.5, 
+                    x: -230, 
+                    y: 220,
+                  }}
+                  animate={{ 
+                    opacity: isHoveringDown ? 1 : 1, 
+                    scale: isHoveringDown ? 1 : 3.5, 
+                    x: isHoveringDown ? 0 : -230, 
+                    y: isHoveringDown ? 0 : 220,
+                    transition: {
+                      x: { 
+                        duration: isHoveringDown ? 1.0 : 0, 
+                        delay: 0 
+                      },
+                      y: { 
+                        duration: isHoveringDown ? 1.0 : 0, 
+                        delay: 0 
+                      },
+                      scale: { 
+                        duration: isHoveringDown ? 1.0 : 0, 
+                        delay: 0 
+                      },
+                      opacity: { 
+                        duration: isHoveringDown ? 1.0 : 0, 
+                        delay: 0 
+                      },
+                    }
+                  }}
+                  exit={{}}
+                >
+                  <Image
+                    src="/assets/kanzler-no-r-white.svg"
+                    alt="Kanzler"
+                    width={400}
+                    height={80}
+                    className="object-contain w-48 h-10 sm:w-64 sm:h-12 md:w-[400px] md:h-[80px]"
+                    loading="lazy"
+                  />
+                </motion.div>
+              </div>
+
+              {/* Singles Product Line */}
+              <motion.div
+                key="singles"
+                className="-mt-4 mb-4 z-[110]"
+                initial={{ opacity: 0, y: 50, scale: 0 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 12,
+                  delay: 0.5,
+                }}
+                exit={{}}
               >
-                <Link href="/singles">
-                  Jelajahi Produk
-                </Link>
-              </Button>
-            </motion.div>
-          </div>
+                <Image
+                  src="/assets/ASSET - HOME/1 ASSET - HOME/Singles.png"
+                  alt="Singles"
+                  width={600}
+                  height={80}
+                  className="object-contain"
+                  loading="lazy"
+                />
+              </motion.div>
+
+              {/* Description and Button with pop-up animation */}
+              <motion.div
+                key="description"
+                className="text-white text-center z-[110]"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 180,
+                  damping: 15,
+                  delay: 0.7,
+                }}
+                exit={{}}
+              >
+                <p
+                  className={`${poppins.className} max-w-md sm:max-w-xl md:max-w-2xl text-[11px] sm:text-xs md:text-sm leading-relaxed`}
+                >
+                  Produk sosis dan bakso berkualitas yang terbuat dari daging{" "}
+                  <br />
+                  sapi dan ayam pilihan. Sudah matang, siap untuk langsung <br />
+                  dimakan, atau diolah menjadi berbagai menu harian.
+                </p>
+                <motion.div
+                  key="button"
+                  className="mt-8"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 12,
+                    delay: 0.9,
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  exit={{}}
+                >
+                  <Link href="/singles">
+                    <Button
+                      className={`${poppins.className} bg-white text-kanzler-navy hover:bg-gray-100 rounded-full px-4 sm:px-6 py-0 text-xs sm:text-sm md:text-base font-bold`}
+                    >
+                      Lihat semua produk ›
+                    </Button>
+                  </Link>
+                </motion.div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+
+        {/* Product showcase - positioned absolutely */}
+        <motion.div
+          className="absolute bottom-8 -left-44 z-[130]"
+          initial={{ scale: 0.8, rotate: -20, x: 100, y: 350}}
+          animate={{ 
+            scale: isHoveringDown ? 0.5 : 0.5, 
+            rotate: isHoveringDown ? 35 : 20,
+            x: isHoveringDown ? 0 : 100, 
+            y: isHoveringDown ? 0 : 350,
+          }}
+          transition={{ duration: 0.8, }}
+        >
+          <Image
+            src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME BAKSO HOT.png"
+            alt="Bakso Hot"
+            width={400}
+            height={300}
+            className="object-contain"
+            loading="lazy"
+          />
+        </motion.div>
+        
+        <motion.div
+          className="absolute top-20 -right-40 z-[130]"
+          initial={{ scale: 0.8, rotate: 20 , x: -100, y: -150}}
+          animate={{ 
+            scale: isHoveringDown ? 0.6 : 0.6, 
+            rotate: isHoveringDown ? 25 : -25,
+            x: isHoveringDown ? 0 : -100, 
+            y: isHoveringDown ? 0 : -150,
+          }}
+          transition={{ duration: 0.8, }}
+        >
+          <Image
+            src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME SOSIS GOCHU.png"
+            alt="Sosis Gochu"
+            width={400}
+            height={300}
+            className="object-contain"
+            loading="lazy"
+          />
         </motion.div>
       </div>
     </motion.div>
