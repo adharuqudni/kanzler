@@ -250,15 +250,16 @@ const MobileFloatingProducts = React.memo(function MobileFloatingProducts({
       {/* Beef Cocktail - Top Left */}
       <motion.div
         className="absolute top-20 -left-20 z-[120]"
-        initial={{ opacity: 0, x: -100, rotate: -25 }}
+        initial={{ opacity: 1, y: -400, x: -400, rotate: 25 }}
         animate={{
           opacity: 1,
           x: 0,
+          y: 0,
           rotate: 25,
           scale: 0.8,
           zIndex: isHoveringDown ? 105 : 120,
         }}
-        transition={{ duration: 1, ease: "easeIn", delay: 0.4 }}
+        transition={{ duration: 0.8, ease: "easeIn", delay: 0.4 }}
       >
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME BEEF COCKTAIL.png"
@@ -274,15 +275,16 @@ const MobileFloatingProducts = React.memo(function MobileFloatingProducts({
       {/* Crispy Nugget - Top Right */}
       <motion.div
         className="absolute top-8 -right-28 z-[120]"
-        initial={{ opacity: 0, x: 100, rotate: 25 }}
+        initial={{ opacity: 1, y: -400, x: 400, rotate: -15 }}
         animate={{
           opacity: 1,
           x: 0,
+          y: 0,
           rotate: -15,
           scale: 0.8,
           zIndex: isHoveringDown ? 105 : 120,
         }}
-        transition={{ duration: 1, ease: "easeIn", delay: 0.6 }}
+        transition={{ duration: 0.8, ease: "easeIn", delay: 0.6 }}
       >
         <Image
           src="/assets/ASSET - HOME/1 ASSET - HOME/1 ASSET - HOME CRISPY NUGGET.png"
@@ -298,10 +300,11 @@ const MobileFloatingProducts = React.memo(function MobileFloatingProducts({
       {/* Bakso Hot - Bottom Left */}
       <motion.div
         className="absolute -bottom-8 -left-16 z-[120]"
-        initial={{ opacity: 0, y: 100, rotate: -20 }}
+        initial={{ opacity: 1, y: 400, x: -400, rotate: 20 }}
         animate={{
           opacity: 1,
           y: 0,
+          x: 0,
           rotate: 20,
           scale: 0.8,
           zIndex: isHoveringUp ? 105 : 120,
@@ -322,10 +325,11 @@ const MobileFloatingProducts = React.memo(function MobileFloatingProducts({
       {/* Sosis Gochu - Bottom Right */}
       <motion.div
         className="absolute -bottom-16 -right-20 z-[120]"
-        initial={{ opacity: 0, y: 100, rotate: 20 }}
+        initial={{ opacity: 1, y: 400, x: 400, rotate: -15 }}
         animate={{
           opacity: 1,
           y: 0,
+          x: 0,
           rotate: -15,
           scale: 0.8,
           zIndex: isHoveringUp ? 105 : 120,

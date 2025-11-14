@@ -7,8 +7,10 @@ import MobileHomepackProductsSection from '@/components/sections/MobileHomepackP
 import WhyKanzler from '@/components/sections/WhyKanzler';
 import MobileWhyKanzler from '@/components/sections/MobileWhyKanzler';
 import ProductCarouselSectionHomepack from '@/components/sections/ProductCarouselSectionHomepack';
+import MobileProductCarouselSectionHomepack from '@/components/sections/MobileProductCarouselSectionHomepack';
 import React, { useState, useEffect } from 'react';
 import RecipeInspirationSection from '@/components/sections/RecipeInspirationSection';
+import MobileRecipeInspirationSection from '@/components/sections/MobileRecipeInspirationSection';
 import {
   useSnapScroll,
   SectionIndicator,
@@ -70,7 +72,7 @@ function MobileHomepackPage() {
 
       {/* Products Carousel Section - Can overflow into next section */}
       <section id="produk" className="snap-scroll-section-overflow">
-        <ProductCarouselSectionHomepack
+        <MobileProductCarouselSectionHomepack
           title="Homepack Products"
           defaultCategory="nugget"
         />
@@ -78,7 +80,7 @@ function MobileHomepackPage() {
 
       {/* Recipe Section - Can overflow (last section) */}
       <section id="resep" className="snap-scroll-section-overflow">
-        <RecipeInspirationSection page="homepack" />
+        <MobileRecipeInspirationSection page="homepack" />
       </section>
     </div>
   );

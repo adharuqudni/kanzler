@@ -6,7 +6,9 @@ import MobileSinglesHero from '@/components/sections/MobileSinglesHero';
 import SinglesSecondSection from '@/components/sections/SinglesSecondSection';
 import MobileSinglesSecondSection from '@/components/sections/MobileSinglesSecondSection';
 import ProductCarouselSectionSingles from '@/components/sections/ProductCarouselSectionSingles';
+import MobileProductCarouselSectionSingles from '@/components/sections/MobileProductCarouselSectionSingles';
 import RecipeInspirationSection from '@/components/sections/RecipeInspirationSection';
+import MobileRecipeInspirationSection from '@/components/sections/MobileRecipeInspirationSection';
 import FixedAnimatedProducts from '@/components/animations/FixedAnimatedProducts';
 import MobileFixedAnimatedProducts from '@/components/animations/MobileFixedAnimatedProducts';
 import SinglesSidebar from '@/components/navigation/SinglesSidebar';
@@ -51,12 +53,12 @@ function MobileSinglesPage() {
 
       {/* Products Section - Can overflow */}
       <section id="produk" className="snap-scroll-section-overflow">
-        <ProductCarouselSectionSingles />
+        <MobileProductCarouselSectionSingles />
       </section>
 
       {/* Recipe Section - Can overflow */}
       <section id="resep" className="snap-scroll-section-overflow">
-        <RecipeInspirationSection page="singles" />
+        <MobileRecipeInspirationSection page="singles" />
       </section>
     </div>
   );
