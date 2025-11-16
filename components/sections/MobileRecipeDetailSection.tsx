@@ -177,7 +177,7 @@ export default function MobileRecipeDetailSection({
           </div>
 
           {/* Thumbnail kecil kiri-bawah - Mobile optimized */}
-          {thumbnailUrl && (
+          {/* {thumbnailUrl && (
             <div className="pointer-events-none absolute -left-4 -bottom-6">
               <motion.div
                 className="relative w-24 h-24 sm:w-32 sm:h-32 drop-shadow-lg"
@@ -194,7 +194,7 @@ export default function MobileRecipeDetailSection({
                 />
               </motion.div>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </motion.div>

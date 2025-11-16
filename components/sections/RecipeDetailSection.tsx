@@ -154,7 +154,7 @@ export default function RecipeDetailSection({
           </div>
         </div>
 
-        {/* Thumbnail kecil kiri-bawah */}
+        {/* Thumbnail kecil kiri-bawah
         <div className="pointer-events-none absolute -left-8 -bottom-10 md:-left-56 md:-bottom-16">
           <motion.div
             className="relative w-[160px] h-[160px] md:w-[400px] md:h-[400px] drop-shadow-2xl"
@@ -170,7 +170,7 @@ export default function RecipeDetailSection({
               priority={false}
             />
           </motion.div>
-        </div>
+        </div> */}
 
         {/* Tombol Back inside the card */}
         <motion.button

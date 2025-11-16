@@ -58,12 +58,12 @@ export default function SinglesSidebar({
   return (
     <>
       {/* Always visible sidebar - transparent with logo only */}
-      <motion.div className="fixed left-0 top-0 h-full w-32 z-[99999] overflow-hidden">
+      <motion.div className="fixed left-0 top-0 h-full w-32 z-[9999999] overflow-hidden">
         {/* Sidebar Content */}
         <div className="mt-8 z-10 p-4 h-full flex flex-col">
           {/* Logo Section - Always visible */}
-          <div className="flex flex-col items-center">
-            <Link href="/" className='w-[fit-content] h-[fit-content]'>
+          <div className="flex flex-col items-center w-full h-[50px]">
+            <Link href="/" className='w-full h-full'>
               <CrownToggle targetIds={[ "why-kanzler", "resep"]} style={{width: '100%', height: '100%'}} />
             </Link>
           </div>
@@ -76,7 +76,7 @@ export default function SinglesSidebar({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.3 }}
-                className="mt-8 space-y-3"
+                className="space-y-3"
               >
                 {menuItems.map((item, index) => (
                   <motion.div
