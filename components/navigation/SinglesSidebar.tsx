@@ -60,10 +60,10 @@ export default function SinglesSidebar({
       {/* Always visible sidebar - transparent with logo only */}
       <motion.div className="fixed left-0 top-0 h-full w-32 z-[9999999] overflow-hidden">
         {/* Sidebar Content */}
-        <div className="mt-8 z-10 p-4 h-full flex flex-col">
+        <div className="mt-4 mb-4 ml-2 z-10 p-4 h-full flex flex-col">
           {/* Logo Section - Always visible */}
-          <div className="flex flex-col items-center w-full h-[50px]">
-            <Link href="/" className='w-full h-full'>
+          <div className="flex flex-col items-center w-full">
+            <Link href="/" >
               <CrownToggle targetIds={[ "why-kanzler", "resep"]} style={{width: '100%', height: '100%'}} />
             </Link>
           </div>
