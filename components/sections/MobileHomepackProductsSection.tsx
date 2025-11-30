@@ -24,7 +24,7 @@ export default function MobileHomepackProductsSection() {
         />
       </svg>
 
-      <div className="container mx-auto pb-8 px-12 relative z-10 mt-8 text-center">
+      <div className="container mx-auto pb-8 px-12 relative z-10 mt-14 text-center">
         {/* Logo */}
         <motion.div
           className="flex justify-center mb-4"

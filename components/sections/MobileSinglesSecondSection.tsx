@@ -49,7 +49,7 @@ export default function MobileSinglesSecondSection() {
         />
       </svg>
       {/* Main Content Container */}
-      <div className="relative z-40 flex flex-col items-center justify-center min-h-[80vh] px-12 py-0">
+      <div className="relative z-40 flex flex-col items-center justify-center min-h-[80vh] px-12 py-0 mt-16">
         {/* Header Text */}
         <div className="text-center mb-12">
           {/* Singles Logo */}
@@ -88,9 +88,6 @@ export default function MobileSinglesSecondSection() {
         </div>
         
       </div>
-   
-
-    
     </section>
   );
 }
