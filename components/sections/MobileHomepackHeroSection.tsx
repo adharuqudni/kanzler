@@ -89,7 +89,7 @@ export default function MobileHomepackHeroSection({
       {/* Content Container */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[80vh] px-4 py-12">
         {/* Top Section - Crown and Logo Split */}
-        <div className="flex flex-col items-center mb-12">
+        <div className="flex flex-col items-center mb-12 mt-16">
           {/* Crown */}
           <motion.div
             className=""
