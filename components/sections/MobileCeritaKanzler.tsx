@@ -19,7 +19,7 @@ const MobileCeritaKanzler = React.memo(function MobileCeritaKanzler() {
         >
           <path
             d="M 0 120 Q 254 200 500 120 L 500 0 L 0 0 ZZ"
-            fill="#1c2652"
+            fill="#ffffff"
             fillRule="evenodd"
           />
         </svg>
@@ -59,7 +59,7 @@ const MobileCeritaKanzler = React.memo(function MobileCeritaKanzler() {
           >
             <p className="text-[clamp(13px,1.1vw,16px)] leading-relaxed text-[#1C2652]">
               Didirikan pada 1999, Kanzler hadir untuk menghadirkan cita rasa
-              otentik sosis Jerman ke Indonesia.
+              otentik <br /> sosis Jerman ke Indonesia.
             </p>
           </MotionWrapper>
 
@@ -71,8 +71,8 @@ const MobileCeritaKanzler = React.memo(function MobileCeritaKanzler() {
           >
             <p className="text-[clamp(13px,1.1vw,16px)] leading-relaxed text-[#1C2652]">
               Sebagai brand premium, Kanzler konsisten menawarkan produk daging
-              olahan berkualitas tinggi melalui proses modern dan higienis, 
-              menjadikannya pilihan terpercaya keluarga Indonesia.
+              olahan <br /> berkualitas tinggi melalui proses modern <br />dan higienis, 
+              menjadikannya pilihan <br /> terpercaya keluarga Indonesia.
             </p>
           </MotionWrapper>
         </div>

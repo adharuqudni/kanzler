@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Hero from '@/components/hero/Hero';
 import MobileHero from '@/components/hero/MobileHero';
+import SplitHeroMobile from '@/components/hero/SplitHeroMobile';
 import CeritaKanzler from '@/components/sections/CeritaKanzler';
 import MobileCeritaKanzler from '@/components/sections/MobileCeritaKanzler';
 import MapSection from '@/components/sections/MapSection';
@@ -133,6 +134,15 @@ function MobileHome() {
       {/* Hero Section */}
       <section id="hero-section" className="snap-scroll-section">
         <MobileHero
+          currentSection={snapCurrentSection}
+          isScrolling={isScrolling}
+          onScrollToNext={scrollToNext}
+          onPanelStateChange={setIsPanelActive}
+        />
+      </section>
+
+      <section id="split-section" className="snap-scroll-section">
+        <SplitHeroMobile
           currentSection={snapCurrentSection}
           isScrolling={isScrolling}
           onScrollToNext={scrollToNext}

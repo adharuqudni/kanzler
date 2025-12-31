@@ -4,8 +4,8 @@ import { memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { BOUNCY_TRANSITION, SMOOTH_BOUNCY } from '@/lib/motion';
 import Link from 'next/link';
+import { BOUNCY_TRANSITION, SMOOTH_BOUNCY } from '@/lib/motion';
 import { SideProps, ProductImage } from './Hero';
 import { Poppins } from 'next/font/google';
 

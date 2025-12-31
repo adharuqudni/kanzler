@@ -1,0 +1,26 @@
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+# PassengerAppRoot "/home/kanzlerco/public_html/stg.kanzler.co.id"
+# PassengerBaseURI "/"
+# PassengerNodejs "/home/kanzlerco/nodevenv/public_html/stg.kanzler.co.id/20/bin/node"
+# PassengerAppType node
+# PassengerStartupFile server.js
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+# <IfModule mod_rewrite.c>
+# RewriteEngine On
+# RewriteBase /
+# RewriteRule _next/static/(.*) .next/static/$1 [L]
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^assets/(.*) public/assets/$1 [L]
+# </IfModule>
+# # DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION BEGIN
+# PassengerAppRoot "/home/kanzlerco/public_html/stg.kanzler.co.id"
+# PassengerBaseURI "/"
+# PassengerNodejs "/home/kanzlerco/nodevenv/public_html/stg.kanzler.co.id/20/bin/node"
+# PassengerAppType node
+# PassengerStartupFile server.js
+# DO NOT REMOVE. CLOUDLINUX PASSENGER CONFIGURATION END
+# DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION BEGIN
+# <IfModule Litespeed>
+# </IfModule>
+# # DO NOT REMOVE OR MODIFY. CLOUDLINUX ENV VARS CONFIGURATION END
