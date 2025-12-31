@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { DM_Serif_Display, Poppins } from 'next/font/google';
+import React, { useCallback, useRef } from "react";
+import { motion } from "framer-motion";
+import { DM_Serif_Display, Poppins } from "next/font/google";
 
 interface RecipeDetailProps {
   recipe: {
@@ -16,9 +15,7 @@ interface RecipeDetailProps {
         medium?: { url: string };
       };
     };
-    Video?: Array<{
-      url: string;
-    }>;
+    Video?: Array<{ url: string }>;
     Product_IMG?: {
       url: string;
       formats?: {
@@ -30,17 +27,38 @@ interface RecipeDetailProps {
   onBack: () => void;
 }
 
-const NAVY = '#1C2653';
-const GOLD = '#AA7B32';
-const dmSerif = DM_Serif_Display({ subsets: ['latin'], weight: '400' });
-const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] });
+const NAVY = "#1C2653";
+const GOLD = "#AA7B32";
+
+const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
 
 export default function MobileRecipeDetailSection({
   recipe,
   loading,
   onBack,
 }: RecipeDetailProps) {
-  const API_BASE_URL = 'https://kznlr.qup.my.id';
+  const API_BASE_URL = "https://kznlr.qup.my.id";
+
+  // ukuran frame video (9:16) — kamu bilang videonya sudah pas
+  const FRAME_W = 180;
+  const FRAME_H = 320;
+
+  // ✅ turunkan konten card (judul/desc/ingredients)
+  const CONTENT_TOP_PADDING_PX = 210; // makin besar = konten makin turun
+
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const togglePlay = useCallback(async () => {
+    const v = videoRef.current;
+    if (!v) return;
+    try {
+      if (v.paused || v.ended) await v.play();
+      else v.pause();
+    } catch {
+      // ignore
+    }
+  }, []);
 
   if (loading) {
     return (
@@ -48,126 +66,118 @@ export default function MobileRecipeDetailSection({
         key="loading-recipe"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex items-center justify-center min-h-[400px]"
+        className="flex items-center justify-center min-h-[400px] px-4"
       >
         <div
-          className="animate-spin rounded-full h-24 w-24 border-b-2"
+          className="animate-spin rounded-full h-20 w-20 border-b-2"
           style={{ borderColor: GOLD }}
-        ></div>
+        />
       </motion.div>
     );
   }
 
-  if (!recipe) {
-    return null;
-  }
+  if (!recipe) return null;
 
   const videoUrl = recipe.Video?.[0]?.url
     ? `${API_BASE_URL}${recipe.Video[0].url}`
     : null;
-  const thumbnailUrl = `${API_BASE_URL}${
-    recipe.Product_IMG?.formats?.medium?.url || recipe.Product_IMG?.url
-  }`;
 
-  // Parse ingredients - split by numbers or line breaks
   const ingredientsList = recipe.Ingredient.split(/\n\d+\n|\n/)
     .filter((item) => item.trim() && !item.match(/^\d+$/))
     .map((item) => item.trim());
 
+  const words = recipe.Name.split(" ").filter(Boolean);
+  const firstWord = words[0] || recipe.Name;
+  const restWords = words.slice(1).join(" ");
+
   return (
     <motion.div
       key="selected-recipe"
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.4, ease: 'easeInOut' }}
-      className="space-y-4 mb-8 px-4"
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.35, ease: "easeInOut" }}
+      className="mb-10 px-4"
       id="resep"
     >
-      {/* Kartu konten */}
-      <div
-        className="relative mx-auto max-w-full min-h-[500px] rounded-2xl bg-white shadow-lg overflow-visible"
-        style={{
-          borderColor: GOLD,
-          borderWidth: 1.5,
-          borderStyle: 'solid',
-        }}
-      >
-        <div className="flex flex-col p-4">
-          {/* Back Button - Top Right */}
-          <motion.button
-            onClick={onBack}
-            className={`${poppins.className} flex items-center gap-2 text-sm font-semibold absolute top-4 right-4 z-10`}
-            style={{ color: NAVY }}
-            whileTap={{ scale: 0.96 }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M19 12H5M5 12L12 19M5 12L12 5"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Kembali
-          </motion.button>
-
-          {/* Video Section - Top */}
-          <div className="w-full mb-4 mt-12">
+      <div className="relative mx-auto w-full max-w-[420px]">
+        {/* OVERLAY VIDEO (tanpa image fallback) */}
+        {videoUrl && (
+          <div className="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-36 z-20">
+            {/* GOLD FRAME (NO PADDING) */}
             <div
-              className="rounded-xl overflow-hidden border bg-black/5"
-              style={{ borderColor: `${NAVY}1A` }}
+              className="rounded-[22px] overflow-hidden bg-white"
+              style={{
+                width: FRAME_W,
+                height: FRAME_H,
+                border: `2px solid ${GOLD}`,
+                padding: 0, // ✅ no gap
+              }}
             >
-              <div className="relative w-full aspect-video">
-                {videoUrl ? (
-                  <video
-                    src={videoUrl}
-                    controls
-                    autoPlay
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gray-100">
-                    <p className="text-gray-500 text-sm">No video available</p>
-                  </div>
-                )}
+              <div
+                className="relative w-full h-full bg-white"
+                onClick={togglePlay} // ✅ tetap bisa klik play/pause
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") togglePlay();
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                <video
+                  ref={videoRef}
+                  src={videoUrl}
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full object-contain" // ✅ vertikal asli, no crop
+                  controls={false} // ✅ tanpa UI play/pause bawaan
+                />
               </div>
             </div>
           </div>
+        )}
 
-          {/* Content Section - Bottom */}
-          <div className="w-full text-left">
-            <div className="max-w-full">
+        {/* CARD */}
+        <div
+          className="relative mx-auto w-full rounded-[28px] bg-white shadow-lg"
+          style={{
+            border: `1.5px solid ${GOLD}`,
+            marginTop: 150,
+          }}
+        >
+          <div className="px-5 pb-10">
+            {/* ✅ Konten diturunkan di sini */}
+            <div className="text-center" style={{ paddingTop: CONTENT_TOP_PADDING_PX }}>
               <h1
-                className={`text-2xl leading-tight ${dmSerif.className}`}
+                className={`${dmSerif.className} text-[34px] leading-[1.05]`}
                 style={{ color: GOLD }}
               >
-                {recipe.Name.split(' ')[0]}
+                {firstWord}
               </h1>
               <h2
-                className={`text-3xl leading-tight mb-3 ${dmSerif.className}`}
+                className={`${dmSerif.className} text-[34px] leading-[1.05]`}
                 style={{ color: NAVY }}
               >
-                {recipe.Name.split(' ').slice(1).join(' ')}
+                {restWords || ""}
               </h2>
 
               <p
-                className={`${poppins.className} text-sm mb-4 leading-relaxed`}
+                className={`${poppins.className} mt-3 text-[12.5px] leading-relaxed px-3`}
                 style={{ color: NAVY }}
               >
                 {recipe.Description}
               </p>
 
-              <div style={{ color: NAVY }}>
-                <p className={`${poppins.className} font-semibold text-base mb-2`}>
+              <div className="mt-5 text-center" style={{ color: NAVY }}>
+                <p className={`${poppins.className} text-[13px] font-semibold`}>
                   Bahan:
                 </p>
-                <div className="text-sm space-y-1.5">
+                <div className="mt-2 space-y-1 px-6">
                   {ingredientsList.map((ingredient, index) => (
-                    <p key={index} className={`${poppins.className} text-sm`}>
+                    <p
+                      key={index}
+                      className={`${poppins.className} text-[12px] leading-snug`}
+                    >
                       {ingredient}
                     </p>
                   ))}
@@ -175,29 +185,9 @@ export default function MobileRecipeDetailSection({
               </div>
             </div>
           </div>
-
-          {/* Thumbnail kecil kiri-bawah - Mobile optimized */}
-          {/* {thumbnailUrl && (
-            <div className="pointer-events-none absolute -left-4 -bottom-6">
-              <motion.div
-                className="relative w-24 h-24 sm:w-32 sm:h-32 drop-shadow-lg"
-                initial={{ rotate: 0 }}
-                animate={{ rotate: -10 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Image
-                  src={thumbnailUrl}
-                  alt={recipe.Name}
-                  fill
-                  className="object-contain"
-                  priority={false}
-                />
-              </motion.div>
-            </div>
-          )} */}
         </div>
+
       </div>
     </motion.div>
   );
 }
-

@@ -80,7 +80,7 @@ export default function MobileFixedAnimatedProducts({
             y: 0,
             x: 20,
             opacity: 1,
-            scale: 1.5, // Smaller scale for mobile
+            scale: 2, // Smaller scale for mobile
             rotate: -20,
             transition: {
               ...SMOOTH_BOUNCY,
@@ -101,7 +101,7 @@ export default function MobileFixedAnimatedProducts({
             rotate: 25,
           },
           visible: {
-            y: 450,
+            y: 550,
             x: 40,
             opacity: 1,
             scale: 1.5,
@@ -121,7 +121,7 @@ export default function MobileFixedAnimatedProducts({
             rotate: -20,
           },
           visible: {
-            y: -400,
+            y: -500,
             x: 60,
             opacity: 1,
             scale: 1.5,

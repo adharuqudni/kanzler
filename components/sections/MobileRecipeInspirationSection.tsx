@@ -1,22 +1,22 @@
-'use client';
+"use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { ChevronDown, Search } from 'lucide-react';
-import { SMOOTH_BOUNCY } from '@/lib/motion';
+import React, { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { ChevronDown, Search } from "lucide-react";
+import { SMOOTH_BOUNCY } from "@/lib/motion";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/components/ui/carousel';
-import { DM_Serif_Display, Poppins } from 'next/font/google';
-import MobileRecipeDetailSection from './MobileRecipeDetailSection';
+} from "@/components/ui/carousel";
+import { DM_Serif_Display, Poppins } from "next/font/google";
+import MobileRecipeDetailSection from "./MobileRecipeDetailSection";
 
-const dmSerif = DM_Serif_Display({ subsets: ['latin'], weight: '400' });
-const poppins = Poppins({ subsets: ['latin'], weight: '400' });
+const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
+const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 
 // TypeScript interfaces for API data
 interface ImageFormat {
@@ -86,53 +86,58 @@ interface ApiResponse {
 }
 
 // Brand palette
-const NAVY = '#1C2653';
-const GOLD = '#AA7B32';
+const NAVY = "#1C2653";
+const GOLD = "#AA7B32";
 
 // Category mapping from API to display names
 const categoryMappingAll: Record<string, string> = {
-  'singles-bakso': 'Singles Bakso',
-  'singles-sosis': 'Singles Sosis',
-  'kanzler-sosis': 'Kanzler Sosis',
-  'kanzler-nugget': 'Kanzler Nugget',
+  "singles-bakso": "Singles Bakso",
+  "singles-sosis": "Singles Sosis",
+  "kanzler-sosis": "Kanzler Sosis",
+  "kanzler-nugget": "Kanzler Nugget",
 };
 
 // Dropdown categories per page
 const PRODUCT_CATEGORIES = {
-  homepack: ['Kanzler Sosis', 'Kanzler Nugget'],
-  singles: ['Singles Sosis', 'Singles Bakso'],
-  default: ['Kanzler Sosis', 'Kanzler Nugget', 'Singles Sosis', 'Singles Bakso'],
+  homepack: ["Kanzler Sosis", "Kanzler Nugget"],
+  singles: ["Singles Sosis", "Singles Bakso"],
+  default: [
+    "Kanzler Sosis",
+    "Kanzler Nugget",
+    "Singles Sosis",
+    "Singles Bakso",
+  ],
 };
 
 // API base URL
-const API_BASE_URL = 'https://kznlr.qup.my.id';
+const API_BASE_URL = "https://kznlr.qup.my.id";
 
 interface MobileRecipeInspirationSectionProps {
   page?: string;
 }
 
 export default function MobileRecipeInspirationSection({
-  page = 'home',
+  page = "home",
 }: MobileRecipeInspirationSectionProps) {
   // choose categories based on page prop
   const productCategories =
-    page === 'singles'
+    page === "singles"
       ? PRODUCT_CATEGORIES.singles
-      : page === 'homepack'
+      : page === "homepack"
       ? PRODUCT_CATEGORIES.homepack
       : PRODUCT_CATEGORIES.default;
 
   // Active category mapping depending on page
   const categoryMapping: Record<string, string> =
-    page === 'homepack'
+    page === "homepack"
       ? {
-          'kanzler-sosis': 'Kanzler Sosis',
-          'kanzler-nugget': 'Kanzler Nugget',
+          "kanzler-sosis": "Kanzler Sosis",
+          "kanzler-nugget": "Kanzler Nugget",
         }
-      : page === 'singles'
+      : page === "singles"
       ? {
-          'singles-bakso': 'Singles Bakso',
-          'singles-sosis': 'Singles Sosis',
+          "singles-bakso": "Singles Bakso",
+          "singles-sosis": "Singles Sosis",
         }
       : categoryMappingAll;
 
@@ -188,7 +193,7 @@ export default function MobileRecipeInspirationSection({
 
         setRecipes(mergedRecipes);
       } catch (error) {
-        console.error('Error fetching recipes:', error);
+        console.error("Error fetching recipes:", error);
         setRecipes([]);
       } finally {
         setLoading(false);
@@ -209,22 +214,22 @@ export default function MobileRecipeInspirationSection({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   const currentVideos =
-    selectedCategory === 'Semua Produk'
+    selectedCategory === "Semua Produk"
       ? recipes
       : recipes.filter((recipe) => {
           const mappedCategory =
-            categoryMapping[recipe.Category] || 'Produk Kanzler';
+            categoryMapping[recipe.Category] || "Produk Kanzler";
 
           // normalize helper (lowercase, remove non-alphanum) to allow fuzzy matching
           const normalize = (s: string) =>
-            s ? s.toLowerCase().replace(/[^a-z0-9]+/g, '') : '';
+            s ? s.toLowerCase().replace(/[^a-z0-9]+/g, "") : "";
 
           const normMapped = normalize(mappedCategory);
           const normSelected = normalize(selectedCategory);
@@ -309,7 +314,7 @@ export default function MobileRecipeInspirationSection({
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
               className="flex flex-col"
             >
               {/* Title Section */}
@@ -321,13 +326,13 @@ export default function MobileRecipeInspirationSection({
                 viewport={{ once: true }}
               >
                 <p
-                  className={`${dmSerif.className} text-4xl sm:text-5xl text-center font-normal leading-tight`}
+                  className={`${dmSerif.className} text-6xl sm:text-7xl text-center font-normal leading-tight`}
                   style={{ color: NAVY }}
                 >
                   Inspirasi
                 </p>
                 <p
-                  className={`${dmSerif.className} text-5xl sm:text-6xl text-center font-normal leading-tight -mt-2`}
+                  className={`${dmSerif.className} text-7xl sm:text-8xl text-center font-normal leading-tight -mt-2`}
                   style={{ color: NAVY }}
                 >
                   Resep
@@ -378,7 +383,7 @@ export default function MobileRecipeInspirationSection({
                           initial={{ opacity: 0, y: -10, scale: 0.95 }}
                           animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                          transition={{ duration: 0.2, ease: 'easeOut' }}
+                          transition={{ duration: 0.2, ease: "easeOut" }}
                           className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl border-2 shadow-lg z-50 overflow-hidden"
                           style={{ borderColor: GOLD }}
                         >
@@ -389,10 +394,12 @@ export default function MobileRecipeInspirationSection({
                                 setSelectedCategory(category);
                                 setIsDropdownOpen(false);
                               }}
-                              className={`${poppins.className} w-full px-4 py-2.5 text-left text-sm font-semibold transition-all duration-200 focus:outline-none ${
+                              className={`${
+                                poppins.className
+                              } w-full px-4 py-2.5 text-left text-sm font-semibold transition-all duration-200 focus:outline-none ${
                                 selectedCategory === category
-                                  ? 'bg-[#1C2653] text-white'
-                                  : 'bg-white text-[#1C2653] active:bg-[#1C2653] active:text-white'
+                                  ? "bg-[#1C2653] text-white"
+                                  : "bg-white text-[#1C2653] active:bg-[#1C2653] active:text-white"
                               }`}
                               whileTap={{ scale: 0.98 }}
                             >
@@ -416,66 +423,45 @@ export default function MobileRecipeInspirationSection({
               </motion.div>
 
               {/* Carousel Section */}
-              <div className="w-full">
-                {loading ? (
-                  // Loading skeleton
-                  <div className="flex gap-3 overflow-x-auto pb-2">
-                    {[1, 2, 3].map((i) => (
-                      <div
-                        key={i}
-                        className="aspect-[9/16] w-32 sm:w-40 flex-shrink-0 rounded-2xl bg-gray-200 animate-pulse"
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <motion.div
-                    key={selectedCategory}
-                    variants={carouselContainerVariants}
-                    initial="hidden"
-                    animate="visible"
-                  >
-                    <Carousel className="w-full">
-                      <CarouselContent className="-ml-2">
-                        {currentVideos.map((recipe, index) => (
-                          <CarouselItem
-                            key={`${selectedCategory}-${recipe.documentId}`}
-                            className="pl-2 basis-1/2 sm:basis-1/3"
-                          >
-                            <motion.button
-                              className="relative aspect-[9/16] w-full rounded-2xl overflow-hidden bg-gray-200 group"
-                              onClick={() => handleCardClick(recipe.documentId)}
-                              aria-label={recipe.Name}
-                              variants={carouselItemVariants}
-                              initial="hidden"
-                              animate="visible"
-                              custom={index}
-                              whileTap={{
-                                scale: 0.95,
-                                transition: { duration: 0.1 },
-                              }}
-                            >
-                              <Image
-                                src={`${API_BASE_URL}${
-                                  recipe.Image.formats?.medium?.url ||
-                                  recipe.Image.url
-                                }`}
-                                alt={recipe.Name}
-                                fill
-                                sizes="(max-width: 640px) 50vw, 33vw"
-                                className="object-cover"
-                                priority={false}
-                              />
-                              <div className="absolute inset-0 bg-black/0 group-active:bg-black/20 transition-colors duration-300" />
-                            </motion.button>
-                          </CarouselItem>
-                        ))}
-                      </CarouselContent>
-                      <CarouselPrevious className="left-2" />
-                      <CarouselNext className="right-2" />
-                    </Carousel>
-                  </motion.div>
-                )}
-              </div>
+              <Carousel className="w-full">
+                <CarouselContent className="-ml-3">
+                  {currentVideos.map((recipe, index) => (
+                    <CarouselItem
+                      key={`${selectedCategory}-${recipe.documentId}`}
+                      className="pl-3 basis-[80%] sm:basis-[45%] md:basis-[33%]"
+                    >
+                      <motion.button
+                        className="relative aspect-[9/16] w-full rounded-3xl overflow-hidden bg-gray-200 group shadow-lg"
+                        onClick={() => handleCardClick(recipe.documentId)}
+                        aria-label={recipe.Name}
+                        variants={carouselItemVariants}
+                        initial="hidden"
+                        animate="visible"
+                        custom={index}
+                        whileTap={{
+                          scale: 0.95,
+                          transition: { duration: 0.1 },
+                        }}
+                      >
+                        <Image
+                          src={`${API_BASE_URL}${
+                            recipe.Image.formats?.medium?.url ||
+                            recipe.Image.url
+                          }`}
+                          alt={recipe.Name}
+                          fill
+                          sizes="(max-width: 640px) 80vw, 45vw"
+                          className="object-cover"
+                        />
+                        <div className="absolute inset-0 bg-black/0 group-active:bg-black/20 transition-colors duration-300" />
+                      </motion.button>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+
+                <CarouselPrevious className="left-4" />
+                <CarouselNext className="right-4" />
+              </Carousel>
             </motion.div>
           )}
         </AnimatePresence>
@@ -483,4 +469,3 @@ export default function MobileRecipeInspirationSection({
     </section>
   );
 }
-

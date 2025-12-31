@@ -1,130 +1,113 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+
 import SinglesHero from '@/components/sections/SinglesHero';
 import MobileSinglesHero from '@/components/sections/MobileSinglesHero';
+
 import SinglesSecondSection from '@/components/sections/SinglesSecondSection';
 import MobileSinglesSecondSection from '@/components/sections/MobileSinglesSecondSection';
+
 import ProductCarouselSectionSingles from '@/components/sections/ProductCarouselSectionSingles';
 import MobileProductCarouselSectionSingles from '@/components/sections/MobileProductCarouselSectionSingles';
+
 import RecipeInspirationSection from '@/components/sections/RecipeInspirationSection';
 import MobileRecipeInspirationSection from '@/components/sections/MobileRecipeInspirationSection';
+
 import FixedAnimatedProducts from '@/components/animations/FixedAnimatedProducts';
 import MobileFixedAnimatedProducts from '@/components/animations/MobileFixedAnimatedProducts';
+
 import SinglesSidebar from '@/components/navigation/SinglesSidebar';
+import MobileSidebar from '@/components/navigation/MobileSidebar';
+
 import { useSnapScroll } from '@/hooks/use-snap-scroll';
+
+// Shared sections (biar konsisten desktop & mobile)
+const SECTIONS = ['hero', 'second-section', 'produk', 'resep'] as const;
 
 // Mobile-specific component
 function MobileSinglesPage() {
   const [currentSection, setCurrentSection] = useState(0);
 
-  // Define section IDs for snap scrolling
-  const sections = ['hero', 'second-section', 'produk', 'resep'];
-
-  // Initialize snap scroll
-  const {
-    containerRef,
-    currentSection: snapCurrentSection,
-    isScrolling,
-    scrollToSection,
-    scrollToNext,
-    scrollToPrevious,
-    totalSections
-  } = useSnapScroll({
-    sections,
-    onSectionChange: (index) => {
-      setCurrentSection(index);
-    }
-  });
-
-  return (
-    <div ref={containerRef} className="snap-scroll-container">
-      <MobileFixedAnimatedProducts currentSection={currentSection} />
-      
-      {/* Hero Section - Can overflow */}
-      <section id="hero" className="snap-scroll-section-overflow">
-        <MobileSinglesHero />
-      </section>
-
-      {/* Second Section - Can overflow */}
-      <section id="second-section" className="snap-scroll-section-overflow">
-        <MobileSinglesSecondSection />
-      </section>
-
-      {/* Products Section - Can overflow */}
-      <section id="produk" className="snap-scroll-section-overflow">
-        <MobileProductCarouselSectionSingles />
-      </section>
-
-      {/* Recipe Section - Can overflow */}
-      <section id="resep" className="snap-scroll-section-overflow">
-        <MobileRecipeInspirationSection page="singles" />
-      </section>
-    </div>
-  );
-}
-
-// Desktop/Tablet component (original)
-function DesktopSinglesPage() {
-  const [currentSection, setCurrentSection] = useState(0);
-
-  // Define section IDs for snap scrolling
-  const sections = ['hero', 'second-section', 'produk', 'resep'];
-
-  // Initialize snap scroll
-  const {
-    containerRef,
-    currentSection: snapCurrentSection,
-    isScrolling,
-    scrollToSection,
-    scrollToNext,
-    scrollToPrevious,
-    totalSections
-  } = useSnapScroll({
-    sections,
-    onSectionChange: (index) => {
-      setCurrentSection(index);
-    }
-  });
+  const { containerRef, currentSection: snapCurrentSection, scrollToSection } =
+    useSnapScroll({
+      sections: [...SECTIONS],
+      onSectionChange: (index) => setCurrentSection(index),
+    });
 
   return (
     <>
-      {/* Sidebar with snap scroll integration */}
-      <SinglesSidebar 
+      {/* ✅ Mobile Sidebar seperti Homepack */}
+      <MobileSidebar
         currentSection={snapCurrentSection}
         scrollToSection={scrollToSection}
-        sections={sections}
+        sections={[...SECTIONS]}
       />
-      
-      <div ref={containerRef} className="snap-scroll-container">
-        <FixedAnimatedProducts currentSection={currentSection} />
-        
-        {/* Scroll Progress Indicator */}
-        {/* <ScrollProgress currentSection={snapCurrentSection} totalSections={totalSections} /> */}
-        
-        {/* Section Indicator */}
-        {/* <SectionIndicator
-          currentSection={snapCurrentSection}
-          totalSections={totalSections}
-          onSectionClick={scrollToSection}
-        /> */}
 
-        {/* Hero Section - Can overflow */}
+      <div ref={containerRef} className="snap-scroll-container overflow-x-hidden">
+        <MobileFixedAnimatedProducts currentSection={currentSection} />
+
+        {/* Hero */}
+        <section id="hero" className="snap-scroll-section-overflow">
+          <MobileSinglesHero />
+        </section>
+
+        {/* Second */}
+        <section id="second-section" className="snap-scroll-section-overflow">
+          <MobileSinglesSecondSection />
+        </section>
+
+        {/* Produk */}
+        <section id="produk" className="snap-scroll-section-overflow">
+          <MobileProductCarouselSectionSingles />
+        </section>
+
+        {/* Resep */}
+        <section id="resep" className="snap-scroll-section-overflow">
+          <MobileRecipeInspirationSection page="singles" />
+        </section>
+      </div>
+    </>
+  );
+}
+
+// Desktop/Tablet component
+function DesktopSinglesPage() {
+  const [currentSection, setCurrentSection] = useState(0);
+
+  const { containerRef, currentSection: snapCurrentSection, scrollToSection } =
+    useSnapScroll({
+      sections: [...SECTIONS],
+      onSectionChange: (index) => setCurrentSection(index),
+    });
+
+  return (
+    <>
+      <SinglesSidebar
+        currentSection={snapCurrentSection}
+        scrollToSection={scrollToSection}
+        sections={[...SECTIONS]}
+      />
+
+      <div ref={containerRef} className="snap-scroll-container overflow-x-hidden">
+        <FixedAnimatedProducts currentSection={currentSection} />
+
+        {/* Hero */}
         <section id="hero" className="snap-scroll-section-overflow">
           <SinglesHero />
         </section>
 
-        {/* Second Section - Can overflow */}
+        {/* Second */}
         <section id="second-section" className="snap-scroll-section-overflow">
           <SinglesSecondSection />
         </section>
 
-        {/* Products Section - Can overflow */}
+        {/* Produk */}
         <section id="produk" className="snap-scroll-section-overflow">
           <ProductCarouselSectionSingles />
         </section>
 
-        {/* Recipe Section - Can overflow */}
+        {/* Resep */}
         <section id="resep" className="snap-scroll-section-overflow">
           <RecipeInspirationSection page="singles" />
         </section>
@@ -137,17 +120,9 @@ export default function SinglesPage() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const checkIsMobile = () => {
-      setIsMobile(window.innerWidth < 768); // md breakpoint (768px)
-    };
-
-    // Check on mount
+    const checkIsMobile = () => setIsMobile(window.innerWidth < 768);
     checkIsMobile();
-
-    // Add event listener for resize
     window.addEventListener('resize', checkIsMobile);
-
-    // Cleanup
     return () => window.removeEventListener('resize', checkIsMobile);
   }, []);
 

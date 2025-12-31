@@ -84,7 +84,7 @@ export default function MobileSinglesHero() {
       {/* Content Container */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[80vh] px-4">
         {/* Main Content Area */}
-        <div className="flex flex-col items-center justify-center w-full max-w-6xl mx-auto relative z-40">
+        <div className="flex flex-col items-center justify-center w-full max-w-6xl mx-auto relative z-40 mt-32">
           {/* Crown */}
           <motion.div
             className="mb-4"
@@ -113,7 +113,7 @@ export default function MobileSinglesHero() {
               alt="Kanzler"
               width={300}
               height={80}
-              className="object-contain filter brightness-110 w-56 "
+              className="object-contain filter brightness-110 w-56 mt"
             />
           </motion.div>
 

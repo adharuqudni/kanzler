@@ -6,8 +6,8 @@ import { motion } from "framer-motion";
 import { DM_Serif_Display, Poppins } from "next/font/google";
 import { BOUNCY_TRANSITION } from "@/lib/motion";
 import MotionWrapper from "@/components/animations/MotionWrapper";
-import SplitUp from "./SplitUp";
-import SplitDown from "./SplitDown";
+// import SplitUp from "./SplitUp";
+// import SplitDown from "./SplitDown";
 
 const dmSerif = DM_Serif_Display({ subsets: ["latin"], weight: "400" });
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "700"] });
@@ -26,7 +26,12 @@ interface MobileSideProps {
   topSideIndex: number;
 }
 
-const MobileHero: React.FC<MobileHeroProps> = ({ currentSection, isScrolling, onScrollToNext, onPanelStateChange }) => {
+const MobileHero: React.FC<MobileHeroProps> = ({
+  currentSection,
+  isScrolling,
+  onScrollToNext,
+  onPanelStateChange,
+}) => {
   const [topSideHeight, setTopSideHeight] = useState(50);
   const [topSideIndex, setTopSideIndex] = useState(5);
   const [isHoveringUp, setIsHoveringUp] = useState(false);
@@ -43,10 +48,10 @@ const MobileHero: React.FC<MobileHeroProps> = ({ currentSection, isScrolling, on
     const touchY = touch.clientY;
     const screenHeight = window.innerHeight;
     const isTopHalf = touchY < screenHeight / 2;
-    
+
     // Immediately trigger panel based on touch zone
     setIsPanelActive(true);
-    
+
     if (isTopHalf) {
       // Touch on top half - open SplitUp (top panel)
       setIsHoveringUp(true);
@@ -129,13 +134,20 @@ const MobileHero: React.FC<MobileHeroProps> = ({ currentSection, isScrolling, on
   }, [isPanelActive, onPanelStateChange]);
 
   return (
-    <main 
+    <main
       className="min-h-screen relative flex flex-col bg-[#1C2653]"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       onClick={handleClickOutside}
     >
+      {/* =========================================================
+          FIX: Anti “flash putih” di awal load (tanpa global CSS)
+          - Ini menutup gap yang kadang muncul karena 100vh mobile
+          - Tidak mengubah layout/posisi konten, cuma background fallback
+         ========================================================= */}
+      <div className="fixed inset-0 bg-[#1C2653] pointer-events-none" aria-hidden="true" />
+
       {/* ===== Background Layers ===== */}
       <div className="absolute inset-0">
         {/* Base blue background */}
@@ -161,7 +173,7 @@ const MobileHero: React.FC<MobileHeroProps> = ({ currentSection, isScrolling, on
 
       {/* ===== Mobile Split Panels (Vertical) ===== */}
       <div className="relative h-screen w-full">
-        <SplitUp
+        {/* <SplitUp
           isHoveringUp={isHoveringUp}
           isHoveringDown={isHoveringDown}
           topSideHeight={topSideHeight}
@@ -172,17 +184,17 @@ const MobileHero: React.FC<MobileHeroProps> = ({ currentSection, isScrolling, on
           isHoveringUp={isHoveringUp}
           topSideHeight={topSideHeight}
           topSideIndex={topSideIndex}
-        />
+        /> */}
 
         {/* Overlay gelap saat hover */}
         <motion.div
           className="absolute inset-0 bg-black cursor-pointer"
           initial={{ opacity: 0 }}
-          animate={{ 
+          animate={{
             opacity: isHoveringDown || isHoveringUp ? 0.6 : 0,
             transition: {
               duration: isHoveringDown || isHoveringUp ? 1.2 : 0,
-              delay: isHoveringDown || isHoveringUp ? 0.6 : 0
+              delay: isHoveringDown || isHoveringUp ? 0.6 : 0,
             },
           }}
           style={{ zIndex: 106 }}
@@ -193,14 +205,9 @@ const MobileHero: React.FC<MobileHeroProps> = ({ currentSection, isScrolling, on
         <LogoOverlay />
 
         {/* Swipe hint indicator */}
-       
-
 
         {/* Produk melayang (tetap paling atas konten) */}
-        <MobileFloatingProducts
-          isHoveringUp={isHoveringUp}
-          isHoveringDown={isHoveringDown}
-        />
+        <MobileFloatingProducts isHoveringUp={isHoveringUp} isHoveringDown={isHoveringDown} />
       </div>
     </main>
   );
